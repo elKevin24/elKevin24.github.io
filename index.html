@@ -359,7 +359,12 @@ footer a { color: var(--gold2); text-decoration: none; }
     <div class="logo-title">⚽ Quiniela Mundial 2026</div>
     <div class="logo-sub">USA · México · Canadá</div>
   </div>
-  <div class="last-update" id="last-update">Cargando…</div>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <button onclick="init()" class="tab-btn" style="padding: 6px 12px; font-size: 11px; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px;">
+      🔄 Sincronizar
+    </button>
+    <div class="last-update" id="last-update">Cargando…</div>
+  </div>
 </header>
 
 <div class="tabs">
@@ -476,6 +481,38 @@ async function init() {
     if (!pr.ok || !qr.ok) throw new Error('fetch failed');
     partidos = await pr.json();
     quiniela = await qr.json();
+
+    // Sincronizar en tiempo real con el API de openfootball
+    try {
+      const apiResponse = await fetch('https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json');
+      if (apiResponse.ok) {
+        const apiData = await apiResponse.json();
+        const apiMatches = apiData.matches || [];
+        
+        // Crear mapa de búsqueda
+        const apiLookup = {};
+        apiMatches.forEach(m => {
+          const t1 = (m.team1 || '').trim();
+          const t2 = (m.team2 || '').trim();
+          apiLookup[`${t1} vs ${t2}`] = m;
+        });
+        
+        // Mezclar resultados
+        partidos.forEach(p => {
+          if (p.resultado == null) {
+            const apiMatch = apiLookup[p.partido.trim()];
+            if (apiMatch && apiMatch.score && apiMatch.score.ft) {
+              p.resultado = {
+                local: apiMatch.score.ft[0],
+                visitante: apiMatch.score.ft[1]
+              };
+            }
+          }
+        });
+      }
+    } catch (apiError) {
+      console.warn('No se pudo sincronizar en vivo:', apiError);
+    }
   } catch(e) {
     document.getElementById('standings-body').innerHTML =
       `<tr><td colspan="6"><div class="msg">
@@ -491,8 +528,8 @@ async function init() {
   const partMap   = Object.fromEntries(partidos.map(p => [p.id, p]));
 
   /* METRICS */
-  document.getElementById('last-update').textContent =
-    jugados.length > 0 ? `Último: ${jugados[jugados.length-1].partido}` : 'Sin resultados aún';
+  document.getElementById('last-update').innerHTML =
+    jugados.length > 0 ? `Último: ${jugados[jugados.length-1].partido} <span style="color:var(--green)">● en vivo</span>` : 'Sin resultados aún';
 
   /* STANDINGS */
   const participantes = quiniela.participantes || [];
@@ -534,6 +571,7 @@ async function init() {
   const rankLabel = i => i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : String(i + 1);
 
   const tbody = document.getElementById('standings-body');
+  tbody.innerHTML = '';
   standings.forEach((s, i) => {
     const detailId = `detail-${i}`;
 
