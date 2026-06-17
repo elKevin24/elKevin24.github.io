@@ -1210,9 +1210,27 @@ function renderDashboard(partidos, quiniela) {
         </div>
         <div class="accuracy-bar">
           <div class="accuracy-seg exact" style="width: ${exactPct}%" title="Exactos: ${s.exactos} (${Math.round(exactPct)}%)"></div>
-          <div class="accuracy-seg diff" style="width: ${diffPct}%" title="Diferencias: ${s.difs} (${Math.round(diffPct)}%)"></div>
-          <div class="accuracy-seg trend" style="width: ${trendPct}%" title="Tendencias: ${s.trends} (${Math.round(trendPct)}%)"></div>
-          <div class="accuracy-seg zero" style="width: ${zeroPct}%" title="Sin puntos: ${totalDetalle - s.exactos - s.difs - s.trends} (${Math.round(zeroPct)}%)"></div>
+          <div class="accuracy-seg diff"  style="width: ${diffPct}%"  title="Diferencia de goles: ${s.difs} (${Math.round(diffPct)}%)"></div>
+          <div class="accuracy-seg trend" style="width: ${trendPct}%" title="Tendencia G/E/P: ${s.trends} (${Math.round(trendPct)}%)"></div>
+          <div class="accuracy-seg zero"  style="width: ${zeroPct}%"  title="Sin puntos: ${totalDetalle - s.exactos - s.difs - s.trends} (${Math.round(zeroPct)}%)"></div>
+        </div>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;">
+          <span style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted);">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex-shrink:0;"></span>
+            Exacto <strong style="color:var(--chalk); margin-left:2px;">${s.exactos} × 3p</strong>
+          </span>
+          <span style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted);">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--blue);display:inline-block;flex-shrink:0;"></span>
+            Diferencia de goles <strong style="color:var(--chalk); margin-left:2px;">${s.difs} × 2p</strong>
+          </span>
+          <span style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted);">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block;flex-shrink:0;"></span>
+            Tendencia G/E/P <strong style="color:var(--chalk); margin-left:2px;">${s.trends} × 1p</strong>
+          </span>
+          <span style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted);">
+            <span style="width:8px;height:8px;border-radius:50%;background:#3b4a3d;display:inline-block;flex-shrink:0;"></span>
+            Sin puntos <strong style="color:var(--chalk); margin-left:2px;">${totalDetalle - s.exactos - s.difs - s.trends} × 0p</strong>
+          </span>
         </div>
       </div>
       <div class="detail-grid">${matchCards}</div>
