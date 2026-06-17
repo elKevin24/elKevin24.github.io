@@ -499,6 +499,7 @@
   {
     "id": 56,
     "fecha": "2026-06-16",
+    "kickoff": "2026-06-16T21:00:00-06:00",
     "partido": "Austria vs Jordan",
     "grupo": "Group J",
     "estadio": "San Francisco Bay Area (Santa Clara)",

@@ -418,6 +418,100 @@ footer a { color: var(--gold2); text-decoration: none; }
   .standings-table th:nth-child(4),
   .standings-table th:nth-child(5) { display: none; }
 }
+
+/* ── PULSE & REVEAL ANIMATIONS ── */
+.sync-dot.pulse {
+  animation: pulse 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 8px var(--green); }
+  100% { transform: scale(0.95); opacity: 0.5; }
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal-card {
+  opacity: 0;
+  animation: cardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── ACCURACY BAR ── */
+.accuracy-bar-container {
+  margin-top: 10px;
+  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.01);
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(30, 51, 34, 0.4);
+}
+.accuracy-bar-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+.accuracy-bar {
+  height: 8px;
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+  background: var(--border);
+}
+.accuracy-seg {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+.accuracy-seg.exact { background: var(--green); }
+.accuracy-seg.diff { background: var(--blue); }
+.accuracy-seg.trend { background: var(--amber); }
+.accuracy-seg.zero { background: #3b423d; }
+
+/* ── QUALIFIED GROUP ROWS ── */
+.group-table tr.qualified-row {
+  background: rgba(34, 197, 94, 0.035);
+  transition: background-color 0.25s ease;
+}
+.group-table tr.qualified-row td:first-child {
+  border-left: 3px solid var(--green);
+}
+
+/* ── ADMIN PANEL ── */
+.admin-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.admin-select, .admin-input {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--chalk);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.admin-select:focus, .admin-input:focus {
+  border-color: var(--gold);
+}
+.admin-btn {
+  background: var(--gold);
+  color: #0a0f0b;
+  border: none;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: opacity 0.2s;
+}
+.admin-btn:hover { opacity: 0.9; }
+
 </style>
 </head>
 <body>
@@ -428,7 +522,11 @@ footer a { color: var(--gold2); text-decoration: none; }
     <div class="logo-sub">USA · México · Canadá</div>
   </div>
   <div style="display:flex; align-items:center; gap:12px;">
-    <button onclick="init()" class="tab-btn" style="padding: 6px 12px; font-size: 11px; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px;">
+    <span id="sync-status" style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(251, 191, 36, 0.1); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.2); font-weight: 500; display: flex; align-items: center; gap: 6px; user-select: none;">
+      <span class="sync-dot pulse" style="width: 6px; height: 6px; border-radius: 50%; background: var(--amber); display: inline-block;"></span>
+      Sincronizando…
+    </span>
+    <button onclick="init()" class="tab-btn" style="padding: 6px 12px; font-size: 11px; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px; margin: 0;">
       🔄 Sincronizar
     </button>
     <div class="last-update" id="last-update">Cargando…</div>
@@ -447,11 +545,17 @@ footer a { color: var(--gold2); text-decoration: none; }
   <div id="sec-posiciones" class="sec active">
     <div class="metrics" id="metrics"></div>
 
-    <div class="legend">
+    <div class="legend" style="margin-bottom: 20px;">
       <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Exacto — 3 pts</div>
       <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>Diferencia goles — 2 pts</div>
       <div class="leg"><div class="leg-dot" style="background:var(--amber)"></div>Tendencia G/E/P — 1 pt</div>
       <div class="leg"><div class="leg-dot" style="background:var(--muted)"></div>Sin puntos — 0 pts</div>
+    </div>
+
+    <!-- BUSCADOR -->
+    <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+      <span style="font-size:12px; color:var(--muted); font-family: 'JetBrains Mono', monospace;" id="search-count"></span>
+      <input type="text" id="search-input" placeholder="🔍 Buscar participante..." oninput="filterStandings()" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 8px 14px; color: var(--chalk); font-size: 13px; width: 100%; max-width: 260px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
     </div>
 
     <div class="standings-wrap">
@@ -476,16 +580,56 @@ footer a { color: var(--gold2); text-decoration: none; }
 
   <!-- RESULTADOS -->
   <div id="sec-resultados" class="sec">
-    <div class="section-header">
+    <div class="section-header" style="gap: 12px; flex-wrap: wrap;">
       <div class="section-title">Resultados Recientes</div>
+      <select id="filter-resultados" onchange="renderResultados(currentPartidos)" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 6px 12px; color: var(--chalk); font-size: 12px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        <option value="ALL">Todos los Grupos/Fases</option>
+        <option value="Group A">Grupo A</option>
+        <option value="Group B">Grupo B</option>
+        <option value="Group C">Grupo C</option>
+        <option value="Group D">Grupo D</option>
+        <option value="Group E">Grupo E</option>
+        <option value="Group F">Grupo F</option>
+        <option value="Group G">Grupo G</option>
+        <option value="Group H">Grupo H</option>
+        <option value="Group I">Grupo I</option>
+        <option value="Group J">Grupo J</option>
+        <option value="Group K">Grupo K</option>
+        <option value="Group L">Grupo L</option>
+        <option value="Round of 32">Dieciseisavos</option>
+        <option value="Round of 16">Octavos</option>
+        <option value="Quarter-finals">Cuartos</option>
+        <option value="Semi-finals">Semifinales</option>
+        <option value="Final">Final</option>
+      </select>
     </div>
     <div id="resultados-list"></div>
   </div>
 
   <!-- CALENDARIO -->
   <div id="sec-calendario" class="sec">
-    <div class="section-header">
+    <div class="section-header" style="gap: 12px; flex-wrap: wrap;">
       <div class="section-title">Próximos Encuentros</div>
+      <select id="filter-calendario" onchange="renderCalendario(currentPartidos)" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 6px 12px; color: var(--chalk); font-size: 12px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        <option value="ALL">Todos los Grupos/Fases</option>
+        <option value="Group A">Grupo A</option>
+        <option value="Group B">Grupo B</option>
+        <option value="Group C">Grupo C</option>
+        <option value="Group D">Grupo D</option>
+        <option value="Group E">Grupo E</option>
+        <option value="Group F">Grupo F</option>
+        <option value="Group G">Grupo G</option>
+        <option value="Group H">Grupo H</option>
+        <option value="Group I">Grupo I</option>
+        <option value="Group J">Grupo J</option>
+        <option value="Group K">Grupo K</option>
+        <option value="Group L">Grupo L</option>
+        <option value="Round of 32">Dieciseisavos</option>
+        <option value="Round of 16">Octavos</option>
+        <option value="Quarter-finals">Cuartos</option>
+        <option value="Semi-finals">Semifinales</option>
+        <option value="Final">Final</option>
+      </select>
     </div>
     <div id="calendario-list"></div>
   </div>
@@ -501,10 +645,42 @@ footer a { color: var(--gold2); text-decoration: none; }
 
 <footer>
   Quiniela grupal · Datos de resultados: <a href="https://github.com/openfootball/worldcup.json" target="_blank">openfootball/worldcup.json</a> ·
-  Edita <code>quiniela.json</code> para actualizar predicciones
+  Edita <code>quiniela.json</code> para actualizar predicciones ·
+  <a href="#" onclick="toggleAdminPanel(); return false;" style="color:var(--gold); font-weight:600; text-decoration:underline;">⚙️ Administrador</a>
 </footer>
 
+<div id="admin-panel" class="admin-panel" style="max-width: 960px; margin: 24px auto 0; padding: 20px 16px; display: none;">
+  <h3 style="font-family: 'Bebas Neue', cursive; color: var(--gold); font-size: 18px; margin-bottom: 8px; letter-spacing: 1px;">⚙️ Captura Manual de Marcadores</h3>
+  <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
+    Selecciona un partido, introduce el marcador manual y haz clic en "Aplicar Marcador". El sistema recomputará las posiciones en vivo en tu pantalla. Al finalizar, copia el JSON generado o descarga el archivo <code>partidos.json</code> y reemplázalo en tu carpeta.
+  </p>
+  
+  <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px;">
+    <select id="admin-match-select" class="admin-select" style="max-width: 340px; font-family: inherit; font-size: 13px;"></select>
+    <div style="display: flex; gap: 6px; align-items: center;">
+      <input type="number" id="admin-score-local" class="admin-input" placeholder="Local" style="width: 60px; text-align: center;" min="0">
+      <span style="color: var(--muted)">–</span>
+      <input type="number" id="admin-score-away" class="admin-input" placeholder="Visita" style="width: 60px; text-align: center;" min="0">
+    </div>
+    <button onclick="applyManualScore()" class="admin-btn">Aplicar Marcador</button>
+  </div>
+  
+  <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <span style="font-size: 12px; font-weight: 600; color: var(--chalk);">Código generado para partidos.json:</span>
+    <div>
+      <button onclick="copyAdminJson()" class="tab-btn" style="padding: 4px 10px; font-size: 11px; border: 1px solid var(--border); display: inline-flex; align-items: center; gap: 4px; margin: 0 4px 0 0;">📋 Copiar JSON</button>
+      <button onclick="downloadAdminJson()" class="tab-btn" style="padding: 4px 10px; font-size: 11px; border: 1px solid var(--border); display: inline-flex; align-items: center; gap: 4px; margin: 0;">💾 Descargar Archivo</button>
+    </div>
+  </div>
+  
+  <textarea id="admin-json-output" style="width: 100%; height: 180px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 10px; color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 11px; resize: vertical; outline: none;" readonly></textarea>
+</div>
+
 <script>
+/* ── GLOBAL STATE ── */
+let currentPartidos = [];
+let currentQuinielaData = {};
+
 /* ── FLAGS ── */
 const FLAGS = {
   'Mexico':'🇲🇽','South Africa':'🇿🇦','South Korea':'🇰🇷','Canada':'🇨🇦',
@@ -555,6 +731,69 @@ function showTab(name, btn) {
   btn.classList.add('active');
 }
 
+/* ── SYNC STATUS BADGE ── */
+function updateSyncStatus(status, text) {
+  const el = document.getElementById('sync-status');
+  if (!el) return;
+  const dot = el.querySelector('.sync-dot');
+  
+  const textNode = Array.from(el.childNodes).find(n => n.nodeType === Node.TEXT_NODE && n.nodeValue.trim());
+  if (textNode) {
+    textNode.nodeValue = ' ' + text;
+  } else {
+    el.appendChild(document.createTextNode(' ' + text));
+  }
+
+  if (status === 'success') {
+    dot.className = 'sync-dot'; 
+    dot.style.background = 'var(--green)';
+    el.style.color = 'var(--green)';
+    el.style.borderColor = 'rgba(34, 197, 94, 0.2)';
+    el.style.background = 'rgba(34, 197, 94, 0.05)';
+  } else if (status === 'error') {
+    dot.className = 'sync-dot'; 
+    dot.style.background = 'var(--red)';
+    el.style.color = 'var(--red)';
+    el.style.borderColor = 'rgba(248, 113, 113, 0.2)';
+    el.style.background = 'rgba(248, 113, 113, 0.05)';
+  } else {
+    dot.className = 'sync-dot pulse'; 
+    dot.style.background = 'var(--amber)';
+    el.style.color = 'var(--amber)';
+    el.style.borderColor = 'rgba(251, 191, 36, 0.2)';
+    el.style.background = 'rgba(251, 191, 36, 0.05)';
+  }
+}
+
+/* ── SEARCH STANDINGS ── */
+function filterStandings() {
+  const query = document.getElementById('search-input').value.toLowerCase().trim();
+  const rows = document.querySelectorAll('#standings-body tr.data-row');
+  let foundCount = 0;
+  
+  rows.forEach(row => {
+    const name = row.querySelector('.name-cell').textContent.toLowerCase();
+    const detailRow = row.nextElementSibling;
+    if (name.includes(query)) {
+      row.style.display = '';
+      foundCount++;
+    } else {
+      row.style.display = 'none';
+      const panel = detailRow.querySelector('.detail-panel');
+      if (panel) panel.classList.remove('open');
+      row.setAttribute('aria-expanded', 'false');
+      detailRow.style.display = 'none';
+    }
+  });
+
+  const countEl = document.getElementById('search-count');
+  if (query) {
+    countEl.textContent = `${foundCount} participante${foundCount !== 1 ? 's' : ''} encontrado${foundCount !== 1 ? 's' : ''}`;
+  } else {
+    countEl.textContent = '';
+  }
+}
+
 /* ── MAIN ── */
 /* ── LEADERBOARD CALCULATOR ── */
 function calculateLeaderboard(participantes, matchesList) {
@@ -589,6 +828,7 @@ async function init() {
   console.group('%c⚽ Quiniela Mundial 2026 - Inicialización / Sincronización', 'color: #f0c040; font-weight: bold; font-size: 13px;');
   console.time('⏱️ Tiempo de procesamiento');
 
+  updateSyncStatus('syncing', 'Sincronizando…');
   let partidos, quiniela;
 
   try {
@@ -600,9 +840,10 @@ async function init() {
     if (!pr.ok || !qr.ok) throw new Error('fetch failed');
     partidos = await pr.json();
     quiniela = await qr.json();
+    currentPartidos = partidos;
+    currentQuinielaData = quiniela;
     console.log('%c[API]%c Carga local completada.', 'color: #3b82f6; font-weight: bold;', 'color: inherit;');
 
-    // Sincronizar en tiempo real con el API de openfootball
     try {
       console.log('%c[API]%c Sincronizando en vivo con openfootball/worldcup.json...', 'color: #10b981; font-weight: bold;', 'color: inherit;');
       const apiResponse = await fetch('https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json');
@@ -610,7 +851,6 @@ async function init() {
         const apiData = await apiResponse.json();
         const apiMatches = apiData.matches || [];
         
-        // Crear mapa de búsqueda
         const apiLookup = {};
         apiMatches.forEach(m => {
           const t1 = (m.team1 || '').trim();
@@ -618,7 +858,6 @@ async function init() {
           apiLookup[`${t1} vs ${t2}`] = m;
         });
         
-        // Mezclar resultados
         let mergeCount = 0;
         partidos.forEach(p => {
           if (p.resultado == null) {
@@ -633,9 +872,13 @@ async function init() {
           }
         });
         console.log(`%c[API]%c Sincronización finalizada. Marcadores nuevos mezclados en memoria: ${mergeCount}`, 'color: #10b981; font-weight: bold;', 'color: inherit;');
+        updateSyncStatus('success', 'Sincronizado');
+      } else {
+        updateSyncStatus('error', 'Datos locales');
       }
     } catch (apiError) {
       console.warn('[API] No se pudo sincronizar en vivo:', apiError);
+      updateSyncStatus('error', 'Datos locales');
     }
   } catch(e) {
     console.error('[API] Error crítico al cargar datos:', e);
@@ -645,32 +888,35 @@ async function init() {
         Asegúrate de que los archivos estén en la misma carpeta que este HTML.
       </div></td></tr>`;
     document.getElementById('last-update').textContent = 'Error al cargar datos';
+    updateSyncStatus('error', 'Error de carga');
     console.timeEnd('⏱️ Tiempo de procesamiento');
     console.groupEnd();
     return;
   }
 
+  renderDashboard(partidos, quiniela);
+  
+  // Populate admin panel dropdown and textarea initially
+  updateAdminJsonOutput();
+}
+
+function renderDashboard(partidos, quiniela) {
   const jugados   = partidos.filter(p => p.resultado != null);
   const pendientes = partidos.filter(p => p.resultado == null);
-  const partMap   = Object.fromEntries(partidos.map(p => [p.id, p]));
 
   console.log(`%c[Datos]%c Partidos jugados: ${jugados.length} | Pendientes: ${pendientes.length}`, 'color: #fbbf24; font-weight: bold;', 'color: inherit;');
 
-  /* METRICS */
   document.getElementById('last-update').innerHTML =
     jugados.length > 0 ? `Último: ${jugados[jugados.length-1].partido} <span style="color:var(--green)">● en vivo</span>` : 'Sin resultados aún';
 
-  /* STANDINGS */
   console.log('%c[Cálculo]%c Procesando posiciones actuales...', 'color: #a855f7; font-weight: bold;', 'color: inherit;');
   const participantes = quiniela.participantes || [];
   const standings = calculateLeaderboard(participantes, jugados);
 
-  // Calcular posiciones previas si hay más de 1 partido jugado
   let standingsPrevias = [];
   const jugadosOrdenados = [...jugados].sort((a, b) => a.id - b.id);
   if (jugadosOrdenados.length > 1) {
     const jugadosPrevios = jugadosOrdenados.slice(0, -1);
-    console.log(`%c[Cálculo]%c Procesando tendencias (excluyendo el último partido: ID ${jugadosOrdenados[jugadosOrdenados.length-1].id})...`, 'color: #a855f7; font-weight: bold;', 'color: inherit;');
     standingsPrevias = calculateLeaderboard(participantes, jugadosPrevios);
   }
 
@@ -691,12 +937,11 @@ async function init() {
   standings.forEach((s, i) => {
     const detailId = `detail-${i}`;
 
-    // Calcular tendencia de posición
     let trendHtml = '<span style="color:var(--muted)">─</span>';
     if (standingsPrevias.length > 0) {
       const prevIndex = standingsPrevias.findIndex(p => p.nombre === s.nombre);
       if (prevIndex !== -1) {
-        const diff = prevIndex - i; // Posición previa - posición actual
+        const diff = prevIndex - i; 
         if (diff > 0) {
           trendHtml = `<span style="color:var(--green)">▲${diff}</span>`;
         } else if (diff < 0) {
@@ -705,7 +950,6 @@ async function init() {
       }
     }
 
-    // Main row
     const tr = document.createElement('tr');
     tr.className = 'data-row';
     tr.setAttribute('aria-expanded', 'false');
@@ -725,7 +969,6 @@ async function init() {
     `;
     tbody.appendChild(tr);
 
-    // Detail row
     const dtr = document.createElement('tr');
     dtr.className = 'detail-row';
     const dtd = document.createElement('td');
@@ -744,12 +987,30 @@ async function init() {
       </div>`;
     }).join('');
 
+    const totalDetalle = s.detalle.length;
+    const exactPct = totalDetalle > 0 ? (s.exactos / totalDetalle) * 100 : 0;
+    const diffPct  = totalDetalle > 0 ? (s.difs / totalDetalle) * 100 : 0;
+    const trendPct = totalDetalle > 0 ? (s.trends / totalDetalle) * 100 : 0;
+    const zeroPct  = totalDetalle > 0 ? ((totalDetalle - s.exactos - s.difs - s.trends) / totalDetalle) * 100 : 0;
+
     panel.innerHTML = `
-      <div class="detail-header">
+      <div class="detail-header" style="margin-bottom: 14px;">
         <span class="c-exact">✅ ${s.exactos} exactos (${s.exactos*3}p)</span>
         <span class="c-diff">🎯 ${s.difs} diferencias (${s.difs*2}p)</span>
         <span class="c-trend">↕ ${s.trends} tendencias (${s.trends}p)</span>
         <span style="color:var(--muted)">Total: ${s.totalPts} pts de ${maxPts} posibles</span>
+      </div>
+      <div class="accuracy-bar-container">
+        <div class="accuracy-bar-label">
+          <span>Distribución de resultados (${totalDetalle} partidos jugados)</span>
+          <span>Precisión: ${Math.round(exactPct + diffPct + trendPct)}%</span>
+        </div>
+        <div class="accuracy-bar">
+          <div class="accuracy-seg exact" style="width: ${exactPct}%" title="Exactos: ${s.exactos} (${Math.round(exactPct)}%)"></div>
+          <div class="accuracy-seg diff" style="width: ${diffPct}%" title="Diferencias: ${s.difs} (${Math.round(diffPct)}%)"></div>
+          <div class="accuracy-seg trend" style="width: ${trendPct}%" title="Tendencias: ${s.trends} (${Math.round(trendPct)}%)"></div>
+          <div class="accuracy-seg zero" style="width: ${zeroPct}%" title="Sin puntos: ${totalDetalle - s.exactos - s.difs - s.trends} (${Math.round(zeroPct)}%)"></div>
+        </div>
       </div>
       <div class="detail-grid">${matchCards}</div>
     `;
@@ -759,109 +1020,20 @@ async function init() {
     tbody.appendChild(dtr);
   });
 
-  /* ── RENDER RESULTADOS (JUGADOS) ── */
-  const jugadosList = partidos.filter(p => p.resultado != null);
-  const byDateJugados = {};
-  jugadosList.forEach(p => {
-    if (!byDateJugados[p.fecha]) byDateJugados[p.fecha] = [];
-    byDateJugados[p.fecha].push(p);
-  });
-  
-  const sortedDatesJugados = Object.keys(byDateJugados).sort().reverse(); // Descendente (más reciente primero)
-  let htmlResultados = '';
-  if (jugadosList.length === 0) {
-    htmlResultados = '<div class="msg">Aún no se han jugado partidos.</div>';
-  } else {
-    sortedDatesJugados.forEach(date => {
-      const today = isToday(date);
-      const labelExtra = today ? '📅 Hoy · ' : '';
-      htmlResultados += `<div class="date-sep">
-        <div class="date-line"></div>
-        <div class="date-lbl">${labelExtra}${fmtDate(date)}</div>
-        <div class="date-line"></div>
-      </div>`;
+  renderResultados(partidos);
+  renderCalendario(partidos);
 
-      // Ordenar partidos de un mismo día por ID descendente para que el último jugado aparezca arriba
-      const sortedMatches = byDateJugados[date].sort((a, b) => b.id - a.id);
-      sortedMatches.forEach(p => {
-        const teams = p.partido.split(' vs ');
-        const home = teams[0]?.trim() || '?';
-        const away = teams[1]?.trim() || '?';
-        htmlResultados += `<div class="match-card">
-          <div class="team">
-            <span class="team-flag">${flag(home)}</span>
-            <span class="team-name">${home}</span>
-          </div>
-          <div class="score-center">
-            <div class="score-num">${p.resultado.local} – ${p.resultado.visitante}</div>
-            <div class="score-meta">${p.grupo || ''} · ${p.estadio || ''}</div>
-          </div>
-          <div class="team away">
-            <span class="team-flag">${flag(away)}</span>
-            <span class="team-name">${away}</span>
-          </div>
-        </div>`;
-      });
-    });
-  }
-  document.getElementById('resultados-list').innerHTML = htmlResultados;
-
-  /* ── RENDER CALENDARIO (POR JUGAR) ── */
-  const pendientesList = partidos.filter(p => p.resultado == null);
-  const byDatePendientes = {};
-  pendientesList.forEach(p => {
-    if (!byDatePendientes[p.fecha]) byDatePendientes[p.fecha] = [];
-    byDatePendientes[p.fecha].push(p);
-  });
-
-  const sortedDatesPendientes = Object.keys(byDatePendientes).sort(); // Ascendente (próximo primero)
-  let htmlCalendario = '';
-  if (pendientesList.length === 0) {
-    htmlCalendario = '<div class="msg">No hay partidos pendientes.</div>';
-  } else {
-    sortedDatesPendientes.forEach(date => {
-      const today = isToday(date);
-      const labelExtra = today ? '📅 Hoy · ' : '';
-      htmlCalendario += `<div class="date-sep">
-        <div class="date-line"></div>
-        <div class="date-lbl">${labelExtra}${fmtDate(date)}</div>
-        <div class="date-line"></div>
-      </div>`;
-
-      byDatePendientes[date].forEach(p => {
-        const teams = p.partido.split(' vs ');
-        const home = teams[0]?.trim() || '?';
-        const away = teams[1]?.trim() || '?';
-        htmlCalendario += `<div class="match-card">
-          <div class="team">
-            <span class="team-flag">${flag(home)}</span>
-            <span class="team-name">${home}</span>
-          </div>
-          <div class="score-center">
-            <div class="score-num pending">vs</div>
-            <div class="score-meta">${p.grupo || ''} · ${p.estadio || ''}</div>
-          </div>
-          <div class="team away">
-            <span class="team-flag">${flag(away)}</span>
-            <span class="team-name">${away}</span>
-          </div>
-        </div>`;
-      });
-    });
-  }
-  document.getElementById('calendario-list').innerHTML = htmlCalendario;
-
-  /* ── RENDER GRUPOS ── */
   const groupStandings = calcGroupStandings(partidos);
   const sortedGroups = Object.keys(groupStandings).sort();
   let htmlGrupos = '';
-  sortedGroups.forEach(grpName => {
+  sortedGroups.forEach((grpName, grpIdx) => {
     const teams = groupStandings[grpName];
     let rowsHtml = '';
     teams.forEach((t, index) => {
       const dg = t.gf - t.gc;
       const dgStr = dg > 0 ? `+${dg}` : String(dg);
-      rowsHtml += `<tr>
+      const isQualified = index < 2; 
+      rowsHtml += `<tr class="${isQualified ? 'qualified-row' : ''}">
         <td style="font-weight:600; color:var(--muted); text-align:center;">${index + 1}</td>
         <td style="font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px;"><span class="team-flag" style="font-size:15px; margin-right:4px;">${flag(t.name)}</span>${t.name}</td>
         <td style="text-align:center; font-family:'JetBrains Mono', monospace;">${t.pj}</td>
@@ -874,20 +1046,20 @@ async function init() {
       </tr>`;
     });
 
-    htmlGrupos += `<div class="group-card">
+    htmlGrupos += `<div class="group-card reveal-card" style="animation-delay: ${grpIdx * 40}ms">
       <div class="group-title">${grpName.replace('Group ', 'Grupo ')}</div>
       <table class="group-table">
         <thead>
           <tr>
             <th style="text-align:center; width:20px;">#</th>
             <th>Equipo</th>
-            <th style="text-align:center; width:24px;" title="Partidos Jugados">PJ</th>
-            <th style="text-align:center; width:20px;" title="Ganados">G</th>
-            <th style="text-align:center; width:20px;" title="Empatados">E</th>
-            <th style="text-align:center; width:20px;" title="Perdidos">P</th>
-            <th style="text-align:center; width:44px;" title="Goles Favor : Goles Contra">GF:GC</th>
-            <th style="text-align:center; width:28px;" title="Diferencia de Goles">DG</th>
-            <th style="text-align:center; width:28px;" title="Puntos">Pts</th>
+            <th style="text-align:center; width:24px;">PJ</th>
+            <th style="text-align:center; width:20px;">G</th>
+            <th style="text-align:center; width:20px;">E</th>
+            <th style="text-align:center; width:20px;">P</th>
+            <th style="text-align:center; width:44px;">GF:GC</th>
+            <th style="text-align:center; width:28px;">DG</th>
+            <th style="text-align:center; width:28px;">Pts</th>
           </tr>
         </thead>
         <tbody>
@@ -898,12 +1070,10 @@ async function init() {
   });
   document.getElementById('groups-grid').innerHTML = htmlGrupos;
 
-
   console.timeEnd('⏱️ Tiempo de procesamiento');
   console.groupEnd();
 }
 
-/* ── DYNAMIC GROUP CALCULATOR ── */
 function calcGroupStandings(partidos) {
   const groups = {};
 
@@ -964,10 +1134,8 @@ function calcGroupStandings(partidos) {
 function toggleDetail(detailId, row) {
   const panel = document.getElementById(detailId);
   const isOpen = panel.classList.contains('open');
-  // Close all panels
   document.querySelectorAll('.detail-panel.open').forEach(p => p.classList.remove('open'));
   document.querySelectorAll('.data-row').forEach(r => r.setAttribute('aria-expanded','false'));
-  // Open this one if it was closed
   if (!isOpen) {
     panel.classList.add('open');
     row.setAttribute('aria-expanded', 'true');
