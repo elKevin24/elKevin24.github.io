@@ -98,7 +98,15 @@ main {
   padding: 24px 16px 60px;
 }
 .sec { display: none; }
-.sec.active { display: block; }
+.sec.active {
+  display: block;
+  animation: secFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes secFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* ── METRICS ── */
 .metrics {
@@ -194,11 +202,18 @@ main {
 /* ── DETAIL PANEL ── */
 .detail-panel {
   background: var(--surface);
+  border-top: 1px solid transparent;
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease, border-color 0.35s ease;
+}
+.detail-panel.open {
   border-top: 1px solid var(--border);
   padding: 16px 18px;
-  display: none;
+  max-height: 1200px;
 }
-.detail-panel.open { display: block; }
+
 .detail-header {
   font-size: 11px;
   color: var(--muted);
@@ -224,11 +239,12 @@ main {
   align-items: center;
   gap: 8px;
   font-size: 12px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
 }
-.match-pill.exact  { border-left-color: var(--green); }
-.match-pill.diff   { border-left-color: var(--blue); }
-.match-pill.trend  { border-left-color: var(--amber); }
-.match-pill.zero   { border-left-color: var(--border); }
+.match-pill:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.03);
+}
 .pill-name { flex: 1; color: var(--chalk); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pill-scores { color: var(--muted); white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
 .pill-pts { font-weight: 600; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
@@ -294,7 +310,14 @@ main {
   align-items: center;
   gap: 10px;
   margin-bottom: 6px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
 }
+.match-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(240, 192, 64, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 .team { display: flex; align-items: center; gap: 8px; }
 .team.away { flex-direction: row-reverse; }
 .team-flag { font-size: 22px; }
@@ -339,10 +362,11 @@ footer a { color: var(--gold2); text-decoration: none; }
 /* ── GROUPS GRID ── */
 .groups-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 16px;
   margin-top: 16px;
 }
+
 .group-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -838,9 +862,13 @@ async function init() {
       const dg = t.gf - t.gc;
       const dgStr = dg > 0 ? `+${dg}` : String(dg);
       rowsHtml += `<tr>
-        <td style="width:20px; font-weight:600; color:var(--muted); text-align:center;">${index + 1}</td>
-        <td style="font-weight:600;"><span class="team-flag" style="font-size:16px; margin-right:4px;">${flag(t.name)}</span>${t.name}</td>
+        <td style="font-weight:600; color:var(--muted); text-align:center;">${index + 1}</td>
+        <td style="font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px;"><span class="team-flag" style="font-size:15px; margin-right:4px;">${flag(t.name)}</span>${t.name}</td>
         <td style="text-align:center; font-family:'JetBrains Mono', monospace;">${t.pj}</td>
+        <td style="text-align:center; font-family:'JetBrains Mono', monospace; color:var(--muted);">${t.g}</td>
+        <td style="text-align:center; font-family:'JetBrains Mono', monospace; color:var(--muted);">${t.e}</td>
+        <td style="text-align:center; font-family:'JetBrains Mono', monospace; color:var(--muted);">${t.p}</td>
+        <td style="text-align:center; font-family:'JetBrains Mono', monospace; color:var(--muted); font-size:11px;">${t.gf}:${t.gc}</td>
         <td style="text-align:center; font-family:'JetBrains Mono', monospace; color:${dg > 0 ? 'var(--green)' : dg < 0 ? 'var(--red)' : 'var(--muted)'}">${dgStr}</td>
         <td style="text-align:center; font-family:'JetBrains Mono', monospace; font-weight:600; color:var(--gold);">${t.pts}</td>
       </tr>`;
@@ -851,11 +879,15 @@ async function init() {
       <table class="group-table">
         <thead>
           <tr>
-            <th style="text-align:center;">#</th>
+            <th style="text-align:center; width:20px;">#</th>
             <th>Equipo</th>
-            <th style="text-align:center;">PJ</th>
-            <th style="text-align:center;">DG</th>
-            <th style="text-align:center;">Pts</th>
+            <th style="text-align:center; width:24px;" title="Partidos Jugados">PJ</th>
+            <th style="text-align:center; width:20px;" title="Ganados">G</th>
+            <th style="text-align:center; width:20px;" title="Empatados">E</th>
+            <th style="text-align:center; width:20px;" title="Perdidos">P</th>
+            <th style="text-align:center; width:44px;" title="Goles Favor : Goles Contra">GF:GC</th>
+            <th style="text-align:center; width:28px;" title="Diferencia de Goles">DG</th>
+            <th style="text-align:center; width:28px;" title="Puntos">Pts</th>
           </tr>
         </thead>
         <tbody>
@@ -865,6 +897,7 @@ async function init() {
     </div>`;
   });
   document.getElementById('groups-grid').innerHTML = htmlGrupos;
+
 
   console.timeEnd('⏱️ Tiempo de procesamiento');
   console.groupEnd();

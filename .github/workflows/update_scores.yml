@@ -7,10 +7,18 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   update-scores:
     runs-on: ubuntu-latest
+    outputs:
+      updated: ${{ steps.commit.outputs.updated }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -60,6 +68,7 @@ jobs:
           "
 
       - name: Commit and push changes
+        id: commit
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -67,6 +76,32 @@ jobs:
           if ! git diff-index --quiet HEAD; then
             git commit -m "Auto-update match scores [skip ci]"
             git push
+            echo "updated=true" >> $GITHUB_OUTPUT
           else
             echo "No changes to commit"
+            echo "updated=false" >> $GITHUB_OUTPUT
           fi
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: update-scores
+    if: needs.update-scores.outputs.updated == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
