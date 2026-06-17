@@ -920,6 +920,12 @@ function fmtDate(d) {
   const [y, m, day] = d.split('-');
   return `${parseInt(day)} ${MONTHS[parseInt(m)]} ${y}`;
 }
+// Adds flag emojis to a 'TeamA vs TeamB' string
+function fmtPartido(str) {
+  if (!str || !str.includes(' vs ')) return str;
+  const [a, b] = str.split(' vs ');
+  return `${flag(a.trim())} ${a.trim()} vs ${flag(b.trim())} ${b.trim()}`;
+}
 function isToday(d) {
   const t = new Date();
   return d === `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
@@ -1110,7 +1116,7 @@ function renderDashboard(partidos, quiniela) {
   console.log(`%c[Datos]%c Partidos jugados: ${jugados.length} | Pendientes: ${pendientes.length}`, 'color: #fbbf24; font-weight: bold;', 'color: inherit;');
 
   document.getElementById('last-update').innerHTML =
-    jugados.length > 0 ? `Último: ${jugados[jugados.length-1].partido} <span style="color:var(--green)">● en vivo</span>` : 'Sin resultados aún';
+    jugados.length > 0 ? `Último: ${fmtPartido(jugados[jugados.length-1].partido)} <span style="color:var(--green)">● en vivo</span>` : 'Sin resultados aún';
 
   console.log('%c[Cálculo]%c Procesando posiciones actuales...', 'color: #a855f7; font-weight: bold;', 'color: inherit;');
   const participantes = quiniela.participantes || [];
@@ -1583,7 +1589,7 @@ function applyManualScore() {
   partido.resultado = { local: loc, visitante: vis };
   renderDashboard(currentPartidos, currentQuinielaData);
   updateAdminJsonOutput();
-  showToast(`✅ Marcador de ${partido.partido} actualizado en memoria.`);
+  showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria.`);
 
   // Refresh select (partido now has result, should not appear)
   populateAdminSelect();
@@ -1595,7 +1601,7 @@ function populateAdminSelect() {
   const pending = currentPartidos.filter(p => p.resultado == null);
   sel.innerHTML = pending.length === 0
     ? '<option value="">-- Todos los partidos tienen resultado --</option>'
-    : pending.map(p => `<option value="${p.id}">${p.fecha} · ${p.partido}</option>`).join('');
+    : pending.map(p => `<option value="${p.id}">${p.fecha} · ${fmtPartido(p.partido)}</option>`).join('');
 }
 
 init();
