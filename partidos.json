@@ -491,7 +491,10 @@
     "partido": "Argentina vs Algeria",
     "grupo": "Group J",
     "estadio": "Kansas City",
-    "resultado": null
+    "resultado": {
+      "local": 3,
+      "visitante": 0
+    }
   },
   {
     "id": 56,
