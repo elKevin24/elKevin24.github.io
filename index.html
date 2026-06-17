@@ -442,6 +442,96 @@ footer a { color: var(--gold2); text-decoration: none; }
   border-collapse: collapse;
   font-size: 12px;
 }
+
+.participant-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 18px 16px;
+  margin-bottom: 18px;
+}
+.participant-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.participant-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--gold);
+}
+.participant-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.participant-stats span {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+.prediction-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.prediction-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.prediction-info {
+  display: grid;
+  gap: 6px;
+}
+.prediction-info .match-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--chalk);
+}
+.prediction-info .match-meta {
+  font-size: 11px;
+  color: var(--muted);
+}
+.prediction-score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+.prediction-score span:nth-child(1) {
+  color: var(--blue);
+}
+.prediction-score span:nth-child(2) {
+  color: var(--muted);
+}
+.prediction-badge {
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.prediction-badge.exact { background: rgba(34,197,94,0.15); color: var(--green); }
+.prediction-badge.diff { background: rgba(96,165,250,0.15); color: var(--blue); }
+.prediction-badge.trend { background: rgba(251,191,36,0.15); color: var(--amber); }
+.prediction-badge.zero { background: rgba(106,138,110,0.12); color: var(--muted); }
+.prediction-badge.pending { background: rgba(240, 192, 64, 0.12); color: var(--gold); }
 .group-table th {
   color: var(--muted);
   font-weight: 500;
@@ -457,6 +547,99 @@ footer a { color: var(--gold2); text-decoration: none; }
 }
 .group-table tr:last-child td {
   border-bottom: none;
+}
+
+/* ── LIVE MATCH CARD ── */
+.live-match-card {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(30, 51, 34, 0.6) 100%);
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  border-radius: var(--r);
+  padding: 16px;
+  margin-bottom: 16px;
+  animation: liveGlow 2s ease-in-out infinite;
+}
+@keyframes liveGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0.2); }
+  50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.3); }
+}
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.live-badge::before {
+  content: '🔴';
+  display: inline-block;
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+.live-match-teams {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.live-team {
+  text-align: center;
+}
+.live-team-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--chalk);
+  margin-bottom: 4px;
+}
+.live-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+.live-minute {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.live-match-info {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(30,51,34,0.4);
+}
+.next-match-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+  margin-bottom: 16px;
+}
+.next-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--amber);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
 }
 
 /* ── RESPONSIVE ── */
@@ -769,6 +952,18 @@ header.scrolled {
   border-radius: 0 1px 1px 0;
 }
 
+/* ── LIVE BADGE ── */
+.live-badge {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
 </style>
 </head>
 <body>
@@ -792,6 +987,7 @@ header.scrolled {
 
 <div class="tabs">
   <button class="tab-btn active" onclick="showTab('posiciones', this)">🏆 Quiniela</button>
+  <button class="tab-btn" onclick="showTab('detalle', this)">📋 Detalle</button>
   <button class="tab-btn" onclick="showTab('resultados', this)">✅ Resultados</button>
   <button class="tab-btn" onclick="showTab('calendario', this)">📅 Calendario</button>
   <button class="tab-btn" onclick="showTab('grupos', this)">🌍 Grupos</button>
@@ -801,6 +997,7 @@ header.scrolled {
   <!-- POSICIONES -->
   <div id="sec-posiciones" class="sec active">
     <div class="metrics" id="metrics"></div>
+    <div id="live-now" style="margin-top:12px; margin-bottom:10px;"></div>
 
     <div class="legend" style="margin-bottom: 20px;">
       <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Exacto — 3 pts</div>
@@ -833,6 +1030,38 @@ header.scrolled {
     <p style="margin-top:10px;font-size:11px;color:var(--muted);text-align:center">
       Haz clic en un participante para ver su detalle partido a partido
     </p>
+  </div>
+
+  <!-- DETALLE -->
+  <div id="sec-detalle" class="sec">
+    <div class="section-header" style="gap: 12px; flex-wrap: wrap;">
+      <div class="section-title">Detalle de Predicciones</div>
+    </div>
+    <div class="detail-filters">
+      <select id="filter-participante" onchange="renderDetalle(currentPartidos, currentQuinielaData)">
+        <option value="ALL">Todos los participantes</option>
+      </select>
+      <select id="filter-detalle-grupo" onchange="renderDetalle(currentPartidos, currentQuinielaData)">
+        <option value="ALL">Todos los grupos/fases</option>
+      </select>
+      <select id="filter-detalle-status" onchange="renderDetalle(currentPartidos, currentQuinielaData)">
+        <option value="ALL">Todos los estados</option>
+        <option value="WITH_RESULT">Con resultado</option>
+        <option value="PENDING">Pendientes</option>
+      </select>
+      <select id="sort-detalle" onchange="renderDetalle(currentPartidos, currentQuinielaData)">
+        <option value="NAME">Ordenar por nombre</option>
+        <option value="TOTAL_PTS">Total pts</option>
+        <option value="EXACTOS">Exactos</option>
+        <option value="RESULTADOS">Con resultado</option>
+        <option value="PENDIENTES">Pendientes</option>
+        <option value="INGRESOS">Ingresos</option>
+      </select>
+    </div>
+    <div style="margin-bottom:16px; color:var(--muted); font-size:12px;">
+      Aquí se muestra todo lo que ingresaron los participantes en <code>quiniela.json</code>, incluso si el partido no ha jugado aún.
+    </div>
+    <div id="detalle-list"></div>
   </div>
 
   <!-- RESULTADOS -->
@@ -989,6 +1218,34 @@ function fmtPartido(str) {
   const [a, b] = str.split(' vs ');
   return `${flag(a.trim())} ${a.trim()} vs ${flag(b.trim())} ${b.trim()}`;
 }
+// Format a full datetime string into the specified timezone (default: Guatemala)
+function formatDateTimeFor(dateStr, timeZone = 'America/Guatemala') {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  try {
+    return new Intl.DateTimeFormat('es-ES', {
+      timeZone,
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    }).format(d);
+  } catch (e) {
+    return d.toLocaleString();
+  }
+}
+
+// Mark partidos as live if current time is within +/- windowMin minutes of their datetime
+function markLive(partidos, windowMin = 120) {
+  if (!partidos || !partidos.forEach) return;
+  const now = Date.now();
+  partidos.forEach(p => {
+    p.live = false;
+    if (!p || !p.fecha) return;
+    const ts = Date.parse(p.fecha);
+    if (isNaN(ts)) return; // no time info available
+    p.live = Math.abs(now - ts) <= windowMin * 60 * 1000;
+  });
+}
 function isToday(d) {
   const t = new Date();
   return d === `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
@@ -1062,6 +1319,73 @@ function filterStandings() {
     countEl.textContent = `${foundCount} participante${foundCount !== 1 ? 's' : ''} encontrado${foundCount !== 1 ? 's' : ''}`;
   } else {
     countEl.textContent = '';
+  }
+}
+
+/* ── LOAD LIVE MATCH INFO ── */
+async function loadLiveMatchInfo() {
+  try {
+    const response = await fetch('live_match.json');
+    if (!response.ok) {
+      console.warn('No se pudo cargar live_match.json');
+      return;
+    }
+    
+    const liveData = await response.json();
+    const container = document.getElementById('live-now');
+    
+    if (liveData.has_live && liveData.live) {
+      const live = liveData.live;
+      const minute = live.minute_display || 'N/A';
+      const score1 = live.score1 || 0;
+      const score2 = live.score2 || 0;
+      const stadium = live.stadium || 'Estadio';
+      const team1 = live.team1 || 'Equipo 1';
+      const team2 = live.team2 || 'Equipo 2';
+      
+      container.innerHTML = `
+        <div class="live-match-card">
+          <div class="live-badge"></div>
+          <div class="live-match-teams">
+            <div class="live-team">
+              <div class="live-team-name">${team1}</div>
+            </div>
+            <div style="text-align: center;">
+              <div class="live-score">${score1} - ${score2}</div>
+              <div class="live-minute">Minuto ${minute}</div>
+            </div>
+            <div class="live-team">
+              <div class="live-team-name">${team2}</div>
+            </div>
+          </div>
+          <div class="live-match-info">🏟️ ${stadium} • ${liveData.current_time}</div>
+        </div>
+      `;
+    } else if (liveData.next) {
+      const next = liveData.next;
+      const team1 = next.team1 || 'Equipo 1';
+      const team2 = next.team2 || 'Equipo 2';
+      const stadium = next.stadium || 'Estadio';
+      const time = next.time || 'N/A';
+      
+      container.innerHTML = `
+        <div class="next-match-card">
+          <div class="next-badge">⏰ Próximo</div>
+          <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; margin-bottom: 8px;">
+            <div style="text-align: center; font-weight: 600; font-size: 14px;">${team1}</div>
+            <div style="color: var(--muted); font-size: 12px; font-weight: 600;">VS</div>
+            <div style="text-align: center; font-weight: 600; font-size: 14px;">${team2}</div>
+          </div>
+          <div style="font-size: 11px; color: var(--muted); text-align: center; padding-top: 8px; border-top: 1px solid rgba(30,51,34,0.4);">
+            🏟️ ${stadium} • ⏰ ${time}
+          </div>
+        </div>
+      `;
+    } else {
+      container.innerHTML = '';
+    }
+  } catch (error) {
+    console.warn('Error cargando live match info:', error);
   }
 }
 
@@ -1165,6 +1489,12 @@ async function init() {
     return;
   }
 
+  // Marcar partidos en curso (zona Guatemala) antes de renderizar
+  try {
+    markLive(partidos, 120);
+  } catch (err) {
+    console.warn('markLive error:', err);
+  }
   renderDashboard(partidos, quiniela);
   
   // Populate admin panel dropdown and textarea initially
@@ -1178,8 +1508,16 @@ function renderDashboard(partidos, quiniela) {
 
   console.log(`%c[Datos]%c Partidos jugados: ${jugados.length} | Pendientes: ${pendientes.length}`, 'color: #fbbf24; font-weight: bold;', 'color: inherit;');
 
-  document.getElementById('last-update').innerHTML =
-    jugados.length > 0 ? `Último: ${fmtPartido(jugados[jugados.length-1].partido)} <span style="color:var(--green)">● en vivo</span>` : 'Sin resultados aún';
+  const lastMatch = jugados.length > 0 ? jugados[jugados.length - 1] : null;
+  if (lastMatch) {
+    const liveBadge = lastMatch.live ? `<span class="live-badge">EN VIVO</span>` : '';
+    document.getElementById('last-update').innerHTML = `Último: ${fmtPartido(lastMatch.partido)} ${liveBadge}`;
+  } else {
+    document.getElementById('last-update').textContent = 'Sin resultados aún';
+  }
+
+  // Cargar información de partidos en vivo
+  loadLiveMatchInfo();
 
   console.log('%c[Cálculo]%c Procesando posiciones actuales...', 'color: #a855f7; font-weight: bold;', 'color: inherit;');
   const participantes = quiniela.participantes || [];
@@ -1200,6 +1538,23 @@ function renderDashboard(partidos, quiniela) {
     <div class="metric"><div class="metric-num">${maxPts}</div><div class="metric-lbl">Pts máx. posibles</div></div>
     <div class="metric"><div class="metric-num">${standings[0]?.totalPts ?? 0}</div><div class="metric-lbl">Puntaje líder</div></div>
   `;
+
+  // Mostrar partidos en vivo al inicio de la pestaña Quiniela
+  try {
+    const liveNowEl = document.getElementById('live-now');
+    const liveMatches = (partidos || []).filter(p => p.live).sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
+    if (liveMatches.length > 0) {
+      const items = liveMatches.map(p => {
+        const time = formatDateTimeFor(p.fecha);
+        return `<div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">${fmtPartido(p.partido)} <span style="color:var(--muted); font-size:12px;">· ${time}</span> <span class="live-badge">EN VIVO</span></div>`;
+      }).join('');
+      liveNowEl.innerHTML = `<div style="font-size:13px; font-weight:700; color:var(--gold); margin-bottom:6px;">Juega ahora</div>${items}`;
+    } else {
+      liveNowEl.innerHTML = '';
+    }
+  } catch (e) {
+    console.warn('Error rendering live-now:', e);
+  }
 
   const badgeCls = i => ['badge-1','badge-2','badge-3'][i] ?? 'badge-n';
   const rankLabel = i => i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : String(i + 1);
@@ -1330,6 +1685,10 @@ function renderDashboard(partidos, quiniela) {
 
   renderResultados(currentPartidos);
   renderCalendario(currentPartidos);
+
+  updateDetalleParticipants(quiniela);
+  updateDetalleGroups(partidos);
+  renderDetalle(currentPartidos, currentQuinielaData);
 
   const groupStandings = calcGroupStandings(partidos);
   const sortedGroups = Object.keys(groupStandings).sort();
@@ -1498,11 +1857,147 @@ function renderResultados(partidos) {
   lista.innerHTML = html;
 }
 
+function updateDetalleParticipants(quiniela) {
+  const select = document.getElementById('filter-participante');
+  if (!select || !quiniela) return;
+  const participantes = (quiniela.participantes || []).map(p => p.nombre).filter(Boolean);
+  select.innerHTML = ['<option value="ALL">Todos los participantes</option>',
+    ...participantes.map(nombre => `<option value="${nombre}">${nombre}</option>`)
+  ].join('');
+}
+
+function updateDetalleGroups(partidos) {
+  const select = document.getElementById('filter-detalle-grupo');
+  if (!select || !partidos) return;
+  const groups = Array.from(new Set((partidos || []).map(p => p.grupo).filter(Boolean)));
+  groups.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+  select.innerHTML = ['<option value="ALL">Todos los grupos/fases</option>',
+    ...groups.map(gr => `<option value="${gr}">${gr}</option>`)
+  ].join('');
+}
+
+function renderDetalle(partidos, quiniela) {
+  const filterName = document.getElementById('filter-participante')?.value || 'ALL';
+  const filterGroup = document.getElementById('filter-detalle-grupo')?.value || 'ALL';
+  const filterStatus = document.getElementById('filter-detalle-status')?.value || 'ALL';
+  const sortBy = document.getElementById('sort-detalle')?.value || 'NAME';
+  const container = document.getElementById('detalle-list');
+  if (!container) return;
+
+  const partidosById = (partidos || []).reduce((acc, p) => { acc[p.id] = p; return acc; }, {});
+  const participantes = (quiniela.participantes || [])
+    .filter(p => filterName === 'ALL' || p.nombre === filterName);
+
+  const cards = participantes.map(p => {
+    const visiblePreds = (p.predicciones || []).filter(pred => {
+      const partido = partidosById[pred.id];
+      const matchesGroup = filterGroup === 'ALL' || (partido?.grupo === filterGroup);
+      const real = partido?.resultado || null;
+      const status = real ? 'WITH_RESULT' : 'PENDING';
+      const matchesStatus = filterStatus === 'ALL' || status === filterStatus;
+      return matchesGroup && matchesStatus;
+    });
+
+    if (visiblePreds.length === 0) return null;
+
+    const details = visiblePreds.map(pred => {
+      const partido = partidosById[pred.id];
+      const real = partido?.resultado || null;
+      const res = real ? calcPuntos(real, pred) : { pts: 'Pendiente', tipo: 'pending' };
+      const matchLabel = partido ? `${partido.partido}` : `Partido #${pred.id}`;
+      const meta = partido ? `${partido.grupo} · ${fmtDate(partido.fecha)} · ${partido.estadio}` : 'Partido sin resultado';
+      const liveHtml = partido && partido.live ? ' <span class="live-badge">EN VIVO</span>' : '';
+      const outcome = real ? `${real.local} – ${real.visitante}` : 'Pendiente';
+      return `
+        <div class="prediction-row">
+          <div class="prediction-info">
+            <div class="match-label">${fmtPartido(matchLabel)}</div>
+            <div class="match-meta">${meta}${liveHtml}</div>
+          </div>
+          <div class="prediction-score">
+            <span>${pred.local}–${pred.visitante}</span>
+            <span>→</span>
+            <span>${outcome}</span>
+            <span class="prediction-badge ${res.tipo}">${res.pts === 'Pendiente' ? 'Pendiente' : res.pts + ' pts'}</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    const totalPreds = visiblePreds.length;
+    const played = visiblePreds.filter(pred => partidosById[pred.id]?.resultado).length;
+    const pending = totalPreds - played;
+    const exactos = visiblePreds.filter(pred => {
+      const real = partidosById[pred.id]?.resultado;
+      return real && real.local === pred.local && real.visitante === pred.visitante;
+    }).length;
+    const difs = visiblePreds.filter(pred => {
+      const real = partidosById[pred.id]?.resultado;
+      return real && real.local - real.visitante === pred.local - pred.visitante && !(real.local === pred.local && real.visitante === pred.visitante);
+    }).length;
+    const trends = visiblePreds.filter(pred => {
+      const real = partidosById[pred.id]?.resultado;
+      if (!real) return false;
+      const rt = real.local > real.visitante ? 'L' : real.local < real.visitante ? 'V' : 'E';
+      const pt = pred.local > pred.visitante ? 'L' : pred.local < pred.visitante ? 'V' : 'E';
+      return rt === pt && !(real.local === pred.local && real.visitante === pred.visitante);
+    }).length;
+    const totalPts = visiblePreds.reduce((sum, pred) => {
+      const real = partidosById[pred.id]?.resultado;
+      const score = calcPuntos(real, pred);
+      return sum + (score ? score.pts : 0);
+    }, 0);
+
+    return {
+      nombre: p.nombre,
+      exactos,
+      totalPts,
+      played,
+      pending,
+      ingresos: totalPreds,
+      html: `
+      <div class="participant-card">
+        <div class="participant-header">
+          <div class="participant-name">${p.nombre}</div>
+          <div class="participant-stats">
+            <span>Ingresos: ${totalPreds}</span>
+            <span>Con resultado: ${played}</span>
+            <span>Pendientes: ${pending}</span>
+            <span>Exactos: ${exactos}</span>
+            <span>Total: ${totalPts} pts</span>
+          </div>
+        </div>
+        <div class="prediction-grid">${details}</div>
+      </div>`
+    };
+  }).filter(Boolean);
+
+  if (cards.length === 0) {
+    container.innerHTML = '<div class="msg">No hay predicciones que coincidan con los filtros seleccionados.</div>';
+    return;
+  }
+
+  cards.sort((a, b) => {
+    switch (sortBy) {
+      case 'TOTAL_PTS': return b.totalPts - a.totalPts;
+      case 'EXACTOS': return b.exactos - a.exactos;
+      case 'RESULTADOS': return b.played - a.played;
+      case 'PENDIENTES': return b.pending - a.pending;
+      case 'INGRESOS': return b.ingresos - a.ingresos;
+      default: return a.nombre.localeCompare(b.nombre, undefined, { sensitivity: 'base' });
+    }
+  });
+
+  container.innerHTML = cards.map(card => card.html).join('');
+}
+
 /* ── RENDER CALENDARIO (partidos pendientes + entrada manual) ── */
 function renderCalendario(partidos) {
   const filter = document.getElementById('filter-calendario')?.value || 'ALL';
   const lista = document.getElementById('calendario-list');
   if (!lista) return;
+
+  // Asegurar marcas en vivo antes de renderizar
+  try { markLive(partidos, 120); } catch (e) { /* noop */ }
 
   const pendientes = partidos
     .filter(p => p.resultado == null)
@@ -1535,7 +2030,7 @@ function renderCalendario(partidos) {
           </div>
           <div class="score-center">
             <div class="score-num pending">vs</div>
-            <div class="score-meta">${p.grupo} · ${p.estadio}</div>
+            <div class="score-meta">${p.grupo} · ${p.estadio}${p.live ? ' <span class="live-badge">EN VIVO</span>' : ''}</div>
             <div style="margin-top:8px;" id="inline-form-${p.id}">
               <div style="display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap;">
                 <input type="number" id="il-loc-${p.id}" min="0" placeholder="Local"
