@@ -3681,313 +3681,313 @@
       "predicciones": [
         {
           "id": 1,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 2,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 3,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 4,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 5,
           "local": 0,
-          "visitante": 0
+          "visitante": 2
         },
         {
           "id": 6,
-          "local": 0,
-          "visitante": 0
+          "local": 3,
+          "visitante": 1
         },
         {
           "id": 7,
           "local": 0,
-          "visitante": 0
+          "visitante": 2
         },
         {
           "id": 8,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 2
         },
         {
           "id": 9,
-          "local": 0,
+          "local": 4,
           "visitante": 0
         },
         {
           "id": 10,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 11,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 2
         },
         {
           "id": 12,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 13,
-          "local": 0,
+          "local": 1,
           "visitante": 0
         },
         {
           "id": 14,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 15,
           "local": 0,
-          "visitante": 0
+          "visitante": 2
         },
         {
           "id": 16,
-          "local": 0,
+          "local": 1,
           "visitante": 0
         },
         {
           "id": 17,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 18,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 3
         },
         {
           "id": 19,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 20,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 21,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 22,
-          "local": 0,
-          "visitante": 0
+          "local": 7,
+          "visitante": 1
         },
         {
           "id": 23,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 24,
           "local": 0,
-          "visitante": 0
+          "visitante": 2
         },
         {
           "id": 25,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 26,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 27,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 28,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 29,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 30,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 31,
-          "local": 0,
+          "local": 4,
           "visitante": 0
         },
         {
           "id": 32,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 33,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 34,
-          "local": 0,
-          "visitante": 0
+          "local": 3,
+          "visitante": 1
         },
         {
           "id": 35,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 36,
           "local": 0,
-          "visitante": 0
+          "visitante": 2
         },
         {
           "id": 37,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 38,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 39,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 40,
           "local": 0,
-          "visitante": 0
+          "visitante": 1
         },
         {
           "id": 41,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 42,
-          "local": 0,
+          "local": 4,
           "visitante": 0
         },
         {
           "id": 43,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 44,
           "local": 0,
-          "visitante": 0
+          "visitante": 1
         },
         {
           "id": 45,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 46,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 8
         },
         {
           "id": 47,
-          "local": 0,
+          "local": 2,
           "visitante": 0
         },
         {
           "id": 48,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 49,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 2
         },
         {
           "id": 50,
-          "local": 0,
+          "local": 1,
           "visitante": 0
         },
         {
           "id": 51,
-          "local": 0,
+          "local": 3,
           "visitante": 0
         },
         {
           "id": 52,
           "local": 0,
-          "visitante": 0
+          "visitante": 3
         },
         {
           "id": 53,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 2
         },
         {
           "id": 54,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 2
         },
         {
           "id": 55,
-          "local": 3,
-          "visitante": 0
+          "local": 0,
+          "visitante": 2
         },
         {
           "id": 56,
           "local": 0,
-          "visitante": 0
+          "visitante": 7
         },
         {
           "id": 57,
           "local": 0,
-          "visitante": 0
+          "visitante": 3
         },
         {
           "id": 58,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 7
         },
         {
           "id": 59,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 60,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 61,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 2
         },
         {
           "id": 62,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 63,
@@ -3996,48 +3996,48 @@
         },
         {
           "id": 64,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 3
         },
         {
           "id": 65,
           "local": 0,
-          "visitante": 0
+          "visitante": 3
         },
         {
           "id": 66,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 67,
           "local": 0,
-          "visitante": 0
+          "visitante": 3
         },
         {
           "id": 68,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 1
         },
         {
           "id": 69,
-          "local": 0,
-          "visitante": 0
+          "local": 1,
+          "visitante": 1
         },
         {
           "id": 70,
-          "local": 0,
+          "local": 1,
           "visitante": 0
         },
         {
           "id": 71,
-          "local": 0,
-          "visitante": 0
+          "local": 2,
+          "visitante": 2
         },
         {
           "id": 72,
           "local": 0,
-          "visitante": 0
+          "visitante": 3
         },
         {
           "id": 73,
