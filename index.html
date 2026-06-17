@@ -419,73 +419,243 @@ footer a { color: var(--gold2); text-decoration: none; }
   .standings-table th:nth-child(5) { display: none; }
 }
 
-/* ── PULSE & REVEAL ANIMATIONS ── */
-.sync-dot.pulse {
-  animation: pulse 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
-}
-@keyframes pulse {
-  0% { transform: scale(0.95); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 8px var(--green); }
-  100% { transform: scale(0.95); opacity: 0.5; }
+
+/* ══════════════════════════════════════════
+   APPLE-GRADE MICRO-ANIMATION SYSTEM
+   ══════════════════════════════════════════ */
+
+/* Spring easing tokens */
+:root {
+  --spring-snappy:  cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --spring-smooth:  cubic-bezier(0.16, 1, 0.3, 1);
+  --spring-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo:  cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-ios:       cubic-bezier(0.42, 0, 0.58, 1);
 }
 
+/* ── SYNC DOT PULSE ── */
+.sync-dot.pulse {
+  animation: pulse 2s infinite var(--ease-ios);
+}
+@keyframes pulse {
+  0%   { transform: scale(0.9); opacity: 0.4; box-shadow: 0 0 0 0 currentColor; }
+  50%  { transform: scale(1.15); opacity: 1; box-shadow: 0 0 0 4px rgba(34,197,94,0.15); }
+  100% { transform: scale(0.9); opacity: 0.4; box-shadow: 0 0 0 0 currentColor; }
+}
+
+/* ── TAB BAR: morphing active indicator ── */
+.tabs { position: relative; }
+.tab-btn {
+  position: relative;
+  transition: color 0.22s var(--spring-smooth), background 0.22s var(--spring-smooth), transform 0.18s var(--spring-snappy);
+  will-change: transform;
+}
+.tab-btn:hover { transform: translateY(-1px); }
+.tab-btn:active { transform: scale(0.94) translateY(0); }
+.tab-btn.active {
+  background: var(--gold);
+  color: #0a0f0b;
+  box-shadow: 0 2px 12px rgba(240, 192, 64, 0.35), 0 0 0 0 rgba(240,192,64,0);
+  animation: tabActivePop 0.32s var(--spring-bounce) forwards;
+}
+@keyframes tabActivePop {
+  0%   { transform: scale(0.92); }
+  60%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* ── SECTION FADE-IN (blur + slide) ── */
+@keyframes secFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+.sec.active {
+  animation: secFadeIn 0.42s var(--spring-smooth) forwards;
+}
+
+/* ── CARD REVEAL (staggered) ── */
 @keyframes cardReveal {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
 }
 .reveal-card {
   opacity: 0;
-  animation: cardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardReveal 0.5s var(--spring-smooth) forwards;
 }
 
-/* ── ACCURACY BAR ── */
-.accuracy-bar-container {
-  margin-top: 10px;
-  margin-bottom: 16px;
-  background: rgba(255, 255, 255, 0.01);
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid rgba(30, 51, 34, 0.4);
+/* ── MATCH CARD hover (lift + glow) ── */
+.match-card {
+  transition:
+    transform 0.28s var(--spring-snappy),
+    border-color 0.22s ease,
+    box-shadow 0.28s ease;
+  will-change: transform, box-shadow;
 }
-.accuracy-bar-label {
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 6px;
-  display: flex;
-  justify-content: space-between;
-  font-weight: 500;
+.match-card:hover {
+  transform: translateY(-3px) scale(1.005);
+  border-color: rgba(240, 192, 64, 0.4);
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(240,192,64,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.04);
 }
-.accuracy-bar {
-  height: 8px;
-  border-radius: 4px;
-  display: flex;
-  overflow: hidden;
-  background: var(--border);
+.match-card:active {
+  transform: translateY(-1px) scale(0.998);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
+
+/* ── STANDINGS ROW hover ── */
+.standings-table tr.data-row {
+  transition: background 0.18s ease;
+  cursor: pointer;
+}
+.standings-table tr.data-row:hover {
+  background: rgba(240,192,64,0.04);
+}
+.standings-table tr.data-row:active {
+  background: rgba(240,192,64,0.08);
+}
+
+/* ── MATCH PILL hover ── */
+.match-pill {
+  transition:
+    transform 0.22s var(--spring-snappy),
+    background 0.18s ease,
+    box-shadow 0.22s ease;
+  cursor: default;
+}
+.match-pill:hover {
+  transform: scale(1.025);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* ── DETAIL PANEL (spring expand) ── */
+.detail-panel {
+  transition:
+    max-height 0.45s var(--spring-smooth),
+    padding 0.35s var(--spring-smooth),
+    border-color 0.25s ease,
+    opacity 0.3s ease;
+  opacity: 0;
+}
+.detail-panel.open {
+  opacity: 1;
+}
+
+/* ── ACCURACY BAR animated fill ── */
 .accuracy-seg {
   height: 100%;
-  transition: width 0.4s ease;
+  width: 0%;
+  transition: width 0.7s var(--ease-out-expo);
 }
-.accuracy-seg.exact { background: var(--green); }
-.accuracy-seg.diff { background: var(--blue); }
-.accuracy-seg.trend { background: var(--amber); }
-.accuracy-seg.zero { background: #3b423d; }
+.accuracy-seg.exact { background: linear-gradient(90deg, var(--green), #16a34a); }
+.accuracy-seg.diff  { background: linear-gradient(90deg, var(--blue),  #3b82f6); }
+.accuracy-seg.trend { background: linear-gradient(90deg, var(--amber), #d97706); }
+.accuracy-seg.zero  { background: #2a3a2d; }
 
-/* ── QUALIFIED GROUP ROWS ── */
+/* ── METRIC CARD count-up animation ── */
+.metric {
+  transition: transform 0.25s var(--spring-snappy), box-shadow 0.25s ease;
+}
+.metric:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(240,192,64,0.12);
+}
+.metric-num {
+  transition: color 0.3s ease;
+}
+
+/* ── BUTTON PRESS (ripple ready) ── */
+button, .admin-btn, .tab-btn {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+.admin-btn {
+  transition: transform 0.18s var(--spring-snappy), opacity 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+.admin-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(240,192,64,0.3);
+}
+.admin-btn:active {
+  transform: scale(0.95) translateY(0);
+  box-shadow: none;
+}
+
+/* ── HEADER scroll glass ── */
+header {
+  transition: backdrop-filter 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+header.scrolled {
+  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(17, 26, 19, 0.75);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.4);
+}
+
+/* ── GROUP CARD hover ── */
+.group-card {
+  transition: transform 0.25s var(--spring-snappy), box-shadow 0.25s ease, border-color 0.2s ease;
+  will-change: transform;
+}
+.group-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  border-color: rgba(240,192,64,0.2);
+}
+
+/* ── SEARCH INPUT focus ring ── */
+#search-input {
+  transition: border-color 0.2s ease, box-shadow 0.25s ease;
+}
+#search-input:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(240,192,64,0.12);
+}
+
+/* ── QUALIFIED ROW glow ── */
 .group-table tr.qualified-row {
   background: rgba(34, 197, 94, 0.035);
-  transition: background-color 0.25s ease;
+  transition: background 0.25s ease;
 }
 .group-table tr.qualified-row td:first-child {
   border-left: 3px solid var(--green);
 }
-
-/* ── ADMIN PANEL ── */
-.admin-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
+.group-table tr.qualified-row:hover {
+  background: rgba(34, 197, 94, 0.07);
 }
+
+/* ── ADMIN PANEL slide-down ── */
+#admin-panel {
+  transition: opacity 0.3s var(--spring-smooth), transform 0.35s var(--spring-smooth);
+  transform-origin: top center;
+}
+#admin-panel.panel-enter {
+  animation: panelSlideIn 0.4s var(--spring-smooth) forwards;
+}
+@keyframes panelSlideIn {
+  from { opacity: 0; transform: scaleY(0.92) translateY(-10px); }
+  to   { opacity: 1; transform: scaleY(1)    translateY(0); }
+}
+
 .admin-select, .admin-input {
   background: var(--card);
   border: 1px solid var(--border);
@@ -494,23 +664,55 @@ footer a { color: var(--gold2); text-decoration: none; }
   color: var(--chalk);
   font-size: 13px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.22s ease;
 }
 .admin-select:focus, .admin-input:focus {
   border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(240,192,64,0.12);
 }
-.admin-btn {
-  background: var(--gold);
-  color: #0a0f0b;
-  border: none;
-  font-weight: 600;
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: opacity 0.2s;
+
+/* ── TOAST spring-in ── */
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 12px) scale(0.95); filter: blur(4px); }
+  to   { opacity: 1; transform: translate(-50%, 0)    scale(1);    filter: blur(0); }
 }
-.admin-btn:hover { opacity: 0.9; }
+#__toast {
+  animation: toastIn 0.35s var(--spring-bounce) forwards;
+}
+
+/* ── PTS BADGE shimmer ── */
+.pts-badge {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s var(--spring-snappy), box-shadow 0.2s ease;
+}
+.pts-badge:hover {
+  transform: scale(1.08);
+  box-shadow: 0 2px 10px rgba(240,192,64,0.3);
+}
+.pts-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.pts-badge:hover::after {
+  transform: translateX(100%);
+}
+
+/* ── SCROLL progress bar ── */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), #22c55e);
+  z-index: 999;
+  width: 0%;
+  transition: width 0.1s linear;
+  border-radius: 0 1px 1px 0;
+}
 
 </style>
 </head>
@@ -1371,6 +1573,143 @@ function populateAdminSelect() {
 }
 
 init();
+
+/* ══════════════════════════════════════════
+   MICRO-INTERACTION ENGINE
+   ══════════════════════════════════════════ */
+
+// ── Scroll progress bar
+const progressBar = document.createElement('div');
+progressBar.id = 'scroll-progress';
+document.body.prepend(progressBar);
+
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const max = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (max > 0 ? (scrolled / max) * 100 : 0) + '%';
+
+  // Glass header on scroll
+  document.querySelector('header').classList.toggle('scrolled', scrolled > 10);
+}, { passive: true });
+
+// ── Staggered IntersectionObserver for reveals
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+function observeRevealCards() {
+  document.querySelectorAll('.reveal-card').forEach((el, i) => {
+    el.style.animationDelay = `${i * 35}ms`;
+    el.style.animationPlayState = 'paused';
+    revealObserver.observe(el);
+  });
+}
+
+// ── Animated number counter for metrics
+function animateCounter(el, target, duration = 600) {
+  const start = performance.now();
+  const from = 0;
+  const update = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // ease-out expo
+    const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    el.textContent = Math.round(from + (target - from) * eased);
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+function runMetricCounters() {
+  document.querySelectorAll('.metric-num').forEach(el => {
+    const val = parseInt(el.textContent);
+    if (!isNaN(val)) animateCounter(el, val);
+  });
+}
+
+// ── Ripple effect on buttons
+function addRipple(e) {
+  const btn = e.currentTarget;
+  const existing = btn.querySelector('.ripple');
+  if (existing) existing.remove();
+
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const x = e.clientX - rect.left - size / 2;
+  const y = e.clientY - rect.top - size / 2;
+
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  ripple.style.cssText = `
+    position:absolute; border-radius:50%; pointer-events:none;
+    width:${size}px; height:${size}px;
+    left:${x}px; top:${y}px;
+    background: rgba(255,255,255,0.15);
+    transform: scale(0);
+    animation: rippleAnim 0.55s var(--ease-out-expo) forwards;
+  `;
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 600);
+}
+
+// Inject ripple keyframe
+const rippleStyle = document.createElement('style');
+rippleStyle.textContent = `@keyframes rippleAnim { to { transform: scale(2.5); opacity: 0; } }`;
+document.head.appendChild(rippleStyle);
+
+function wireRipples() {
+  document.querySelectorAll('button, .admin-btn').forEach(btn => {
+    btn.removeEventListener('click', addRipple);
+    btn.addEventListener('click', addRipple);
+  });
+}
+
+// ── Hook into renderDashboard to trigger animations
+const _origRenderDashboard = renderDashboard;
+window.renderDashboard = function(partidos, quiniela) {
+  _origRenderDashboard(partidos, quiniela);
+  requestAnimationFrame(() => {
+    observeRevealCards();
+    runMetricCounters();
+    wireRipples();
+  });
+};
+
+// ── toggleAdminPanel with slide animation
+const _origToggleAdmin = toggleAdminPanel;
+window.toggleAdminPanel = function() {
+  const panel = document.getElementById('admin-panel');
+  const isHidden = panel.style.display === 'none' || panel.style.display === '';
+  if (isHidden) {
+    panel.style.display = 'block';
+    panel.classList.remove('panel-enter');
+    void panel.offsetWidth; // force reflow
+    panel.classList.add('panel-enter');
+  } else {
+    panel.style.opacity = '0';
+    panel.style.transform = 'scaleY(0.95) translateY(-8px)';
+    setTimeout(() => {
+      panel.style.display = 'none';
+      panel.style.opacity = '';
+      panel.style.transform = '';
+    }, 300);
+    return;
+  }
+  updateAdminJsonOutput();
+};
+
+// ── Initial run
+requestAnimationFrame(() => {
+  observeRevealCards();
+  wireRipples();
+});
 </script>
 </body>
 </html>
