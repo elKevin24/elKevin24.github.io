@@ -1,0 +1,72 @@
+name: Update World Cup Scores
+
+on:
+  schedule:
+    - cron: '0 */3 * * *' # Corre cada 3 horas
+  workflow_dispatch:      # Permite ejecutarlo manualmente desde GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  update-scores:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run update script
+        run: |
+          python -c "
+          import json, urllib.request, os
+          partidos_path = 'partidos.json'
+          with open(partidos_path, 'r', encoding='utf-8') as f:
+              partidos = json.load(f)
+          
+          api_url = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json'
+          req = urllib.request.Request(api_url, headers={'User-Agent': 'Mozilla/5.0'})
+          try:
+              with urllib.request.urlopen(req) as response:
+                  api_data = json.loads(response.read().decode('utf-8'))
+          except Exception as e:
+              print(f'Error fetching API: {e}')
+              exit(0)
+              
+          api_lookup = {(m.get('team1', '').strip(), m.get('team2', '').strip()): m for m in api_data.get('matches', [])}
+          
+          updated = False
+          for p in partidos:
+              if ' vs ' not in p.get('partido', ''): continue
+              home, away = [t.strip() for t in p['partido'].split(' vs ')]
+              api_match = api_lookup.get((home, away))
+              if api_match and 'score' in api_match and 'ft' in api_match['score']:
+                  score = api_match['score']['ft']
+                  if p.get('resultado') is None:
+                      p['resultado'] = {'local': score[0], 'visitante': score[1]}
+                      updated = True
+                      print(f'Updated {home} vs {away}: {score[0]}-{score[1]}')
+          
+          if updated:
+              with open(partidos_path, 'w', encoding='utf-8') as f:
+                  json.dump(partidos, f, indent=2, ensure_ascii=False)
+              print('Partidos updated successfully.')
+          else:
+              print('No updates found.')
+          "
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add partidos.json
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Auto-update match scores [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
