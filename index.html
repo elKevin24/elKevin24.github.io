@@ -336,6 +336,50 @@ footer {
 }
 footer a { color: var(--gold2); text-decoration: none; }
 
+/* ── GROUPS GRID ── */
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.group-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+}
+.group-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+.group-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.group-table th {
+  color: var(--muted);
+  font-weight: 500;
+  text-align: left;
+  padding: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.group-table td {
+  padding: 6px 4px;
+  border-bottom: 1px solid rgba(30,51,34,.3);
+  vertical-align: middle;
+}
+.group-table tr:last-child td {
+  border-bottom: none;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 540px) {
   .metrics { grid-template-columns: repeat(2, 1fr); }
@@ -368,8 +412,10 @@ footer a { color: var(--gold2); text-decoration: none; }
 </header>
 
 <div class="tabs">
-  <button class="tab-btn active" onclick="showTab('posiciones', this)">🏆 Posiciones</button>
-  <button class="tab-btn" onclick="showTab('partidos', this)">📅 Partidos</button>
+  <button class="tab-btn active" onclick="showTab('posiciones', this)">🏆 Quiniela</button>
+  <button class="tab-btn" onclick="showTab('resultados', this)">✅ Resultados</button>
+  <button class="tab-btn" onclick="showTab('calendario', this)">📅 Calendario</button>
+  <button class="tab-btn" onclick="showTab('grupos', this)">🌍 Grupos</button>
 </div>
 
 <main>
@@ -404,12 +450,28 @@ footer a { color: var(--gold2); text-decoration: none; }
     </p>
   </div>
 
-  <!-- PARTIDOS -->
-  <div id="sec-partidos" class="sec">
+  <!-- RESULTADOS -->
+  <div id="sec-resultados" class="sec">
     <div class="section-header">
-      <div class="section-title">Resultados y Fixture</div>
+      <div class="section-title">Resultados Recientes</div>
     </div>
-    <div id="partidos-list"></div>
+    <div id="resultados-list"></div>
+  </div>
+
+  <!-- CALENDARIO -->
+  <div id="sec-calendario" class="sec">
+    <div class="section-header">
+      <div class="section-title">Próximos Encuentros</div>
+    </div>
+    <div id="calendario-list"></div>
+  </div>
+
+  <!-- GRUPOS -->
+  <div id="sec-grupos" class="sec">
+    <div class="section-header">
+      <div class="section-title">Tablas de Grupos</div>
+    </div>
+    <div class="groups-grid" id="groups-grid"></div>
   </div>
 </main>
 
@@ -624,54 +686,194 @@ async function init() {
     tbody.appendChild(dtr);
   });
 
-  /* PARTIDOS VIEW */
-  const byDate = {};
-  partidos.forEach(p => {
-    if (!byDate[p.fecha]) byDate[p.fecha] = [];
-    byDate[p.fecha].push(p);
+  /* ── RENDER RESULTADOS (JUGADOS) ── */
+  const jugadosList = partidos.filter(p => p.resultado != null);
+  const byDateJugados = {};
+  jugadosList.forEach(p => {
+    if (!byDateJugados[p.fecha]) byDateJugados[p.fecha] = [];
+    byDateJugados[p.fecha].push(p);
   });
-
-  const sortedDates = Object.keys(byDate).sort();
-  let html = '';
-  sortedDates.forEach(date => {
-    const today = isToday(date);
-    const hasResults = byDate[date].some(p => p.resultado);
-    const allPending = byDate[date].every(p => !p.resultado);
-
-    const labelExtra = today ? '📅 Hoy · ' : '';
-    html += `<div class="date-sep">
-      <div class="date-line"></div>
-      <div class="date-lbl">${labelExtra}${fmtDate(date)}</div>
-      <div class="date-line"></div>
-    </div>`;
-
-    byDate[date].forEach(p => {
-      const teams = p.partido.split(' vs ');
-      const home = teams[0]?.trim() || '?';
-      const away = teams[1]?.trim() || '?';
-      const hasRes = p.resultado != null;
-      const scoreHtml = hasRes
-        ? `<div class="score-num">${p.resultado.local} – ${p.resultado.visitante}</div>`
-        : `<div class="score-num pending">vs</div>`;
-
-      html += `<div class="match-card">
-        <div class="team">
-          <span class="team-flag">${flag(home)}</span>
-          <span class="team-name">${home}</span>
-        </div>
-        <div class="score-center">
-          ${scoreHtml}
-          <div class="score-meta">${p.grupo || ''} · ${p.estadio || ''}</div>
-        </div>
-        <div class="team away">
-          <span class="team-flag">${flag(away)}</span>
-          <span class="team-name">${away}</span>
-        </div>
+  
+  const sortedDatesJugados = Object.keys(byDateJugados).sort().reverse(); // Descendente (más reciente primero)
+  let htmlResultados = '';
+  if (jugadosList.length === 0) {
+    htmlResultados = '<div class="msg">Aún no se han jugado partidos.</div>';
+  } else {
+    sortedDatesJugados.forEach(date => {
+      const today = isToday(date);
+      const labelExtra = today ? '📅 Hoy · ' : '';
+      htmlResultados += `<div class="date-sep">
+        <div class="date-line"></div>
+        <div class="date-lbl">${labelExtra}${fmtDate(date)}</div>
+        <div class="date-line"></div>
       </div>`;
+
+      // Ordenar partidos de un mismo día por ID descendente para que el último jugado aparezca arriba
+      const sortedMatches = byDateJugados[date].sort((a, b) => b.id - a.id);
+      sortedMatches.forEach(p => {
+        const teams = p.partido.split(' vs ');
+        const home = teams[0]?.trim() || '?';
+        const away = teams[1]?.trim() || '?';
+        htmlResultados += `<div class="match-card">
+          <div class="team">
+            <span class="team-flag">${flag(home)}</span>
+            <span class="team-name">${home}</span>
+          </div>
+          <div class="score-center">
+            <div class="score-num">${p.resultado.local} – ${p.resultado.visitante}</div>
+            <div class="score-meta">${p.grupo || ''} · ${p.estadio || ''}</div>
+          </div>
+          <div class="team away">
+            <span class="team-flag">${flag(away)}</span>
+            <span class="team-name">${away}</span>
+          </div>
+        </div>`;
+      });
     });
+  }
+  document.getElementById('resultados-list').innerHTML = htmlResultados;
+
+  /* ── RENDER CALENDARIO (POR JUGAR) ── */
+  const pendientesList = partidos.filter(p => p.resultado == null);
+  const byDatePendientes = {};
+  pendientesList.forEach(p => {
+    if (!byDatePendientes[p.fecha]) byDatePendientes[p.fecha] = [];
+    byDatePendientes[p.fecha].push(p);
   });
 
-  document.getElementById('partidos-list').innerHTML = html;
+  const sortedDatesPendientes = Object.keys(byDatePendientes).sort(); // Ascendente (próximo primero)
+  let htmlCalendario = '';
+  if (pendientesList.length === 0) {
+    htmlCalendario = '<div class="msg">No hay partidos pendientes.</div>';
+  } else {
+    sortedDatesPendientes.forEach(date => {
+      const today = isToday(date);
+      const labelExtra = today ? '📅 Hoy · ' : '';
+      htmlCalendario += `<div class="date-sep">
+        <div class="date-line"></div>
+        <div class="date-lbl">${labelExtra}${fmtDate(date)}</div>
+        <div class="date-line"></div>
+      </div>`;
+
+      byDatePendientes[date].forEach(p => {
+        const teams = p.partido.split(' vs ');
+        const home = teams[0]?.trim() || '?';
+        const away = teams[1]?.trim() || '?';
+        htmlCalendario += `<div class="match-card">
+          <div class="team">
+            <span class="team-flag">${flag(home)}</span>
+            <span class="team-name">${home}</span>
+          </div>
+          <div class="score-center">
+            <div class="score-num pending">vs</div>
+            <div class="score-meta">${p.grupo || ''} · ${p.estadio || ''}</div>
+          </div>
+          <div class="team away">
+            <span class="team-flag">${flag(away)}</span>
+            <span class="team-name">${away}</span>
+          </div>
+        </div>`;
+      });
+    });
+  }
+  document.getElementById('calendario-list').innerHTML = htmlCalendario;
+
+  /* ── RENDER GRUPOS ── */
+  const groupStandings = calcGroupStandings(partidos);
+  const sortedGroups = Object.keys(groupStandings).sort();
+  let htmlGrupos = '';
+  sortedGroups.forEach(grpName => {
+    const teams = groupStandings[grpName];
+    let rowsHtml = '';
+    teams.forEach((t, index) => {
+      const dg = t.gf - t.gc;
+      const dgStr = dg > 0 ? `+${dg}` : String(dg);
+      rowsHtml += `<tr>
+        <td style="width:20px; font-weight:600; color:var(--muted); text-align:center;">${index + 1}</td>
+        <td style="font-weight:600;"><span class="team-flag" style="font-size:16px; margin-right:4px;">${flag(t.name)}</span>${t.name}</td>
+        <td style="text-align:center; font-family:'JetBrains Mono', monospace;">${t.pj}</td>
+        <td style="text-align:center; font-family:'JetBrains Mono', monospace; color:${dg > 0 ? 'var(--green)' : dg < 0 ? 'var(--red)' : 'var(--muted)'}">${dgStr}</td>
+        <td style="text-align:center; font-family:'JetBrains Mono', monospace; font-weight:600; color:var(--gold);">${t.pts}</td>
+      </tr>`;
+    });
+
+    htmlGrupos += `<div class="group-card">
+      <div class="group-title">${grpName.replace('Group ', 'Grupo ')}</div>
+      <table class="group-table">
+        <thead>
+          <tr>
+            <th style="text-align:center;">#</th>
+            <th>Equipo</th>
+            <th style="text-align:center;">PJ</th>
+            <th style="text-align:center;">DG</th>
+            <th style="text-align:center;">Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHtml}
+        </tbody>
+      </table>
+    </div>`;
+  });
+  document.getElementById('groups-grid').innerHTML = htmlGrupos;
+}
+
+/* ── DYNAMIC GROUP CALCULATOR ── */
+function calcGroupStandings(partidos) {
+  const groups = {};
+
+  partidos.forEach(p => {
+    if (!p.grupo || !p.grupo.startsWith('Group')) return;
+    if (!p.partido.includes(' vs ')) return;
+
+    const teams = p.partido.split(' vs ');
+    const home = teams[0].trim();
+    const away = teams[1].trim();
+    const grp = p.grupo;
+
+    if (!groups[grp]) groups[grp] = {};
+    if (!groups[grp][home]) groups[grp][home] = { name: home, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0 };
+    if (!groups[grp][away]) groups[grp][away] = { name: away, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0 };
+
+    if (p.resultado) {
+      const rl = p.resultado.local;
+      const rv = p.resultado.visitante;
+
+      groups[grp][home].pj += 1;
+      groups[grp][away].pj += 1;
+      groups[grp][home].gf += rl;
+      groups[grp][home].gc += rv;
+      groups[grp][away].gf += rv;
+      groups[grp][away].gc += rl;
+
+      if (rl > rv) {
+        groups[grp][home].g += 1;
+        groups[grp][home].pts += 3;
+        groups[grp][away].p += 1;
+      } else if (rl < rv) {
+        groups[grp][away].g += 1;
+        groups[grp][away].pts += 3;
+        groups[grp][home].p += 1;
+      } else {
+        groups[grp][home].e += 1;
+        groups[grp][home].pts += 1;
+        groups[grp][away].e += 1;
+        groups[grp][away].pts += 1;
+      }
+    }
+  });
+
+  const result = {};
+  for (const [grpName, teamsObj] of Object.entries(groups)) {
+    const teamsArray = Object.values(teamsObj);
+    teamsArray.sort((a, b) => {
+      const dgA = a.gf - a.gc;
+      const dgB = b.gf - b.gc;
+      return b.pts - a.pts || dgB - dgA || b.gf - a.gf;
+    });
+    result[grpName] = teamsArray;
+  }
+  return result;
 }
 
 function toggleDetail(detailId, row) {
