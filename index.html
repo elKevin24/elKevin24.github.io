@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiniela Mundial 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --bg:       #0a0f0b;
+  --surface:  #111a13;
+  --card:     #162019;
+  --border:   #1e3322;
+  --gold:     #f0c040;
+  --gold2:    #b89010;
+  --chalk:    #e8ede9;
+  --muted:    #6a8a6e;
+  --green:    #22c55e;
+  --blue:     #60a5fa;
+  --amber:    #fbbf24;
+  --red:      #f87171;
+  --r:        8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--chalk);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.logo-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--gold);
+}
+.logo-sub {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.last-update {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.tab-btn:hover { background: var(--card); color: var(--chalk); }
+.tab-btn.active { background: var(--gold); color: #0a0f0b; }
+
+/* ── MAIN ── */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+.sec { display: none; }
+.sec.active { display: block; }
+
+/* ── METRICS ── */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.metric {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 12px;
+  text-align: center;
+}
+.metric-num {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 30px;
+  color: var(--gold);
+  line-height: 1;
+}
+.metric-lbl {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-top: 4px;
+}
+
+/* ── STANDINGS TABLE ── */
+.standings-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.standings-table th {
+  padding: 10px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--muted);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.standings-table th.c { text-align: center; }
+.standings-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid rgba(30,51,34,.4);
+  vertical-align: middle;
+}
+.standings-table tr:last-child td { border-bottom: none; }
+.standings-table tr.detail-row td { padding: 0; }
+.standings-table tr.data-row:hover { background: rgba(255,255,255,.02); cursor: pointer; }
+
+.rank-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  width: 36px;
+  text-align: center;
+}
+.rank-medal { font-size: 16px; }
+.name-cell { font-weight: 600; }
+.pts-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.badge-1 { background: #f0c040; color: #1a0f00; }
+.badge-2 { background: #c8d0c8; color: #111; }
+.badge-3 { background: #cd7c3a; color: #fff; }
+.badge-n { background: var(--surface); color: var(--muted); }
+.num-cell {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+.c-exact  { color: var(--green); }
+.c-diff   { color: var(--blue); }
+.c-trend  { color: var(--amber); }
+.c-zero   { color: var(--muted); }
+
+/* ── DETAIL PANEL ── */
+.detail-panel {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 16px 18px;
+  display: none;
+}
+.detail-panel.open { display: block; }
+.detail-header {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.detail-header span { display: flex; align-items: center; gap: 5px; }
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 6px;
+}
+.match-pill {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  border-left-width: 3px;
+  padding: 7px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.match-pill.exact  { border-left-color: var(--green); }
+.match-pill.diff   { border-left-color: var(--blue); }
+.match-pill.trend  { border-left-color: var(--amber); }
+.match-pill.zero   { border-left-color: var(--border); }
+.pill-name { flex: 1; color: var(--chalk); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pill-scores { color: var(--muted); white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+.pill-pts { font-weight: 600; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+.pill-pts.exact { color: var(--green); }
+.pill-pts.diff  { color: var(--blue); }
+.pill-pts.trend { color: var(--amber); }
+.pill-pts.zero  { color: var(--muted); }
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.leg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.leg-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+}
+
+/* ── PARTIDOS VIEW ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.date-sep {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 8px;
+}
+.date-line { flex: 1; height: 1px; background: var(--border); }
+.date-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.match-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.team { display: flex; align-items: center; gap: 8px; }
+.team.away { flex-direction: row-reverse; }
+.team-flag { font-size: 22px; }
+.team-name { font-weight: 600; font-size: 13px; }
+.team.away .team-name { text-align: right; }
+.score-center { text-align: center; }
+.score-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 3px;
+}
+.score-num.pending { color: var(--muted); font-size: 14px; letter-spacing: 1px; }
+.score-meta {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* ── EMPTY / ERROR ── */
+.msg {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 20px 16px;
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--gold2); text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 540px) {
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .match-card { grid-template-columns: 1fr; gap: 6px; }
+  .team.away { flex-direction: row; }
+  .team.away .team-name { text-align: left; }
+  .score-center { text-align: left; }
+  .standings-table td:nth-child(3),
+  .standings-table td:nth-child(4),
+  .standings-table td:nth-child(5),
+  .standings-table th:nth-child(3),
+  .standings-table th:nth-child(4),
+  .standings-table th:nth-child(5) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo-title">⚽ Quiniela Mundial 2026</div>
+    <div class="logo-sub">USA · México · Canadá</div>
+  </div>
+  <div class="last-update" id="last-update">Cargando…</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('posiciones', this)">🏆 Posiciones</button>
+  <button class="tab-btn" onclick="showTab('partidos', this)">📅 Partidos</button>
+</div>
+
+<main>
+  <!-- POSICIONES -->
+  <div id="sec-posiciones" class="sec active">
+    <div class="metrics" id="metrics"></div>
+
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Exacto — 3 pts</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>Diferencia goles — 2 pts</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--amber)"></div>Tendencia G/E/P — 1 pt</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--muted)"></div>Sin puntos — 0 pts</div>
+    </div>
+
+    <div class="standings-wrap">
+      <table class="standings-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Participante</th>
+            <th class="c" title="Exacto">✅</th>
+            <th class="c" title="Diferencia">🎯</th>
+            <th class="c" title="Tendencia">↕</th>
+            <th class="c">Total</th>
+          </tr>
+        </thead>
+        <tbody id="standings-body"></tbody>
+      </table>
+    </div>
+    <p style="margin-top:10px;font-size:11px;color:var(--muted);text-align:center">
+      Haz clic en un participante para ver su detalle partido a partido
+    </p>
+  </div>
+
+  <!-- PARTIDOS -->
+  <div id="sec-partidos" class="sec">
+    <div class="section-header">
+      <div class="section-title">Resultados y Fixture</div>
+    </div>
+    <div id="partidos-list"></div>
+  </div>
+</main>
+
+<footer>
+  Quiniela grupal · Datos de resultados: <a href="https://github.com/openfootball/worldcup.json" target="_blank">openfootball/worldcup.json</a> ·
+  Edita <code>quiniela.json</code> para actualizar predicciones
+</footer>
+
+<script>
+/* ── FLAGS ── */
+const FLAGS = {
+  'Mexico':'🇲🇽','South Africa':'🇿🇦','South Korea':'🇰🇷','Canada':'🇨🇦',
+  'Czech Republic':'🇨🇿','Bosnia & Herzegovina':'🇧🇦','Switzerland':'🇨🇭',
+  'Qatar':'🇶🇦','Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹',
+  'Scotland':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','USA':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺',
+  'Turkey':'🇹🇷','Germany':'🇩🇪','Curaçao':'🇨🇼','Ivory Coast':'🇨🇮',
+  'Ecuador':'🇪🇨','Netherlands':'🇳🇱','Japan':'🇯🇵','Sweden':'🇸🇪',
+  'Tunisia':'🇹🇳','Belgium':'🇧🇪','Egypt':'🇪🇬','Iran':'🇮🇷',
+  'New Zealand':'🇳🇿','Spain':'🇪🇸','Cape Verde':'🇨🇻','Saudi Arabia':'🇸🇦',
+  'Uruguay':'🇺🇾','France':'🇫🇷','Senegal':'🇸🇳','Norway':'🇳🇴',
+  'Iraq':'🇮🇶','Argentina':'🇦🇷','Algeria':'🇩🇿','Austria':'🇦🇹',
+  'Jordan':'🇯🇴','Portugal':'🇵🇹','DR Congo':'🇨🇩','Uzbekistan':'🇺🇿',
+  'Colombia':'🇨🇴','England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
+};
+const flag = n => FLAGS[n] || '⚽';
+
+/* ── SCORING ── */
+function calcPuntos(real, pred) {
+  if (!real || pred == null) return null;
+  const rl = real.local,   rv = real.visitante;
+  const pl = pred.local,   pv = pred.visitante;
+  if (rl === pl && rv === pv)             return { pts: 3, tipo: 'exact' };
+  if ((rl - rv) === (pl - pv))            return { pts: 2, tipo: 'diff' };
+  const rt = rl > rv ? 'L' : rl < rv ? 'V' : 'E';
+  const pt = pl > pv ? 'L' : pl < pv ? 'V' : 'E';
+  if (rt === pt)                          return { pts: 1, tipo: 'trend' };
+  return { pts: 0, tipo: 'zero' };
+}
+
+/* ── HELPERS ── */
+const MONTHS = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+function fmtDate(d) {
+  if (!d) return '';
+  const [y, m, day] = d.split('-');
+  return `${parseInt(day)} ${MONTHS[parseInt(m)]} ${y}`;
+}
+function isToday(d) {
+  const t = new Date();
+  return d === `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+}
+
+/* ── TABS ── */
+function showTab(name, btn) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── MAIN ── */
+async function init() {
+  let partidos, quiniela;
+
+  try {
+    const [pr, qr] = await Promise.all([
+      fetch('partidos.json'),
+      fetch('quiniela.json')
+    ]);
+    if (!pr.ok || !qr.ok) throw new Error('fetch failed');
+    partidos = await pr.json();
+    quiniela = await qr.json();
+  } catch(e) {
+    document.getElementById('standings-body').innerHTML =
+      `<tr><td colspan="6"><div class="msg">
+        ⚠️ No se pudo cargar <code>partidos.json</code> o <code>quiniela.json</code>.<br>
+        Asegúrate de que los archivos estén en la misma carpeta que este HTML.
+      </div></td></tr>`;
+    document.getElementById('last-update').textContent = 'Error al cargar datos';
+    return;
+  }
+
+  const jugados   = partidos.filter(p => p.resultado != null);
+  const pendientes = partidos.filter(p => p.resultado == null);
+  const partMap   = Object.fromEntries(partidos.map(p => [p.id, p]));
+
+  /* METRICS */
+  document.getElementById('last-update').textContent =
+    jugados.length > 0 ? `Último: ${jugados[jugados.length-1].partido}` : 'Sin resultados aún';
+
+  /* STANDINGS */
+  const participantes = quiniela.participantes || [];
+  const standings = participantes.map(p => {
+    let totalPts = 0, exactos = 0, difs = 0, trends = 0;
+    const detalle = [];
+
+    // Build a map of predictions by id
+    const predMap = {};
+    (p.predicciones || []).forEach(pr => { predMap[pr.id] = pr; });
+
+    jugados.forEach(partido => {
+      const pred = predMap[partido.id];
+      const res  = pred ? calcPuntos(partido.resultado, pred) : { pts: 0, tipo: 'zero' };
+      if (res) {
+        totalPts += res.pts;
+        if (res.tipo === 'exact') exactos++;
+        else if (res.tipo === 'diff') difs++;
+        else if (res.tipo === 'trend') trends++;
+        detalle.push({ partido, pred: pred || null, res });
+      }
+    });
+
+    return { nombre: p.nombre, totalPts, exactos, difs, trends, detalle };
+  });
+
+  standings.sort((a, b) => b.totalPts - a.totalPts || b.exactos - a.exactos || b.difs - a.difs);
+
+  const maxPts = jugados.length * 3;
+
+  document.getElementById('metrics').innerHTML = `
+    <div class="metric"><div class="metric-num">${jugados.length}</div><div class="metric-lbl">Partidos jugados</div></div>
+    <div class="metric"><div class="metric-num">${pendientes.length}</div><div class="metric-lbl">Por jugar</div></div>
+    <div class="metric"><div class="metric-num">${maxPts}</div><div class="metric-lbl">Pts máx. posibles</div></div>
+    <div class="metric"><div class="metric-num">${standings[0]?.totalPts ?? 0}</div><div class="metric-lbl">Puntaje líder</div></div>
+  `;
+
+  const badgeCls = i => ['badge-1','badge-2','badge-3'][i] ?? 'badge-n';
+  const rankLabel = i => i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : String(i + 1);
+
+  const tbody = document.getElementById('standings-body');
+  standings.forEach((s, i) => {
+    const detailId = `detail-${i}`;
+
+    // Main row
+    const tr = document.createElement('tr');
+    tr.className = 'data-row';
+    tr.setAttribute('aria-expanded', 'false');
+    tr.onclick = () => toggleDetail(detailId, tr);
+    tr.innerHTML = `
+      <td class="rank-cell"><span class="rank-medal">${rankLabel(i)}</span></td>
+      <td class="name-cell">${s.nombre}</td>
+      <td class="num-cell c-exact">${s.exactos}</td>
+      <td class="num-cell c-diff">${s.difs}</td>
+      <td class="num-cell c-trend">${s.trends}</td>
+      <td class="num-cell"><span class="pts-badge ${badgeCls(i)}">${s.totalPts}</span></td>
+    `;
+    tbody.appendChild(tr);
+
+    // Detail row
+    const dtr = document.createElement('tr');
+    dtr.className = 'detail-row';
+    const dtd = document.createElement('td');
+    dtd.colSpan = 6;
+    const panel = document.createElement('div');
+    panel.className = 'detail-panel';
+    panel.id = detailId;
+
+    const matchCards = s.detalle.map(d => {
+      const predStr = d.pred ? `${d.pred.local}-${d.pred.visitante}` : '?-?';
+      const realStr = `${d.partido.resultado.local}-${d.partido.resultado.visitante}`;
+      return `<div class="match-pill ${d.res.tipo}">
+        <span class="pill-name" title="${d.partido.partido}">${d.partido.partido}</span>
+        <span class="pill-scores">${predStr} → ${realStr}</span>
+        <span class="pill-pts ${d.res.tipo}">${d.res.pts}p</span>
+      </div>`;
+    }).join('');
+
+    panel.innerHTML = `
+      <div class="detail-header">
+        <span class="c-exact">✅ ${s.exactos} exactos (${s.exactos*3}p)</span>
+        <span class="c-diff">🎯 ${s.difs} diferencias (${s.difs*2}p)</span>
+        <span class="c-trend">↕ ${s.trends} tendencias (${s.trends}p)</span>
+        <span style="color:var(--muted)">Total: ${s.totalPts} pts de ${maxPts} posibles</span>
+      </div>
+      <div class="detail-grid">${matchCards}</div>
+    `;
+
+    dtd.appendChild(panel);
+    dtr.appendChild(dtd);
+    tbody.appendChild(dtr);
+  });
+
+  /* PARTIDOS VIEW */
+  const byDate = {};
+  partidos.forEach(p => {
+    if (!byDate[p.fecha]) byDate[p.fecha] = [];
+    byDate[p.fecha].push(p);
+  });
+
+  const sortedDates = Object.keys(byDate).sort();
+  let html = '';
+  sortedDates.forEach(date => {
+    const today = isToday(date);
+    const hasResults = byDate[date].some(p => p.resultado);
+    const allPending = byDate[date].every(p => !p.resultado);
+
+    const labelExtra = today ? '📅 Hoy · ' : '';
+    html += `<div class="date-sep">
+      <div class="date-line"></div>
+      <div class="date-lbl">${labelExtra}${fmtDate(date)}</div>
+      <div class="date-line"></div>
+    </div>`;
+
+    byDate[date].forEach(p => {
+      const teams = p.partido.split(' vs ');
+      const home = teams[0]?.trim() || '?';
+      const away = teams[1]?.trim() || '?';
+      const hasRes = p.resultado != null;
+      const scoreHtml = hasRes
+        ? `<div class="score-num">${p.resultado.local} – ${p.resultado.visitante}</div>`
+        : `<div class="score-num pending">vs</div>`;
+
+      html += `<div class="match-card">
+        <div class="team">
+          <span class="team-flag">${flag(home)}</span>
+          <span class="team-name">${home}</span>
+        </div>
+        <div class="score-center">
+          ${scoreHtml}
+          <div class="score-meta">${p.grupo || ''} · ${p.estadio || ''}</div>
+        </div>
+        <div class="team away">
+          <span class="team-flag">${flag(away)}</span>
+          <span class="team-name">${away}</span>
+        </div>
+      </div>`;
+    });
+  });
+
+  document.getElementById('partidos-list').innerHTML = html;
+}
+
+function toggleDetail(detailId, row) {
+  const panel = document.getElementById(detailId);
+  const isOpen = panel.classList.contains('open');
+  // Close all panels
+  document.querySelectorAll('.detail-panel.open').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.data-row').forEach(r => r.setAttribute('aria-expanded','false'));
+  // Open this one if it was closed
+  if (!isOpen) {
+    panel.classList.add('open');
+    row.setAttribute('aria-expanded', 'true');
+  }
+}
+
+init();
+</script>
+</body>
+</html>

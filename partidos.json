@@ -1,0 +1,888 @@
+[
+  {
+    "id": 1,
+    "fecha": "2026-06-11",
+    "partido": "Mexico vs South Africa",
+    "grupo": "Group A",
+    "estadio": "Mexico City",
+    "resultado": {
+      "local": 2,
+      "visitante": 0
+    }
+  },
+  {
+    "id": 2,
+    "fecha": "2026-06-11",
+    "partido": "South Korea vs Czech Republic",
+    "grupo": "Group A",
+    "estadio": "Guadalajara (Zapopan)",
+    "resultado": {
+      "local": 2,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 3,
+    "fecha": "2026-06-18",
+    "partido": "Czech Republic vs South Africa",
+    "grupo": "Group A",
+    "estadio": "Atlanta",
+    "resultado": null
+  },
+  {
+    "id": 4,
+    "fecha": "2026-06-18",
+    "partido": "Mexico vs South Korea",
+    "grupo": "Group A",
+    "estadio": "Guadalajara (Zapopan)",
+    "resultado": null
+  },
+  {
+    "id": 5,
+    "fecha": "2026-06-24",
+    "partido": "Czech Republic vs Mexico",
+    "grupo": "Group A",
+    "estadio": "Mexico City",
+    "resultado": null
+  },
+  {
+    "id": 6,
+    "fecha": "2026-06-24",
+    "partido": "South Africa vs South Korea",
+    "grupo": "Group A",
+    "estadio": "Monterrey (Guadalupe)",
+    "resultado": null
+  },
+  {
+    "id": 7,
+    "fecha": "2026-06-12",
+    "partido": "Canada vs Bosnia & Herzegovina",
+    "grupo": "Group B",
+    "estadio": "Toronto",
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 8,
+    "fecha": "2026-06-13",
+    "partido": "Qatar vs Switzerland",
+    "grupo": "Group B",
+    "estadio": "San Francisco Bay Area (Santa Clara)",
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 9,
+    "fecha": "2026-06-18",
+    "partido": "Switzerland vs Bosnia & Herzegovina",
+    "grupo": "Group B",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": null
+  },
+  {
+    "id": 10,
+    "fecha": "2026-06-18",
+    "partido": "Canada vs Qatar",
+    "grupo": "Group B",
+    "estadio": "Vancouver",
+    "resultado": null
+  },
+  {
+    "id": 11,
+    "fecha": "2026-06-24",
+    "partido": "Switzerland vs Canada",
+    "grupo": "Group B",
+    "estadio": "Vancouver",
+    "resultado": null
+  },
+  {
+    "id": 12,
+    "fecha": "2026-06-24",
+    "partido": "Bosnia & Herzegovina vs Qatar",
+    "grupo": "Group B",
+    "estadio": "Seattle",
+    "resultado": null
+  },
+  {
+    "id": 13,
+    "fecha": "2026-06-13",
+    "partido": "Brazil vs Morocco",
+    "grupo": "Group C",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 14,
+    "fecha": "2026-06-13",
+    "partido": "Haiti vs Scotland",
+    "grupo": "Group C",
+    "estadio": "Boston (Foxborough)",
+    "resultado": {
+      "local": 0,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 15,
+    "fecha": "2026-06-19",
+    "partido": "Scotland vs Morocco",
+    "grupo": "Group C",
+    "estadio": "Boston (Foxborough)",
+    "resultado": null
+  },
+  {
+    "id": 16,
+    "fecha": "2026-06-19",
+    "partido": "Brazil vs Haiti",
+    "grupo": "Group C",
+    "estadio": "Philadelphia",
+    "resultado": null
+  },
+  {
+    "id": 17,
+    "fecha": "2026-06-24",
+    "partido": "Scotland vs Brazil",
+    "grupo": "Group C",
+    "estadio": "Miami (Miami Gardens)",
+    "resultado": null
+  },
+  {
+    "id": 18,
+    "fecha": "2026-06-24",
+    "partido": "Morocco vs Haiti",
+    "grupo": "Group C",
+    "estadio": "Atlanta",
+    "resultado": null
+  },
+  {
+    "id": 19,
+    "fecha": "2026-06-12",
+    "partido": "USA vs Paraguay",
+    "grupo": "Group D",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": {
+      "local": 4,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 20,
+    "fecha": "2026-06-13",
+    "partido": "Australia vs Turkey",
+    "grupo": "Group D",
+    "estadio": "Vancouver",
+    "resultado": {
+      "local": 2,
+      "visitante": 0
+    }
+  },
+  {
+    "id": 21,
+    "fecha": "2026-06-19",
+    "partido": "USA vs Australia",
+    "grupo": "Group D",
+    "estadio": "Seattle",
+    "resultado": null
+  },
+  {
+    "id": 22,
+    "fecha": "2026-06-19",
+    "partido": "Turkey vs Paraguay",
+    "grupo": "Group D",
+    "estadio": "San Francisco Bay Area (Santa Clara)",
+    "resultado": null
+  },
+  {
+    "id": 23,
+    "fecha": "2026-06-25",
+    "partido": "Turkey vs USA",
+    "grupo": "Group D",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": null
+  },
+  {
+    "id": 24,
+    "fecha": "2026-06-25",
+    "partido": "Paraguay vs Australia",
+    "grupo": "Group D",
+    "estadio": "San Francisco Bay Area (Santa Clara)",
+    "resultado": null
+  },
+  {
+    "id": 25,
+    "fecha": "2026-06-14",
+    "partido": "Germany vs Curaçao",
+    "grupo": "Group E",
+    "estadio": "Houston",
+    "resultado": {
+      "local": 7,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 26,
+    "fecha": "2026-06-14",
+    "partido": "Ivory Coast vs Ecuador",
+    "grupo": "Group E",
+    "estadio": "Philadelphia",
+    "resultado": {
+      "local": 1,
+      "visitante": 0
+    }
+  },
+  {
+    "id": 27,
+    "fecha": "2026-06-20",
+    "partido": "Germany vs Ivory Coast",
+    "grupo": "Group E",
+    "estadio": "Toronto",
+    "resultado": null
+  },
+  {
+    "id": 28,
+    "fecha": "2026-06-20",
+    "partido": "Ecuador vs Curaçao",
+    "grupo": "Group E",
+    "estadio": "Kansas City",
+    "resultado": null
+  },
+  {
+    "id": 29,
+    "fecha": "2026-06-25",
+    "partido": "Curaçao vs Ivory Coast",
+    "grupo": "Group E",
+    "estadio": "Philadelphia",
+    "resultado": null
+  },
+  {
+    "id": 30,
+    "fecha": "2026-06-25",
+    "partido": "Ecuador vs Germany",
+    "grupo": "Group E",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": null
+  },
+  {
+    "id": 31,
+    "fecha": "2026-06-14",
+    "partido": "Netherlands vs Japan",
+    "grupo": "Group F",
+    "estadio": "Dallas (Arlington)",
+    "resultado": {
+      "local": 2,
+      "visitante": 2
+    }
+  },
+  {
+    "id": 32,
+    "fecha": "2026-06-14",
+    "partido": "Sweden vs Tunisia",
+    "grupo": "Group F",
+    "estadio": "Monterrey (Guadalupe)",
+    "resultado": {
+      "local": 5,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 33,
+    "fecha": "2026-06-20",
+    "partido": "Netherlands vs Sweden",
+    "grupo": "Group F",
+    "estadio": "Houston",
+    "resultado": null
+  },
+  {
+    "id": 34,
+    "fecha": "2026-06-20",
+    "partido": "Tunisia vs Japan",
+    "grupo": "Group F",
+    "estadio": "Monterrey (Guadalupe)",
+    "resultado": null
+  },
+  {
+    "id": 35,
+    "fecha": "2026-06-25",
+    "partido": "Japan vs Sweden",
+    "grupo": "Group F",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 36,
+    "fecha": "2026-06-25",
+    "partido": "Tunisia vs Netherlands",
+    "grupo": "Group F",
+    "estadio": "Kansas City",
+    "resultado": null
+  },
+  {
+    "id": 37,
+    "fecha": "2026-06-15",
+    "partido": "Belgium vs Egypt",
+    "grupo": "Group G",
+    "estadio": "Seattle",
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 38,
+    "fecha": "2026-06-15",
+    "partido": "Iran vs New Zealand",
+    "grupo": "Group G",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": {
+      "local": 2,
+      "visitante": 2
+    }
+  },
+  {
+    "id": 39,
+    "fecha": "2026-06-21",
+    "partido": "Belgium vs Iran",
+    "grupo": "Group G",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": null
+  },
+  {
+    "id": 40,
+    "fecha": "2026-06-21",
+    "partido": "New Zealand vs Egypt",
+    "grupo": "Group G",
+    "estadio": "Vancouver",
+    "resultado": null
+  },
+  {
+    "id": 41,
+    "fecha": "2026-06-26",
+    "partido": "Egypt vs Iran",
+    "grupo": "Group G",
+    "estadio": "Seattle",
+    "resultado": null
+  },
+  {
+    "id": 42,
+    "fecha": "2026-06-26",
+    "partido": "New Zealand vs Belgium",
+    "grupo": "Group G",
+    "estadio": "Vancouver",
+    "resultado": null
+  },
+  {
+    "id": 43,
+    "fecha": "2026-06-15",
+    "partido": "Spain vs Cape Verde",
+    "grupo": "Group H",
+    "estadio": "Atlanta",
+    "resultado": {
+      "local": 0,
+      "visitante": 0
+    }
+  },
+  {
+    "id": 44,
+    "fecha": "2026-06-15",
+    "partido": "Saudi Arabia vs Uruguay",
+    "grupo": "Group H",
+    "estadio": "Miami (Miami Gardens)",
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 45,
+    "fecha": "2026-06-21",
+    "partido": "Spain vs Saudi Arabia",
+    "grupo": "Group H",
+    "estadio": "Atlanta",
+    "resultado": null
+  },
+  {
+    "id": 46,
+    "fecha": "2026-06-21",
+    "partido": "Uruguay vs Cape Verde",
+    "grupo": "Group H",
+    "estadio": "Miami (Miami Gardens)",
+    "resultado": null
+  },
+  {
+    "id": 47,
+    "fecha": "2026-06-26",
+    "partido": "Cape Verde vs Saudi Arabia",
+    "grupo": "Group H",
+    "estadio": "Houston",
+    "resultado": null
+  },
+  {
+    "id": 48,
+    "fecha": "2026-06-26",
+    "partido": "Uruguay vs Spain",
+    "grupo": "Group H",
+    "estadio": "Guadalajara (Zapopan)",
+    "resultado": null
+  },
+  {
+    "id": 49,
+    "fecha": "2026-06-16",
+    "partido": "France vs Senegal",
+    "grupo": "Group I",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": {
+      "local": 3,
+      "visitante": 1
+    }
+  },
+  {
+    "id": 50,
+    "fecha": "2026-06-16",
+    "partido": "Iraq vs Norway",
+    "grupo": "Group I",
+    "estadio": "Boston (Foxborough)",
+    "resultado": {
+      "local": 1,
+      "visitante": 4
+    }
+  },
+  {
+    "id": 51,
+    "fecha": "2026-06-22",
+    "partido": "France vs Iraq",
+    "grupo": "Group I",
+    "estadio": "Philadelphia",
+    "resultado": null
+  },
+  {
+    "id": 52,
+    "fecha": "2026-06-22",
+    "partido": "Norway vs Senegal",
+    "grupo": "Group I",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": null
+  },
+  {
+    "id": 53,
+    "fecha": "2026-06-26",
+    "partido": "Norway vs France",
+    "grupo": "Group I",
+    "estadio": "Boston (Foxborough)",
+    "resultado": null
+  },
+  {
+    "id": 54,
+    "fecha": "2026-06-26",
+    "partido": "Senegal vs Iraq",
+    "grupo": "Group I",
+    "estadio": "Toronto",
+    "resultado": null
+  },
+  {
+    "id": 55,
+    "fecha": "2026-06-16",
+    "partido": "Argentina vs Algeria",
+    "grupo": "Group J",
+    "estadio": "Kansas City",
+    "resultado": null
+  },
+  {
+    "id": 56,
+    "fecha": "2026-06-16",
+    "partido": "Austria vs Jordan",
+    "grupo": "Group J",
+    "estadio": "San Francisco Bay Area (Santa Clara)",
+    "resultado": null
+  },
+  {
+    "id": 57,
+    "fecha": "2026-06-22",
+    "partido": "Argentina vs Austria",
+    "grupo": "Group J",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 58,
+    "fecha": "2026-06-22",
+    "partido": "Jordan vs Algeria",
+    "grupo": "Group J",
+    "estadio": "San Francisco Bay Area (Santa Clara)",
+    "resultado": null
+  },
+  {
+    "id": 59,
+    "fecha": "2026-06-27",
+    "partido": "Algeria vs Austria",
+    "grupo": "Group J",
+    "estadio": "Kansas City",
+    "resultado": null
+  },
+  {
+    "id": 60,
+    "fecha": "2026-06-27",
+    "partido": "Jordan vs Argentina",
+    "grupo": "Group J",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 61,
+    "fecha": "2026-06-17",
+    "partido": "Portugal vs DR Congo",
+    "grupo": "Group K",
+    "estadio": "Houston",
+    "resultado": null
+  },
+  {
+    "id": 62,
+    "fecha": "2026-06-17",
+    "partido": "Uzbekistan vs Colombia",
+    "grupo": "Group K",
+    "estadio": "Mexico City",
+    "resultado": null
+  },
+  {
+    "id": 63,
+    "fecha": "2026-06-23",
+    "partido": "Portugal vs Uzbekistan",
+    "grupo": "Group K",
+    "estadio": "Houston",
+    "resultado": null
+  },
+  {
+    "id": 64,
+    "fecha": "2026-06-23",
+    "partido": "Colombia vs DR Congo",
+    "grupo": "Group K",
+    "estadio": "Guadalajara (Zapopan)",
+    "resultado": null
+  },
+  {
+    "id": 65,
+    "fecha": "2026-06-27",
+    "partido": "Colombia vs Portugal",
+    "grupo": "Group K",
+    "estadio": "Miami (Miami Gardens)",
+    "resultado": null
+  },
+  {
+    "id": 66,
+    "fecha": "2026-06-27",
+    "partido": "DR Congo vs Uzbekistan",
+    "grupo": "Group K",
+    "estadio": "Atlanta",
+    "resultado": null
+  },
+  {
+    "id": 67,
+    "fecha": "2026-06-17",
+    "partido": "England vs Croatia",
+    "grupo": "Group L",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 68,
+    "fecha": "2026-06-17",
+    "partido": "Ghana vs Panama",
+    "grupo": "Group L",
+    "estadio": "Toronto",
+    "resultado": null
+  },
+  {
+    "id": 69,
+    "fecha": "2026-06-23",
+    "partido": "England vs Ghana",
+    "grupo": "Group L",
+    "estadio": "Boston (Foxborough)",
+    "resultado": null
+  },
+  {
+    "id": 70,
+    "fecha": "2026-06-23",
+    "partido": "Panama vs Croatia",
+    "grupo": "Group L",
+    "estadio": "Toronto",
+    "resultado": null
+  },
+  {
+    "id": 71,
+    "fecha": "2026-06-27",
+    "partido": "Panama vs England",
+    "grupo": "Group L",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": null
+  },
+  {
+    "id": 72,
+    "fecha": "2026-06-27",
+    "partido": "Croatia vs Ghana",
+    "grupo": "Group L",
+    "estadio": "Philadelphia",
+    "resultado": null
+  },
+  {
+    "id": 73,
+    "fecha": "2026-06-28",
+    "partido": "2A vs 2B",
+    "grupo": "Round of 32",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": null
+  },
+  {
+    "id": 74,
+    "fecha": "2026-06-29",
+    "partido": "1E vs 3A/B/C/D/F",
+    "grupo": "Round of 32",
+    "estadio": "Boston (Foxborough)",
+    "resultado": null
+  },
+  {
+    "id": 75,
+    "fecha": "2026-06-29",
+    "partido": "1F vs 2C",
+    "grupo": "Round of 32",
+    "estadio": "Monterrey (Guadalupe)",
+    "resultado": null
+  },
+  {
+    "id": 76,
+    "fecha": "2026-06-29",
+    "partido": "1C vs 2F",
+    "grupo": "Round of 32",
+    "estadio": "Houston",
+    "resultado": null
+  },
+  {
+    "id": 77,
+    "fecha": "2026-06-30",
+    "partido": "1I vs 3C/D/F/G/H",
+    "grupo": "Round of 32",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": null
+  },
+  {
+    "id": 78,
+    "fecha": "2026-06-30",
+    "partido": "2E vs 2I",
+    "grupo": "Round of 32",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 79,
+    "fecha": "2026-06-30",
+    "partido": "1A vs 3C/E/F/H/I",
+    "grupo": "Round of 32",
+    "estadio": "Mexico City",
+    "resultado": null
+  },
+  {
+    "id": 80,
+    "fecha": "2026-07-01",
+    "partido": "1L vs 3E/H/I/J/K",
+    "grupo": "Round of 32",
+    "estadio": "Atlanta",
+    "resultado": null
+  },
+  {
+    "id": 81,
+    "fecha": "2026-07-01",
+    "partido": "1D vs 3B/E/F/I/J",
+    "grupo": "Round of 32",
+    "estadio": "San Francisco Bay Area (Santa Clara)",
+    "resultado": null
+  },
+  {
+    "id": 82,
+    "fecha": "2026-07-01",
+    "partido": "1G vs 3A/E/H/I/J",
+    "grupo": "Round of 32",
+    "estadio": "Seattle",
+    "resultado": null
+  },
+  {
+    "id": 83,
+    "fecha": "2026-07-02",
+    "partido": "2K vs 2L",
+    "grupo": "Round of 32",
+    "estadio": "Toronto",
+    "resultado": null
+  },
+  {
+    "id": 84,
+    "fecha": "2026-07-02",
+    "partido": "1H vs 2J",
+    "grupo": "Round of 32",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": null
+  },
+  {
+    "id": 85,
+    "fecha": "2026-07-02",
+    "partido": "1B vs 3E/F/G/I/J",
+    "grupo": "Round of 32",
+    "estadio": "Vancouver",
+    "resultado": null
+  },
+  {
+    "id": 86,
+    "fecha": "2026-07-03",
+    "partido": "1J vs 2H",
+    "grupo": "Round of 32",
+    "estadio": "Miami (Miami Gardens)",
+    "resultado": null
+  },
+  {
+    "id": 87,
+    "fecha": "2026-07-03",
+    "partido": "1K vs 3D/E/I/J/L",
+    "grupo": "Round of 32",
+    "estadio": "Kansas City",
+    "resultado": null
+  },
+  {
+    "id": 88,
+    "fecha": "2026-07-03",
+    "partido": "2D vs 2G",
+    "grupo": "Round of 32",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 89,
+    "fecha": "2026-07-04",
+    "partido": "W74 vs W77",
+    "grupo": "Round of 16",
+    "estadio": "Philadelphia",
+    "resultado": null
+  },
+  {
+    "id": 90,
+    "fecha": "2026-07-04",
+    "partido": "W73 vs W75",
+    "grupo": "Round of 16",
+    "estadio": "Houston",
+    "resultado": null
+  },
+  {
+    "id": 91,
+    "fecha": "2026-07-05",
+    "partido": "W76 vs W78",
+    "grupo": "Round of 16",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": null
+  },
+  {
+    "id": 92,
+    "fecha": "2026-07-05",
+    "partido": "W79 vs W80",
+    "grupo": "Round of 16",
+    "estadio": "Mexico City",
+    "resultado": null
+  },
+  {
+    "id": 93,
+    "fecha": "2026-07-06",
+    "partido": "W83 vs W84",
+    "grupo": "Round of 16",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 94,
+    "fecha": "2026-07-06",
+    "partido": "W81 vs W82",
+    "grupo": "Round of 16",
+    "estadio": "Seattle",
+    "resultado": null
+  },
+  {
+    "id": 95,
+    "fecha": "2026-07-07",
+    "partido": "W86 vs W88",
+    "grupo": "Round of 16",
+    "estadio": "Atlanta",
+    "resultado": null
+  },
+  {
+    "id": 96,
+    "fecha": "2026-07-07",
+    "partido": "W85 vs W87",
+    "grupo": "Round of 16",
+    "estadio": "Vancouver",
+    "resultado": null
+  },
+  {
+    "id": 97,
+    "fecha": "2026-07-09",
+    "partido": "W89 vs W90",
+    "grupo": "Quarter-final",
+    "estadio": "Boston (Foxborough)",
+    "resultado": null
+  },
+  {
+    "id": 98,
+    "fecha": "2026-07-10",
+    "partido": "W93 vs W94",
+    "grupo": "Quarter-final",
+    "estadio": "Los Angeles (Inglewood)",
+    "resultado": null
+  },
+  {
+    "id": 99,
+    "fecha": "2026-07-11",
+    "partido": "W91 vs W92",
+    "grupo": "Quarter-final",
+    "estadio": "Miami (Miami Gardens)",
+    "resultado": null
+  },
+  {
+    "id": 100,
+    "fecha": "2026-07-11",
+    "partido": "W95 vs W96",
+    "grupo": "Quarter-final",
+    "estadio": "Kansas City",
+    "resultado": null
+  },
+  {
+    "id": 101,
+    "fecha": "2026-07-14",
+    "partido": "W97 vs W98",
+    "grupo": "Semi-final",
+    "estadio": "Dallas (Arlington)",
+    "resultado": null
+  },
+  {
+    "id": 102,
+    "fecha": "2026-07-15",
+    "partido": "W99 vs W100",
+    "grupo": "Semi-final",
+    "estadio": "Atlanta",
+    "resultado": null
+  },
+  {
+    "id": 103,
+    "fecha": "2026-07-18",
+    "partido": "L101 vs L102",
+    "grupo": "Match for third place",
+    "estadio": "Miami (Miami Gardens)",
+    "resultado": null
+  },
+  {
+    "id": 104,
+    "fecha": "2026-07-19",
+    "partido": "W101 vs W102",
+    "grupo": "Final",
+    "estadio": "New York/New Jersey (East Rutherford)",
+    "resultado": null
+  }
+]
