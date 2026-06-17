@@ -898,6 +898,7 @@ async function init() {
   
   // Populate admin panel dropdown and textarea initially
   updateAdminJsonOutput();
+  populateAdminSelect();
 }
 
 function renderDashboard(partidos, quiniela) {
@@ -1020,8 +1021,8 @@ function renderDashboard(partidos, quiniela) {
     tbody.appendChild(dtr);
   });
 
-  renderResultados(partidos);
-  renderCalendario(partidos);
+  renderResultados(currentPartidos);
+  renderCalendario(currentPartidos);
 
   const groupStandings = calcGroupStandings(partidos);
   const sortedGroups = Object.keys(groupStandings).sort();
@@ -1140,6 +1141,233 @@ function toggleDetail(detailId, row) {
     panel.classList.add('open');
     row.setAttribute('aria-expanded', 'true');
   }
+}
+
+/* ── RENDER RESULTADOS (partidos con resultado) ── */
+function renderResultados(partidos) {
+  const filter = document.getElementById('filter-resultados')?.value || 'ALL';
+  const lista = document.getElementById('resultados-list');
+  if (!lista) return;
+
+  const jugados = partidos
+    .filter(p => p.resultado != null)
+    .filter(p => filter === 'ALL' || p.grupo === filter)
+    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha) || b.id - a.id);
+
+  if (jugados.length === 0) {
+    lista.innerHTML = '<div class="msg">No hay resultados aún para esta fase.</div>';
+    return;
+  }
+
+  // Agrupar por fecha
+  const byDate = {};
+  jugados.forEach(p => {
+    if (!byDate[p.fecha]) byDate[p.fecha] = [];
+    byDate[p.fecha].push(p);
+  });
+
+  let html = '';
+  Object.keys(byDate).sort((a,b) => new Date(b) - new Date(a)).forEach(fecha => {
+    html += `<div class="date-sep"><div class="date-line"></div><div class="date-lbl">${fmtDate(fecha)}</div><div class="date-line"></div></div>`;
+    byDate[fecha].forEach(p => {
+      const [loc, vis] = p.partido.split(' vs ');
+      html += `
+        <div class="match-card reveal-card" style="animation-delay:0ms">
+          <div class="team">
+            <span class="team-flag">${flag(loc.trim())}</span>
+            <span class="team-name">${loc.trim()}</span>
+          </div>
+          <div class="score-center">
+            <div class="score-num">${p.resultado.local} – ${p.resultado.visitante}</div>
+            <div class="score-meta">${p.grupo} · ${p.estadio}</div>
+          </div>
+          <div class="team away">
+            <span class="team-flag">${flag(vis.trim())}</span>
+            <span class="team-name">${vis.trim()}</span>
+          </div>
+        </div>`;
+    });
+  });
+  lista.innerHTML = html;
+}
+
+/* ── RENDER CALENDARIO (partidos pendientes + entrada manual) ── */
+function renderCalendario(partidos) {
+  const filter = document.getElementById('filter-calendario')?.value || 'ALL';
+  const lista = document.getElementById('calendario-list');
+  if (!lista) return;
+
+  const pendientes = partidos
+    .filter(p => p.resultado == null)
+    .filter(p => filter === 'ALL' || p.grupo === filter)
+    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha) || a.id - b.id);
+
+  if (pendientes.length === 0) {
+    lista.innerHTML = '<div class="msg">🎉 ¡Todos los partidos de esta fase tienen resultado!</div>';
+    return;
+  }
+
+  const byDate = {};
+  pendientes.forEach(p => {
+    if (!byDate[p.fecha]) byDate[p.fecha] = [];
+    byDate[p.fecha].push(p);
+  });
+
+  let html = '';
+  Object.keys(byDate).sort().forEach(fecha => {
+    const todayMark = isToday(fecha) ? ' <span style="color:var(--amber);font-size:10px;font-weight:600;letter-spacing:1px;">HOY</span>' : '';
+    html += `<div class="date-sep"><div class="date-line"></div><div class="date-lbl">${fmtDate(fecha)}${todayMark}</div><div class="date-line"></div></div>`;
+    byDate[fecha].forEach(p => {
+      if (!p.partido.includes(' vs ')) return;
+      const [loc, vis] = p.partido.split(' vs ');
+      html += `
+        <div class="match-card" id="card-${p.id}">
+          <div class="team">
+            <span class="team-flag">${flag(loc.trim())}</span>
+            <span class="team-name">${loc.trim()}</span>
+          </div>
+          <div class="score-center">
+            <div class="score-num pending">vs</div>
+            <div class="score-meta">${p.grupo} · ${p.estadio}</div>
+            <div style="margin-top:8px;" id="inline-form-${p.id}">
+              <div style="display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap;">
+                <input type="number" id="il-loc-${p.id}" min="0" placeholder="Local"
+                  style="width:52px; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:5px 4px; color:var(--chalk); font-size:13px; font-family:'JetBrains Mono',monospace; outline:none;"
+                  onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+                <span style="color:var(--muted)">–</span>
+                <input type="number" id="il-vis-${p.id}" min="0" placeholder="Visita"
+                  style="width:52px; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:5px 4px; color:var(--chalk); font-size:13px; font-family:'JetBrains Mono',monospace; outline:none;"
+                  onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+                <button onclick="applyInlineScore(${p.id})"
+                  style="background:var(--gold); color:#0a0f0b; border:none; font-weight:600; border-radius:6px; padding:5px 12px; cursor:pointer; font-size:12px; white-space:nowrap; transition:opacity 0.2s;"
+                  onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">✅ Guardar</button>
+              </div>
+            </div>
+          </div>
+          <div class="team away">
+            <span class="team-flag">${flag(vis.trim())}</span>
+            <span class="team-name">${vis.trim()}</span>
+          </div>
+        </div>`;
+    });
+  });
+  lista.innerHTML = html;
+}
+
+/* ── INLINE SCORE ENTRY ── */
+function applyInlineScore(matchId) {
+  const locEl = document.getElementById(`il-loc-${matchId}`);
+  const visEl = document.getElementById(`il-vis-${matchId}`);
+  const loc = parseInt(locEl?.value);
+  const vis = parseInt(visEl?.value);
+
+  if (isNaN(loc) || isNaN(vis) || loc < 0 || vis < 0) {
+    alert('Ingresa marcador válido (números ≥ 0) para ambos equipos.');
+    return;
+  }
+
+  const partido = currentPartidos.find(p => p.id === matchId);
+  if (!partido) return;
+
+  partido.resultado = { local: loc, visitante: vis };
+
+  // Rebuild dashboard
+  renderDashboard(currentPartidos, currentQuinielaData);
+
+  // Show updated JSON
+  updateAdminJsonOutput();
+
+  // Stay on calendario tab
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-calendario').classList.add('active');
+  document.querySelector('[onclick*="calendario"]').classList.add('active');
+
+  // Flash notification
+  showToast(`✅ Marcador guardado en memoria. Descarga el JSON para persistir.`);
+}
+
+/* ── TOAST NOTIFICATION ── */
+function showToast(msg) {
+  let toast = document.getElementById('__toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = '__toast';
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a2e1c;border:1px solid var(--green);color:var(--chalk);padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.5);transition:opacity 0.4s;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 3500);
+}
+
+/* ── ADMIN PANEL ── */
+function toggleAdminPanel() {
+  const panel = document.getElementById('admin-panel');
+  if (!panel) return;
+  const visible = panel.style.display !== 'none';
+  panel.style.display = visible ? 'none' : 'block';
+  if (!visible) updateAdminJsonOutput();
+}
+
+function updateAdminJsonOutput() {
+  const ta = document.getElementById('admin-json-output');
+  if (ta) ta.value = JSON.stringify(currentPartidos, null, 2);
+}
+
+function copyAdminJson() {
+  updateAdminJsonOutput();
+  const ta = document.getElementById('admin-json-output');
+  navigator.clipboard.writeText(ta.value)
+    .then(() => showToast('📋 JSON copiado al portapapeles'))
+    .catch(() => { ta.select(); document.execCommand('copy'); showToast('📋 JSON copiado'); });
+}
+
+function downloadAdminJson() {
+  updateAdminJsonOutput();
+  const blob = new Blob([document.getElementById('admin-json-output').value], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'partidos.json';
+  a.click();
+  showToast('💾 Archivo descargado');
+}
+
+function applyManualScore() {
+  const sel = document.getElementById('admin-match-select');
+  const locEl = document.getElementById('admin-score-local');
+  const visEl = document.getElementById('admin-score-away');
+  if (!sel || !locEl || !visEl) return;
+
+  const matchId = parseInt(sel.value);
+  const loc = parseInt(locEl.value);
+  const vis = parseInt(visEl.value);
+
+  if (isNaN(matchId) || isNaN(loc) || isNaN(vis)) {
+    alert('Selecciona un partido e ingresa el marcador.');
+    return;
+  }
+
+  const partido = currentPartidos.find(p => p.id === matchId);
+  if (!partido) return;
+
+  partido.resultado = { local: loc, visitante: vis };
+  renderDashboard(currentPartidos, currentQuinielaData);
+  updateAdminJsonOutput();
+  showToast(`✅ Marcador de ${partido.partido} actualizado en memoria.`);
+
+  // Refresh select (partido now has result, should not appear)
+  populateAdminSelect();
+}
+
+function populateAdminSelect() {
+  const sel = document.getElementById('admin-match-select');
+  if (!sel) return;
+  const pending = currentPartidos.filter(p => p.resultado == null);
+  sel.innerHTML = pending.length === 0
+    ? '<option value="">-- Todos los partidos tienen resultado --</option>'
+    : pending.map(p => `<option value="${p.id}">${p.fecha} · ${p.partido}</option>`).join('');
 }
 
 init();
