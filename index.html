@@ -1183,8 +1183,12 @@ function renderDashboard(partidos, quiniela) {
     const matchCards = s.detalle.map(d => {
       const predStr = d.pred ? `${d.pred.local}-${d.pred.visitante}` : '?-?';
       const realStr = `${d.partido.resultado.local}-${d.partido.resultado.visitante}`;
+      const [loc, vis] = d.partido.partido.split(' vs ');
+      const pillLabel = loc && vis
+        ? `${flag(loc.trim())} ${loc.trim()} <span style="color:var(--muted);font-size:10px;">vs</span> ${flag(vis.trim())} ${vis.trim()}`
+        : d.partido.partido;
       return `<div class="match-pill ${d.res.tipo}">
-        <span class="pill-name" title="${d.partido.partido}">${d.partido.partido}</span>
+        <span class="pill-name" title="${d.partido.partido}">${pillLabel}</span>
         <span class="pill-scores">${predStr} → ${realStr}</span>
         <span class="pill-pts ${d.res.tipo}">${d.res.pts}p</span>
       </div>`;
