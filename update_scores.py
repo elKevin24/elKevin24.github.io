@@ -3,6 +3,21 @@ import json
 import urllib.request
 from datetime import datetime, timezone
 
+def load_env():
+    """Carga variables de entorno desde un archivo .env local si existe."""
+    if os.path.exists('.env'):
+        with open('.env', 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    parts = line.split('=', 1)
+                    if len(parts) == 2:
+                        k, v = parts[0].strip(), parts[1].strip().strip('"').strip("'")
+                        os.environ[k] = v
+
+# Cargar variables de entorno al iniciar
+load_env()
+
 def parse_kickoff(s):
     # Parsea formatos ISO como '2026-06-16T21:00:00-06:00' en objetos datetime con zona horaria
     return datetime.fromisoformat(s)
@@ -25,6 +40,21 @@ def fetch_live_scores(api_key, api_type, date_str):
                         }
                     ]
                 }
+            }
+            return mock_data
+        elif api_type == "OPEN_FOOTBALL":
+            print("[TEST_MODE] Simulando respuesta de OpenFootball...")
+            mock_data = {
+                "matches": [
+                    {
+                        "round": "Matchday 6",
+                        "date": "2026-06-16",
+                        "time": "21:00 UTC-7",
+                        "team1": "Austria",
+                        "team2": "Jordan",
+                        "score": {"ft": [3, 1]}
+                    }
+                ]
             }
             return mock_data
         else:
@@ -58,6 +88,9 @@ def fetch_live_scores(api_key, api_type, date_str):
     elif api_type == "LIVE_SCORE_API":
         api_secret = os.environ.get("API_SECRET", "")
         url = f"https://livescore-api.com/api-client/scores/history.json?key={api_key}&secret={api_secret}&date={date_str}&league=1"
+        headers = {}
+    elif api_type == "OPEN_FOOTBALL":
+        url = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
         headers = {}
     else: # API_SPORTS (directa de API-Football)
         url = f"https://v3.football.api-sports.io/fixtures?league=1&season=2026&date={date_str}"
@@ -110,20 +143,51 @@ def main():
     api_key = os.environ.get("API_KEY")
     api_type = os.environ.get("API_TYPE", "API_SPORTS")
     
-    if not api_key and os.environ.get("TEST_MODE") != "true":
-        print("Error: API_KEY no configurada. Configura el secreto en tu repositorio.")
-        return
+    failed_api = False
+    if api_type != "OPEN_FOOTBALL" and not api_key and os.environ.get("TEST_MODE") != "true":
+        print("Advertencia: API_KEY no configurada. Se activará fallback a OPEN_FOOTBALL.")
+        failed_api = True
 
     # Consultamos la API externa
     api_fixtures = []
-    for d_str in dates_to_query:
-        api_response = fetch_live_scores(api_key, api_type, d_str)
-        if api_response:
-            if api_type == "LIVE_SCORE_API" and api_response.get("success"):
-                matches = api_response.get("data", {}).get("match", [])
-                api_fixtures.extend(matches)
-            elif "response" in api_response:
-                api_fixtures.extend(api_response["response"])
+
+    if api_type == "OPEN_FOOTBALL":
+        api_response = fetch_live_scores(None, "OPEN_FOOTBALL", None)
+        if api_response and "matches" in api_response:
+            api_fixtures = api_response["matches"]
+        else:
+            failed_api = True
+    elif not failed_api:
+        for d_str in dates_to_query:
+            api_response = fetch_live_scores(api_key, api_type, d_str)
+            if api_response:
+                # Verificar errores de plan en la respuesta de la API
+                if isinstance(api_response, dict) and "errors" in api_response and api_response["errors"]:
+                    errs = api_response["errors"]
+                    if isinstance(errs, dict) or (isinstance(errs, list) and len(errs) > 0) or (isinstance(errs, str) and errs):
+                        print(f"Error detectado en la respuesta de la API ({api_type}): {errs}")
+                        failed_api = True
+                        break
+
+                if api_type == "LIVE_SCORE_API" and api_response.get("success"):
+                    matches = api_response.get("data", {}).get("match", [])
+                    api_fixtures.extend(matches)
+                elif "response" in api_response:
+                    api_fixtures.extend(api_response["response"])
+            else:
+                failed_api = True
+                break
+
+    # Fallback automático a OPEN_FOOTBALL
+    if failed_api and api_type != "OPEN_FOOTBALL":
+        print(f"\n⚠️ El proveedor principal ({api_type}) falló o no tiene acceso. Intentando fallback a OPEN_FOOTBALL...")
+        api_response = fetch_live_scores(None, "OPEN_FOOTBALL", None)
+        if api_response and "matches" in api_response:
+            api_fixtures = api_response["matches"]
+            api_type = "OPEN_FOOTBALL"  # Cambiar tipo para procesar
+            failed_api = False
+        else:
+            print("❌ El fallback a OPEN_FOOTBALL también falló.")
 
     # Crear mapa de búsqueda
     api_lookup = {}
@@ -131,6 +195,11 @@ def main():
         for m in api_fixtures:
             home = m.get("home_name", "").strip()
             away = m.get("away_name", "").strip()
+            api_lookup[(home, away)] = m
+    elif api_type == "OPEN_FOOTBALL":
+        for m in api_fixtures:
+            home = m.get("team1", "").strip()
+            away = m.get("team2", "").strip()
             api_lookup[(home, away)] = m
     else:
         for f in api_fixtures:
@@ -164,6 +233,19 @@ def main():
                             print(f"Error al parsear marcador '{score_str}': {e}")
                 else:
                     print(f"Partido {p['partido']} sigue en juego (Live-Score-API Estado: {status}). Omitiendo guardado.")
+            elif api_type == "OPEN_FOOTBALL":
+                score = api_match.get("score", {})
+                if isinstance(score, dict) and "ft" in score:
+                    ft = score["ft"]
+                    if isinstance(ft, list) and len(ft) == 2 and ft[0] is not None and ft[1] is not None:
+                        p['resultado'] = {
+                            "local": ft[0],
+                            "visitante": ft[1]
+                        }
+                        updated = True
+                        print(f"Resultado FINALIZADO guardado (OpenFootball) para {p['partido']}: {ft[0]}-{ft[1]}")
+                else:
+                    print(f"Partido {p['partido']} no tiene resultado finalizado en OpenFootball.")
             else:
                 status_short = api_match.get("fixture", {}).get("status", {}).get("short")
                 if status_short in ["FT", "AET", "PEN"]:

@@ -1,0 +1,434 @@
+{
+  "2D": {
+    "idTeam": "146863",
+    "name": "2Drots",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/dwyj461694409438.png",
+    "logo": null,
+    "stadium": "",
+    "stadium_thumb": null,
+    "banner": null
+  },
+  "Algeria": {
+    "idTeam": "134516",
+    "name": "Algeria",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/rrwpry1455460218.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/9faygn1725671229.png",
+    "stadium": "Stade Nelson-Mandela",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/kgtrn71777370059.jpg"
+  },
+  "Argentina": {
+    "idTeam": "134509",
+    "name": "Argentina",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/3zplhu1726167477.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/r7pn8c1726167467.png",
+    "stadium": "Estadio Mâs Monumental",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/qsekrw1630938838.jpg"
+  },
+  "Australia": {
+    "idTeam": "134500",
+    "name": "Australia",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/lark6k1661780848.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/pmbrbx1597946657.png",
+    "stadium": "Melbourne Cricket Ground",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/bkgnzi1777370336.jpg"
+  },
+  "Austria": {
+    "idTeam": "135986",
+    "name": "Austria",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/874p631628721400.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/9cas5n1622190843.png",
+    "stadium": "Ernst-Happel-Stadion",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/xizanh1622190626.jpg"
+  },
+  "Belgium": {
+    "idTeam": "134515",
+    "name": "Belgium",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/8xlvxv1592062265.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/0kz0ai1592062266.png",
+    "stadium": "Stade Roi Baudouin",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/p9v5x91592065491.jpg"
+  },
+  "Brazil": {
+    "idTeam": "134496",
+    "name": "Brazil",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/jl6dip1726167280.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/isajst1668434350.png",
+    "stadium": "Estádio do Maracanã",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/ryskjz1777720201.jpg"
+  },
+  "Canada": {
+    "idTeam": "140073",
+    "name": "Canada",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/2t631f1595154867.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/kvexmu1595154868.png",
+    "stadium": "BMO Field",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/scfgjz1777919866.jpg"
+  },
+  "Cape Verde": {
+    "idTeam": "136477",
+    "name": "Cape Verde",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/5jn0o71593280376.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/osoruq1740100324.png",
+    "stadium": "Estádio Nacional de Cabo Verde",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/eyplqz1777920055.jpg"
+  },
+  "Colombia": {
+    "idTeam": "134501",
+    "name": "Colombia",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/4ymyku1691180081.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/216ygz1691180247.png",
+    "stadium": "Estadio Metropolitano Roberto Meléndez",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/4q0hly1777984287.jpg"
+  },
+  "Croatia": {
+    "idTeam": "133912",
+    "name": "Croatia",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/vvtsyu1455465317.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/s3gxxc1720451284.png",
+    "stadium": "Stadion Maksimir",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/egbs5p1720451918.jpg"
+  },
+  "Curaçao": {
+    "idTeam": "140271",
+    "name": "Curaçao",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/itygvb1600955363.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/x5uzc11600955378.png",
+    "stadium": "Stadion Ergilio Hato",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/o27a8b1779194707.jpg"
+  },
+  "Czech Republic": {
+    "idTeam": "133904",
+    "name": "Czech Republic",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/1o0cx31654205806.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/1xhb921780306249.png",
+    "stadium": "epet ARENA",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/822z891780409251.jpg"
+  },
+  "DR Congo": {
+    "idTeam": "136475",
+    "name": "DR Congo",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/s85jjw1728749022.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/3kj9y61740102240.png",
+    "stadium": "Stade des Martyrs",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/ay2trb1779195228.jpg"
+  },
+  "Ecuador": {
+    "idTeam": "134507",
+    "name": "Ecuador",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/47wv2y1591989301.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/suv9my1591989309.png",
+    "stadium": "Estadio Rodrigo Paz Delgado",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/iy2zlf1780409437.jpg"
+  },
+  "Egypt": {
+    "idTeam": "136138",
+    "name": "Egypt",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/uheyzo1742102234.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/0ewzff1740102372.png",
+    "stadium": "Misr Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/pa7bwc1780568753.jpg"
+  },
+  "England": {
+    "idTeam": "133914",
+    "name": "England",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/vf5ttc1726166739.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/3eklex1591997885.png",
+    "stadium": "Wembley Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/v4wfj41527722087.jpg"
+  },
+  "France": {
+    "idTeam": "133913",
+    "name": "France",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/p3n0z51726166851.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/a9iwwu1590266006.png",
+    "stadium": "Stade de France",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/gwq86o1592040475.jpg"
+  },
+  "Germany": {
+    "idTeam": "133907",
+    "name": "Germany",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/1xysi51726167152.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/1048po1718110681.png",
+    "stadium": "Olympiastadion Berlin",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/o6pp5v1718113338.jpg"
+  },
+  "Ghana": {
+    "idTeam": "134513",
+    "name": "Ghana",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/j589xw1751526124.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/jhalsc1740105058.png",
+    "stadium": "Accra Sports Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/2kds0w1780490873.jpg"
+  },
+  "Haiti": {
+    "idTeam": "140175",
+    "name": "Haiti",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/gml8wx1598135302.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/hla5gm1740070974.png",
+    "stadium": "Stade Sylvio Cator",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/ig0pi41779189863.jpg"
+  },
+  "Iran": {
+    "idTeam": "134511",
+    "name": "Iran",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/uttpvw1455465617.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/qjzw4e1597860577.png",
+    "stadium": "Azadi Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/4w6n1f1780472017.jpg"
+  },
+  "Iraq": {
+    "idTeam": "140148",
+    "name": "Iraq",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/aqidfn1742100110.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/14jl2g1761234378.png",
+    "stadium": "Basra International Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/by4wlo1780490065.jpg"
+  },
+  "Ivory Coast": {
+    "idTeam": "134502",
+    "name": "Ivory Coast",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/rwxuuu1455465643.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/nm5l8x1740105862.png",
+    "stadium": "Stade Olympique Alassane Ouattara",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/v8i3vt1779194962.jpg"
+  },
+  "Japan": {
+    "idTeam": "134503",
+    "name": "Japan",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/ffsyxz1591989843.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/i6gb8y1779185584.png",
+    "stadium": "Saitama Stadium 2002",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/dvkzme1779189458.jpg"
+  },
+  "Jordan": {
+    "idTeam": "151748",
+    "name": "Jordan",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/qbr00n1743927472.png",
+    "logo": null,
+    "stadium": "",
+    "stadium_thumb": null,
+    "banner": null
+  },
+  "Mexico": {
+    "idTeam": "134497",
+    "name": "Mexico",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/3rmosi1748525208.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/76mvr81597946801.png",
+    "stadium": "Estadio Azteca",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/ntd9w81780424621.jpg"
+  },
+  "Morocco": {
+    "idTeam": "136139",
+    "name": "Morocco",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/hbmwkj1731791275.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/4yyad31742006394.png",
+    "stadium": "Prince Moulay Abdellah Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/c5uj231781003087.jpg"
+  },
+  "Netherlands": {
+    "idTeam": "133905",
+    "name": "Netherlands",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/1p0hr41593787110.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/eo30rc1668866416.png",
+    "stadium": "Johan Cruijff ArenA",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/1i0ce91781002933.jpg"
+  },
+  "New Zealand": {
+    "idTeam": "137449",
+    "name": "New Zealand",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/91xpk81742982935.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/dyqm6g1740186929.png",
+    "stadium": "North Harbour Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/ry5wbv1781002987.jpg"
+  },
+  "Norway": {
+    "idTeam": "136516",
+    "name": "Norway",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/gyfn811591973155.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/lfdoca1599315067.png",
+    "stadium": "Ullevaal Stadion",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/ipvu7c1781003192.jpg"
+  },
+  "Panama": {
+    "idTeam": "136141",
+    "name": "Panama",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/asp2ck1715849700.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/cu6g8j1597947384.png",
+    "stadium": "Rommel Fernández Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/uhjqu11781003252.jpg"
+  },
+  "Paraguay": {
+    "idTeam": "136471",
+    "name": "Paraguay",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/khgav41553419195.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/9oax241780472108.png",
+    "stadium": "Estadio Defensores del Chaco",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/dcjlgv1780472263.jpg"
+  },
+  "Portugal": {
+    "idTeam": "133908",
+    "name": "Portugal",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/swqvpy1455466083.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/4jwa1i1599314931.png",
+    "stadium": "Estádio Nacional do Jamor",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/f3b0fm1781003425.jpg"
+  },
+  "Qatar": {
+    "idTeam": "136472",
+    "name": "Qatar",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/rs3ir31642708685.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/syrgig1597936164.png",
+    "stadium": "Jassim Bin Hamad Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/say7gf1781003510.jpg"
+  },
+  "Saudi Arabia": {
+    "idTeam": "136137",
+    "name": "Saudi Arabia",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/24xwpq1594125742.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/12u0bb1668856387.png",
+    "stadium": "Prince Faisal bin Fahd Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/lbtvrp1781003558.jpg"
+  },
+  "Scotland": {
+    "idTeam": "136450",
+    "name": "Scotland",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/3691i11552945146.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/kz9e6m1718110195.png",
+    "stadium": "Hampden Park",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/if3ycn1718110572.jpg"
+  },
+  "Senegal": {
+    "idTeam": "136143",
+    "name": "Senegal",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/slayb01780546342.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/bhfal41780546384.png",
+    "stadium": "Stade Léopold Sédar Senghor",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/hc5imc1780567805.jpg"
+  },
+  "South Africa": {
+    "idTeam": "136482",
+    "name": "South Africa",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/xjz9j91553368824.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/65pfft1779967232.png",
+    "stadium": "FNB Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/6mzsgc1780649154.jpg"
+  },
+  "South Korea": {
+    "idTeam": "134517",
+    "name": "South Korea",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/a8nqfs1589564916.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/4r9qrc1597947773.png",
+    "stadium": "Seoul World Cup Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/cwbizx1779189681.jpg"
+  },
+  "Spain": {
+    "idTeam": "133909",
+    "name": "Spain",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/ncgqyr1726166942.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/5p8fhy1616514698.png",
+    "stadium": "Estadio Santiago Bernabéu",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/pap5my1622884446.jpg"
+  },
+  "Sweden": {
+    "idTeam": "133916",
+    "name": "Sweden",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/h5adzg1591981772.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/cm7iew1591981773.png",
+    "stadium": "Strawberry Arena",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/3ozjh81780651306.jpg"
+  },
+  "Switzerland": {
+    "idTeam": "134506",
+    "name": "Switzerland",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/mb7yqe1717365808.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/8rptij1599314635.png",
+    "stadium": "Stade de Genève",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/hk21hi1779275394.jpg"
+  },
+  "Tunisia": {
+    "idTeam": "136142",
+    "name": "Tunisia",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/7r89rg1526727277.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/ghk06z1742004672.png",
+    "stadium": "Stade Olympique de Radès",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/4gr67f1779188894.jpg"
+  },
+  "Turkey": {
+    "idTeam": "135985",
+    "name": "Turkey",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/70c4oo1591982459.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/lwrfk61780503784.png",
+    "stadium": "Rams Park",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/c1zsyx1780648815.jpg"
+  },
+  "USA": {
+    "idTeam": "134514",
+    "name": "USA",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/21f0oi1597948195.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/b09tk51597948183.png",
+    "stadium": "",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/k4mls81773846954.jpg"
+  },
+  "Uruguay": {
+    "idTeam": "134504",
+    "name": "Uruguay",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/6vjbr11726167756.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/3mg0fp1780257477.png",
+    "stadium": "Estadio Centenario",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/uolhxc1780648550.jpg"
+  },
+  "Uzbekistan": {
+    "idTeam": "140151",
+    "name": "Uzbekistan",
+    "badge": "https://r2.thesportsdb.com/images/media/team/badge/u5bgze1597943605.png",
+    "logo": "https://r2.thesportsdb.com/images/media/team/logo/sd891j1597943605.png",
+    "stadium": "Milliy Stadium",
+    "stadium_thumb": null,
+    "banner": "https://r2.thesportsdb.com/images/media/team/banner/uv97n11780475330.jpg"
+  }
+}
