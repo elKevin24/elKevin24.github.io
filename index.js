@@ -179,7 +179,7 @@ let lastScoreKey = "";
 
 async function loadLiveMatchInfo() {
   try {
-    const response = await fetch('live_match.json');
+    const response = await fetch('live_match.json?_t=' + new Date().getTime());
     if (!response.ok) {
       console.warn('No se pudo cargar live_match.json');
       return;
@@ -302,9 +302,10 @@ async function init() {
 
   try {
     console.log('%c[API]%c Cargando partidos.json y quiniela.json locales...', 'color: #3b82f6; font-weight: bold;', 'color: inherit;');
+    const cacheBuster = '?_t=' + new Date().getTime();
     const [pr, qr] = await Promise.all([
-      fetch('partidos.json'),
-      fetch('quiniela.json')
+      fetch('partidos.json' + cacheBuster),
+      fetch('quiniela.json' + cacheBuster)
     ]);
     if (!pr.ok || !qr.ok) throw new Error('fetch failed');
     partidos = await pr.json();
