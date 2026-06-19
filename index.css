@@ -126,7 +126,7 @@ main {
 /* ── METRICS ── */
 .metrics {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-bottom: 24px;
 }
@@ -432,7 +432,7 @@ footer a { color: var(--gold2); text-decoration: none; }
 /* ── GROUPS GRID ── */
 .groups-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 16px;
   margin-top: 16px;
 }
@@ -657,19 +657,178 @@ footer a { color: var(--gold2); text-decoration: none; }
   margin-bottom: 8px;
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 540px) {
-  .metrics { grid-template-columns: repeat(2, 1fr); }
-  .match-card { grid-template-columns: 1fr; gap: 6px; }
-  .team.away { flex-direction: row; }
-  .team.away .team-name { text-align: left; }
-  .score-center { text-align: left; }
+/* ══════════════════════════════════════════
+   MOBILE-FIRST RESPONSIVE SYSTEM
+   Base = Mobile (< 480px)
+   ══════════════════════════════════════════ */
+
+/* ── Base mobile styles ── */
+header {
+  padding: 10px 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.logo-title { font-size: 18px; }
+
+.tabs {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 10px 14px;
+  min-height: 44px;
+  font-size: 11px;
+}
+
+main {
+  padding: 14px 12px 80px;
+}
+
+/* Match card: apilado en móvil */
+.match-card {
+  grid-template-columns: 1fr;
+  gap: 4px;
+  padding: 10px 12px;
+}
+.team.away {
+  flex-direction: row;
+}
+.team.away .team-name {
+  text-align: left;
+}
+.score-center {
+  text-align: left;
+  border-top: 1px solid rgba(30,51,34,0.5);
+  padding-top: 8px;
+  margin-top: 2px;
+}
+
+/* Standings: solo Nombre + Total en móvil */
+.standings-table td:nth-child(3),
+.standings-table td:nth-child(4),
+.standings-table td:nth-child(5),
+.standings-table th:nth-child(3),
+.standings-table th:nth-child(4),
+.standings-table th:nth-child(5) { display: none; }
+
+/* Detail filters: columna */
+.detail-filters { flex-direction: column; }
+.custom-select-wrapper { width: 100%; }
+.custom-select-trigger { width: 100%; box-sizing: border-box; }
+
+/* Section header: wrap */
+.section-header { flex-wrap: wrap; }
+
+/* Prediction rows: columna */
+.prediction-row {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.prediction-score { justify-content: flex-start; }
+
+/* Live match: score más pequeño */
+.live-score { font-size: 24px; }
+.live-team-name { font-size: 13px; }
+.live-match-teams { gap: 8px; }
+
+/* Participant header */
+.participant-header { flex-direction: column; align-items: flex-start; }
+
+/* Admin panel */
+#admin-match-select { width: 100% !important; max-width: 100% !important; }
+
+/* Stadiums grid */
+#stadiums-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+  gap: 14px !important;
+}
+
+/* ── 480px: Teléfono grande / landscape ── */
+@media (min-width: 480px) {
+  header { padding: 12px 20px; flex-wrap: nowrap; }
+  .logo-title { font-size: 20px; }
+  main { padding: 20px 16px 60px; }
+
+  .match-card {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .team.away { flex-direction: row-reverse; }
+  .team.away .team-name { text-align: right; }
+  .score-center {
+    text-align: center;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
   .standings-table td:nth-child(3),
   .standings-table td:nth-child(4),
   .standings-table td:nth-child(5),
   .standings-table th:nth-child(3),
   .standings-table th:nth-child(4),
-  .standings-table th:nth-child(5) { display: none; }
+  .standings-table th:nth-child(5) { display: table-cell; }
+
+  .prediction-row { grid-template-columns: 1fr auto; gap: 12px; }
+  .prediction-score { justify-content: flex-end; }
+
+  .live-score { font-size: 32px; }
+  .live-team-name { font-size: 16px; }
+  .live-match-teams { gap: 16px; }
+
+  .participant-header { flex-direction: row; align-items: center; }
+}
+
+/* ── 600px: Tablet portrait ── */
+@media (min-width: 600px) {
+  .metrics { grid-template-columns: repeat(4, 1fr); }
+  .detail-filters { flex-direction: row; }
+  .custom-select-wrapper { width: auto; }
+  .custom-select-trigger { width: auto; }
+  .tab-btn { font-size: 12px; padding: 8px 18px; min-height: auto; }
+}
+
+/* ── 768px: Tablet landscape ── */
+@media (min-width: 768px) {
+  header { padding: 14px 24px; }
+  .logo-title { font-size: 22px; }
+  main { padding: 24px 16px 60px; }
+}
+
+/* ── Touch: desactivar hover transforms ── */
+@media (hover: none) {
+  .match-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+  .match-pill:hover {
+    transform: none;
+    box-shadow: none;
+    background: var(--card);
+  }
+  .group-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+  .metric:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .stadium-card:hover {
+    transform: none;
+    border-color: var(--border);
+  }
+  .tab-btn:hover {
+    transform: none;
+    background: transparent;
+  }
+  .tab-btn.active:hover { background: var(--gold); }
+  .pts-badge:hover { transform: none; box-shadow: none; }
+  .pts-badge:hover::after { transform: translateX(-100%); }
 }
 
 
