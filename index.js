@@ -1402,7 +1402,25 @@ function applyManualScore() {
   partido.resultado = { local: loc, visitante: vis };
   renderDashboard(currentPartidos, currentQuinielaData);
   updateAdminJsonOutput();
-  showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria.`);
+
+  // Guardar en el servidor local de desarrollo si está disponible
+  fetch('/api/update-match', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id: matchId, local: loc, visitante: vis })
+  })
+  .then(res => {
+    if (res.ok) {
+      showToast(`✅ ${fmtPartido(partido.partido)} guardado directamente en partidos.json.`);
+    } else {
+      showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria. Descarga JSON para persistir.`);
+    }
+  })
+  .catch(() => {
+    showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria. Descarga JSON para persistir.`);
+  });
 
   // Refresh select (partido now has result, should not appear)
   populateAdminSelect();
