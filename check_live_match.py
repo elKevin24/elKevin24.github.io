@@ -289,13 +289,12 @@ def find_live_match_in_api(api_data, api_type, home_team, away_team):
 
 
 def fetch_worldcup_data():
-    """Obtiene los datos de la Copa del Mundo desde GitHub."""
+    """Obtiene los datos de los partidos desde el archivo local partidos.json."""
     try:
-        response = requests.get(WORLDCUP_URL, timeout=10)
-        response.raise_for_status()
-        return response.json()
-    except requests.RequestException as e:
-        print(f"❌ Error al obtener datos: {e}")
+        with open('partidos.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"❌ Error al obtener datos locales: {e}")
         return None
 
 
@@ -415,39 +414,69 @@ def calculate_match_status(match_start_minutes, current_minutes):
     return None, None
 
 
-def find_live_match(data, current_date, current_time):
+def find_live_match(partidos, current_date, current_time):
     """
-    Busca el partido en vivo o próximo en la fecha actual.
+    Busca el partido en vivo o próximo en la fecha actual a partir de partidos.json.
     """
     current_minutes = time_to_minutes(current_time)
 
     live_match = None
     next_match = None
 
-    if 'matches' not in data:
-        print("❌ Formato de datos inválido: no se encontró 'matches'")
-        return None, None
-
-    for match in data['matches']:
-        match_date = match.get('date', '')
+    for p in partidos:
+        match_date = p.get('fecha', '')
 
         # Solo procesar partidos de la fecha actual
         if match_date != current_date:
             continue
 
-        match_time_raw = match.get('time', '')
-        # Convertir a zona horaria de Guatemala
-        match_time = convert_match_time_to_guatemala(match_time_raw)
-        match_start_minutes = time_to_minutes(match_time)
+        # Si ya tiene un resultado guardado, el partido ya finalizó
+        if p.get('resultado') is not None:
+            continue
 
-        status, minute = calculate_match_status(match_start_minutes, current_minutes)
+        # Obtener kickoff
+        kickoff_str = p.get('kickoff', '')
+        if not kickoff_str:
+            continue
 
-        if status == 'live':
-            live_match = (match, minute)
-            break
+        try:
+            # Parsear kickoff y convertir a la zona horaria de Guatemala para calcular minutos
+            kickoff_dt = datetime.fromisoformat(kickoff_str)
+            tz_guat = ZoneInfo(TIMEZONE)
+            kickoff_guat = kickoff_dt.astimezone(tz_guat)
 
-        elif status == 'upcoming' and next_match is None:
-            next_match = match
+            match_time = kickoff_guat.strftime("%H:%M")
+            match_start_minutes = time_to_minutes(match_time)
+
+            status, minute = calculate_match_status(match_start_minutes, current_minutes)
+
+            if status == 'live':
+                # Mapeamos al formato que espera el resto del script
+                match_mapped = {
+                    "team1": p['partido'].split(' vs ')[0].strip(),
+                    "team2": p['partido'].split(' vs ')[1].strip(),
+                    "ground": p.get('estadio', ''),
+                    "date": p.get('fecha', ''),
+                    "time": kickoff_guat.strftime("%H:%M UTC-6"),
+                    "round": p.get('grupo', ''),
+                    "score": {
+                        "ft": [0, 0]
+                    }
+                }
+                live_match = (match_mapped, minute)
+                break
+
+            elif status == 'upcoming' and next_match is None:
+                next_match = {
+                    "team1": p['partido'].split(' vs ')[0].strip(),
+                    "team2": p['partido'].split(' vs ')[1].strip(),
+                    "ground": p.get('estadio', ''),
+                    "date": p.get('fecha', ''),
+                    "time": kickoff_guat.strftime("%H:%M UTC-6"),
+                    "round": p.get('grupo', '')
+                }
+        except Exception as ex:
+            print(f"Error al analizar kickoff del partido {p.get('id')}: {ex}")
 
     return live_match, next_match
 
