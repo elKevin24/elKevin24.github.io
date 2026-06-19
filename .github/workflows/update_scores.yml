@@ -34,7 +34,7 @@ jobs:
       - name: Run update scripts
         env:
           API_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-          API_TYPE: ${{ vars.API_TYPE }}       # API_SPORTS o RAPID_API
+          API_TYPE: ${{ vars.API_TYPE }}       # API_SPORTS, RAPID_API o FOOTBALL_DATA
           TEST_MODE: ${{ vars.TEST_MODE }}     # true para pruebas de simulación
         run: |
           # 0. Sanitizar datos de quiniela
@@ -56,13 +56,13 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           # Añadir todos los JSON actualizados
-          git add partidos.json live_match.json metadata_equipos.json
+          git add partidos.json live_match.json metadata_equipos.json quiniela.json
           
           if git diff --staged --quiet; then
             echo "No changes to commit"
             echo "updated=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Auto-update: scores, live status & metadata [skip ci]"
+            git commit -m "Auto-update: scores, live status, metadata & quiniela [skip ci]"
             git push
             echo "updated=true" >> $GITHUB_OUTPUT
           fi
