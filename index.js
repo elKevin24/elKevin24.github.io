@@ -1290,20 +1290,6 @@ function renderCalendario(partidos) {
           <div class="score-center">
             <div class="score-num pending">vs</div>
             <div class="score-meta">${p.grupo} · ${p.estadio}${p.live ? ' <span class="live-badge">EN VIVO</span>' : ''}</div>
-            <div style="margin-top:8px;" id="inline-form-${p.id}">
-              <div style="display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap;">
-                <input type="number" id="il-loc-${p.id}" min="0" placeholder="Local"
-                  style="width:52px; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:5px 4px; color:var(--chalk); font-size:13px; font-family:'JetBrains Mono',monospace; outline:none;"
-                  onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
-                <span style="color:var(--muted)">–</span>
-                <input type="number" id="il-vis-${p.id}" min="0" placeholder="Visita"
-                  style="width:52px; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:5px 4px; color:var(--chalk); font-size:13px; font-family:'JetBrains Mono',monospace; outline:none;"
-                  onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
-                <button onclick="applyInlineScore(${p.id})"
-                  style="background:var(--gold); color:#0a0f0b; border:none; font-weight:600; border-radius:6px; padding:5px 12px; cursor:pointer; font-size:12px; white-space:nowrap; transition:opacity 0.2s;"
-                  onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">✅ Guardar</button>
-              </div>
-            </div>
           </div>
           <div class="team away">
             <span class="team-flag">${flag(vis.trim())}</span>
