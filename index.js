@@ -49,11 +49,16 @@ function calcPuntos(real, pred) {
   if (!real || pred == null) return null;
   const rl = real.local,   rv = real.visitante;
   const pl = pred.local,   pv = pred.visitante;
-  if (rl === pl && rv === pv)             return { pts: 3, tipo: 'exact' };
-  if ((rl - rv) === (pl - pv))            return { pts: 2, tipo: 'diff' };
+  if (rl === pl && rv === pv) return { pts: 3, tipo: 'exact' };
   const rt = rl > rv ? 'L' : rl < rv ? 'V' : 'E';
   const pt = pl > pv ? 'L' : pl < pv ? 'V' : 'E';
-  if (rt === pt)                          return { pts: 1, tipo: 'trend' };
+  const matchedAnyScore = pl === rl || pv === rv;
+  if (rt === pt && rt !== 'E' && matchedAnyScore) {
+    return { pts: 2, tipo: 'diff' };
+  }
+  if (rt === pt || matchedAnyScore) {
+    return { pts: 1, tipo: 'trend' };
+  }
   return { pts: 0, tipo: 'zero' };
 }
 
@@ -108,7 +113,19 @@ function showTab(name, btn) {
   document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('sec-' + name).classList.add('active');
-  btn.classList.add('active');
+  
+  if (btn) {
+    btn.classList.add('active');
+  } else {
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(b => {
+      const clickAttr = b.getAttribute('onclick');
+      if (clickAttr && clickAttr.includes(`'${name}'`)) {
+        b.classList.add('active');
+      }
+    });
+  }
+  sessionStorage.setItem('activeTab', name);
 }
 
 /* ── SYNC STATUS BADGE ── */
@@ -146,7 +163,15 @@ function updateSyncStatus(status, text) {
 }
 
 /* ── SEARCH STANDINGS ── */
+let filterTimeout = null;
 function filterStandings() {
+  if (filterTimeout) clearTimeout(filterTimeout);
+  filterTimeout = setTimeout(() => {
+    _executeFilterStandings();
+  }, 200);
+}
+
+function _executeFilterStandings() {
   const query = document.getElementById('search-input').value.toLowerCase().trim();
   const rows = document.querySelectorAll('#standings-body tr.data-row');
   let foundCount = 0;
@@ -172,10 +197,77 @@ function filterStandings() {
   } else {
     countEl.textContent = '';
   }
+
+  // Manejo de estado vacío
+  let emptyRow = document.getElementById('standings-empty-state');
+  if (foundCount === 0 && query !== '') {
+    if (!emptyRow) {
+      emptyRow = document.createElement('tr');
+      emptyRow.id = 'standings-empty-state';
+      emptyRow.innerHTML = `
+        <td colspan="6" style="text-align: center; padding: 40px 20px; color: var(--muted);">
+          <div style="font-size: 24px; margin-bottom: 8px;">🔍</div>
+          <div>No se encontraron participantes para "<strong>${query.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</strong>"</div>
+        </td>
+      `;
+      document.getElementById('standings-body').appendChild(emptyRow);
+    } else {
+      emptyRow.style.display = '';
+      emptyRow.innerHTML = `
+        <td colspan="6" style="text-align: center; padding: 40px 20px; color: var(--muted);">
+          <div style="font-size: 24px; margin-bottom: 8px;">🔍</div>
+          <div>No se encontraron participantes para "<strong>${query.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</strong>"</div>
+        </td>
+      `;
+    }
+  } else {
+    if (emptyRow) emptyRow.style.display = 'none';
+  }
 }
 
 /* ── LOAD LIVE MATCH INFO ── */
 let lastScoreKey = "";
+let countdownInterval = null;
+
+function startNextMatchCountdown() {
+  if (countdownInterval) clearInterval(countdownInterval);
+  
+  const updateTimer = () => {
+    const el = document.getElementById('next-match-countdown');
+    if (!el) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+      return;
+    }
+    
+    const kickoffStr = el.getAttribute('data-kickoff');
+    if (!kickoffStr) return;
+    
+    const kickoff = new Date(kickoffStr);
+    const diff = kickoff.getTime() - Date.now();
+    
+    if (diff <= 0) {
+      el.innerHTML = "🏁 ¡El partido está por comenzar o ha comenzado!";
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+      return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    let display = "Comienza en: ";
+    if (days > 0) display += `${days}d `;
+    display += `${String(hours).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+    
+    el.innerHTML = `⏳ ${display}`;
+  };
+  
+  updateTimer();
+  countdownInterval = setInterval(updateTimer, 1000);
+}
 
 async function loadLiveMatchInfo() {
   try {
@@ -207,7 +299,7 @@ async function loadLiveMatchInfo() {
       container.innerHTML = `
         <div class="live-match-card ${flashClass}">
           <div class="live-badge">🔴 EN VIVO</div>
-          <div class="live-match-teams" style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; padding: 15px 0;">
+          <div class="live-match-teams">
             <div class="live-team" style="text-align: center;">
               ${b1 ? `<img src="${b1}" class="live-team-badge">` : flag(team1, 48)}
               <div class="live-team-name" style="font-weight: 700; font-size: 16px;">${team1}</div>
@@ -236,7 +328,7 @@ async function loadLiveMatchInfo() {
       container.innerHTML = `
         <div class="next-match-card">
           <div class="next-badge">⏰ Próximo</div>
-          <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; margin-bottom: 8px;">
+          <div class="next-match-teams">
             <div style="text-align: center; font-weight: 600; font-size: 14px;">
               ${b1 ? `<img src="${b1}" class="team-badge" style="display:block; margin:0 auto 4px;">` : flag(team1, 24)}
               ${team1}
@@ -247,11 +339,15 @@ async function loadLiveMatchInfo() {
               ${team2}
             </div>
           </div>
+          <div id="next-match-countdown" class="countdown-timer" data-kickoff="${next.date}T${next.time}:00-06:00" style="font-size: 13px; font-weight: 700; color: var(--gold); text-align: center; margin: 10px 0 6px;">
+            ⏳ Calculando tiempo...
+          </div>
           <div style="font-size: 11px; color: var(--muted); text-align: center; padding-top: 8px; border-top: 1px solid rgba(30,51,34,0.4);">
-            🏟️ ${next.stadium || 'Estadio'} • ⏰ ${next.time || 'N/A'}
+            🏟️ ${next.stadium || 'Estadio'} • 📅 ${next.date || ''} a las ${next.time || 'N/A'}
           </div>
         </div>
       `;
+      startNextMatchCountdown();
     } else {
       container.innerHTML = '';
     }
@@ -259,6 +355,18 @@ async function loadLiveMatchInfo() {
     console.warn('Error cargando live match info:', error);
   }
 }
+
+function setMyUser(nombre, event) {
+  if (event) event.stopPropagation();
+  const current = localStorage.getItem('myUser');
+  if (current === nombre) {
+    localStorage.removeItem('myUser');
+  } else {
+    localStorage.setItem('myUser', nombre);
+  }
+  renderDashboard(currentPartidos, currentQuinielaData);
+}
+window.setMyUser = setMyUser;
 
 /* ── MAIN ── */
 /* ── LEADERBOARD CALCULATOR ── */
@@ -371,6 +479,12 @@ async function init() {
     console.warn('markLive error:', err);
   }
   renderDashboard(partidos, quiniela);
+  
+  // Restaurar pestaña activa si existe
+  const activeTab = sessionStorage.getItem('activeTab');
+  if (activeTab && activeTab !== 'posiciones') {
+    showTab(activeTab);
+  }
   
   // Populate admin panel dropdown and textarea initially
   updateAdminJsonOutput();
@@ -486,10 +600,17 @@ function renderDashboard(partidos, quiniela) {
       }
     }
 
+    const isMe = s.nombre === localStorage.getItem('myUser');
     const tr = document.createElement('tr');
-    tr.className = 'data-row';
+    tr.className = 'data-row' + (isMe ? ' ego-item' : '');
     tr.setAttribute('aria-expanded', 'false');
+    tr.setAttribute('title', 'Haz clic para expandir y ver predicciones detalladas');
     tr.onclick = () => toggleDetail(detailId, tr);
+    
+    const nameDisplay = isMe 
+      ? `<span style="display:inline-flex; align-items:center; gap:6px; font-weight:700; color:var(--gold);">⭐ ${s.nombre} <span class="ego-tag" style="background:var(--gold); color:#000; font-size:9px; padding:2px 5px; border-radius:4px; font-weight:800; text-transform:uppercase; line-height:1;">Tú</span></span>`
+      : s.nombre;
+
     tr.innerHTML = `
       <td class="rank-cell">
         <div style="display:flex; align-items:center; justify-content:center; gap:6px;">
@@ -497,7 +618,12 @@ function renderDashboard(partidos, quiniela) {
           <span style="font-size:10px; font-family:'JetBrains Mono', monospace; min-width:24px; text-align:left; white-space:nowrap;">${trendHtml}</span>
         </div>
       </td>
-      <td class="name-cell">${s.nombre}</td>
+      <td class="name-cell">
+        <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+          <span>${nameDisplay}</span>
+          <span class="row-chevron" style="margin-left: 8px; font-size: 10px; opacity: 0.5; transition: transform 0.2s;">▸</span>
+        </div>
+      </td>
       <td class="num-cell c-exact">${s.exactos}</td>
       <td class="num-cell c-diff">${s.difs}</td>
       <td class="num-cell c-trend">${s.trends}</td>
@@ -543,12 +669,18 @@ function renderDashboard(partidos, quiniela) {
     const trendPct = totalDetalle > 0 ? (s.trends / totalDetalle) * 100 : 0;
     const zeroPct  = totalDetalle > 0 ? ((totalDetalle - s.exactos - s.difs - s.trends) / totalDetalle) * 100 : 0;
 
+    const meBtnText = isMe ? '⭐ Quitar marca de "yo"' : 'Marcar como yo';
+    const meBtnClass = isMe ? 'me-btn active' : 'me-btn';
+
     panel.innerHTML = `
-      <div class="detail-header" style="margin-bottom: 14px;">
-        <span class="c-exact">✅ ${s.exactos} exactos (${s.exactos*3}p)</span>
-        <span class="c-diff">🎯 ${s.difs} diferencias (${s.difs*2}p)</span>
-        <span class="c-trend">↕ ${s.trends} tendencias (${s.trends}p)</span>
-        <span style="color:var(--muted)">Total: ${s.totalPts} pts de ${maxPts} posibles</span>
+      <div class="detail-header" style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+          <span class="c-exact">✅ ${s.exactos} exactos (${s.exactos*3}p)</span>
+          <span class="c-diff">🎯 ${s.difs} gan. + marcador (${s.difs*2}p)</span>
+          <span class="c-trend">↕ ${s.trends} tend. / marcador (${s.trends}p)</span>
+          <span style="color:var(--muted)">Total: ${s.totalPts} pts de ${maxPts} posibles</span>
+        </div>
+        <button class="${meBtnClass}" onclick="setMyUser('${s.nombre.replace(/'/g, "\\'")}', event)">${meBtnText}</button>
       </div>
       <div class="accuracy-bar-container">
         <div class="accuracy-bar-label">
@@ -557,8 +689,8 @@ function renderDashboard(partidos, quiniela) {
         </div>
         <div class="accuracy-bar">
           <div class="accuracy-seg exact" style="width: ${exactPct}%" title="Exactos: ${s.exactos} (${Math.round(exactPct)}%)"></div>
-          <div class="accuracy-seg diff"  style="width: ${diffPct}%"  title="Diferencia de goles: ${s.difs} (${Math.round(diffPct)}%)"></div>
-          <div class="accuracy-seg trend" style="width: ${trendPct}%" title="Tendencia G/E/P: ${s.trends} (${Math.round(trendPct)}%)"></div>
+          <div class="accuracy-seg diff"  style="width: ${diffPct}%"  title="Ganador + marcador: ${s.difs} (${Math.round(diffPct)}%)"></div>
+          <div class="accuracy-seg trend" style="width: ${trendPct}%" title="Tendencia / marcador: ${s.trends} (${Math.round(trendPct)}%)"></div>
           <div class="accuracy-seg zero"  style="width: ${zeroPct}%"  title="Sin puntos: ${totalDetalle - s.exactos - s.difs - s.trends} (${Math.round(zeroPct)}%)"></div>
         </div>
         <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;">
@@ -568,11 +700,11 @@ function renderDashboard(partidos, quiniela) {
           </span>
           <span style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted);">
             <span style="width:8px;height:8px;border-radius:50%;background:var(--blue);display:inline-block;flex-shrink:0;"></span>
-            Diferencia de goles <strong style="color:var(--chalk); margin-left:2px;">${s.difs} × 2p</strong>
+            Ganador + marcador <strong style="color:var(--chalk); margin-left:2px;">${s.difs} × 2p</strong>
           </span>
           <span style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted);">
             <span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block;flex-shrink:0;"></span>
-            Tendencia G/E/P <strong style="color:var(--chalk); margin-left:2px;">${s.trends} × 1p</strong>
+            Tendencia / marcador <strong style="color:var(--chalk); margin-left:2px;">${s.trends} × 1p</strong>
           </span>
           <span style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted);">
             <span style="width:8px;height:8px;border-radius:50%;background:#3b4a3d;display:inline-block;flex-shrink:0;"></span>
@@ -770,9 +902,25 @@ function updateDetalleParticipants(quiniela) {
   const select = document.getElementById('filter-participante');
   if (!select || !quiniela) return;
   const participantes = (quiniela.participantes || []).map(p => p.nombre).filter(Boolean);
+  
+  // Guardar el valor actual por si ya hay selección activa
+  const currentValue = select.value;
+
   select.innerHTML = ['<option value="ALL">Todos los participantes</option>',
     ...participantes.map(nombre => `<option value="${nombre}">${nombre}</option>`)
   ].join('');
+
+  // Si hay un usuario preferido y el selector no tiene un valor establecido previamente
+  const myUser = localStorage.getItem('myUser');
+  if (myUser && participantes.includes(myUser)) {
+    if (!currentValue || currentValue === 'ALL') {
+      select.value = myUser;
+    } else {
+      select.value = currentValue;
+    }
+  } else if (currentValue && [ 'ALL', ...participantes ].includes(currentValue)) {
+    select.value = currentValue;
+  }
 }
 
 function updateDetalleGroups(partidos) {
@@ -835,25 +983,17 @@ function renderDetalle(partidos, quiniela) {
     const totalPreds = visiblePreds.length;
     const played = visiblePreds.filter(pred => partidosById[pred.id]?.resultado).length;
     const pending = totalPreds - played;
-    const exactos = visiblePreds.filter(pred => {
-      const real = partidosById[pred.id]?.resultado;
-      return real && real.local === pred.local && real.visitante === pred.visitante;
-    }).length;
-    const difs = visiblePreds.filter(pred => {
-      const real = partidosById[pred.id]?.resultado;
-      return real && real.local - real.visitante === pred.local - pred.visitante && !(real.local === pred.local && real.visitante === pred.visitante);
-    }).length;
-    const trends = visiblePreds.filter(pred => {
-      const real = partidosById[pred.id]?.resultado;
-      if (!real) return false;
-      const rt = real.local > real.visitante ? 'L' : real.local < real.visitante ? 'V' : 'E';
-      const pt = pred.local > pred.visitante ? 'L' : pred.local < pred.visitante ? 'V' : 'E';
-      return rt === pt && !(real.local === pred.local && real.visitante === pred.visitante);
-    }).length;
+    let exactos = 0, difs = 0, trends = 0;
     const totalPts = visiblePreds.reduce((sum, pred) => {
       const real = partidosById[pred.id]?.resultado;
       const score = calcPuntos(real, pred);
-      return sum + (score ? score.pts : 0);
+      if (score) {
+        if (score.tipo === 'exact') exactos++;
+        else if (score.tipo === 'diff') difs++;
+        else if (score.tipo === 'trend') trends++;
+        return sum + score.pts;
+      }
+      return sum;
     }, 0);
 
     return {

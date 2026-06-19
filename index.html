@@ -22,6 +22,9 @@
     <button onclick="init()" class="tab-btn" style="padding: 6px 12px; font-size: 11px; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px; margin: 0; min-height: 32px;">
       🔄 Sincronizar
     </button>
+    <button onclick="toggleAdminPanel(); return false;" class="tab-btn" style="padding: 6px 12px; font-size: 11px; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px; margin: 0; min-height: 32px; color: var(--gold);" title="Abrir panel de administración">
+      ⚙️ Admin
+    </button>
     <div class="last-update" id="last-update">Cargando…</div>
   </div>
 </header>
@@ -42,12 +45,17 @@
     <div class="metrics" id="metrics"></div>
     <div id="live-now" style="margin-top:12px; margin-bottom:10px;"></div>
 
-    <div class="legend" style="margin-bottom: 20px;">
-      <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Exacto — 3 pts</div>
-      <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>Diferencia goles — 2 pts</div>
-      <div class="leg"><div class="leg-dot" style="background:var(--amber)"></div>Tendencia G/E/P — 1 pt</div>
-      <div class="leg"><div class="leg-dot" style="background:var(--muted)"></div>Sin puntos — 0 pts</div>
-    </div>
+    <details class="legend-details" style="margin-bottom: 20px;">
+      <summary style="font-size: 11px; color: var(--muted); cursor: pointer; user-select: none; font-weight: 600; outline: none; display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 4px; transition: all 0.2s;">
+        ℹ️ Sistema de puntuación
+      </summary>
+      <div class="legend" style="margin-top: 12px; margin-bottom: 0;">
+        <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Exacto — 3 pts</div>
+        <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>Ganador + marcador — 2 pts</div>
+        <div class="leg"><div class="leg-dot" style="background:var(--amber)"></div>Tendencia o marcador — 1 pt</div>
+        <div class="leg"><div class="leg-dot" style="background:var(--muted)"></div>Sin puntos — 0 pts</div>
+      </div>
+    </details>
 
     <!-- BUSCADOR -->
     <div style="margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
@@ -61,9 +69,9 @@
           <tr>
             <th>#</th>
             <th>Participante</th>
-            <th class="c" title="Exacto">✅</th>
-            <th class="c" title="Diferencia">🎯</th>
-            <th class="c" title="Tendencia">↕</th>
+            <th class="c" title="Exacto (3 pts)">✅</th>
+            <th class="c" title="Ganador + marcador (2 pts)">🎯</th>
+            <th class="c" title="Tendencia o marcador (1 pt)">↕</th>
             <th class="c">Total</th>
           </tr>
         </thead>
@@ -184,8 +192,7 @@
 
 <footer>
   Quiniela grupal · Datos de resultados: <a href="https://github.com/openfootball/worldcup.json" target="_blank">openfootball/worldcup.json</a> ·
-  Edita <code>quiniela.json</code> para actualizar predicciones ·
-  <a href="#" onclick="toggleAdminPanel(); return false;" style="color:var(--gold); font-weight:600; text-decoration:underline;">⚙️ Administrador</a>
+  Edita <code>quiniela.json</code> para actualizar predicciones
 </footer>
 
 <div id="admin-panel" class="admin-panel" style="max-width: 960px; margin: 24px auto 0; padding: 20px 16px; display: none;">
