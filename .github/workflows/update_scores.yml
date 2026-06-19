@@ -28,6 +28,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install Python dependencies
+        run: pip install requests
+
       - name: Run update scripts
         env:
           API_KEY: ${{ secrets.API_FOOTBALL_KEY }}
