@@ -1,9 +1,16 @@
 {
-  "timestamp": "2026-06-18T23:32:50.389731-06:00",
-  "current_date": "2026-06-18",
-  "current_time": "23:32",
+  "timestamp": "2026-06-19T04:07:31.785582-06:00",
+  "current_date": "2026-06-19",
+  "current_time": "04:07",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": null,
+  "next": {
+    "team1": "Scotland",
+    "team2": "Morocco",
+    "stadium": "Boston (Foxborough)",
+    "date": "2026-06-19",
+    "time": "16:00 UTC-6",
+    "round": "Group C"
+  },
   "has_live": false
 }
