@@ -765,11 +765,7 @@ main {
 /* Admin panel */
 #admin-match-select { width: 100% !important; max-width: 100% !important; }
 
-/* Stadiums grid */
-#stadiums-grid {
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
-  gap: 14px !important;
-}
+
 
 /* ── 480px: Teléfono grande / landscape ── */
 @media (min-width: 480px) {
@@ -847,10 +843,7 @@ main {
     transform: none;
     box-shadow: none;
   }
-  .stadium-card:hover {
-    transform: none;
-    border-color: var(--border);
-  }
+
   .tab-btn:hover {
     transform: none;
     background: transparent;

@@ -554,38 +554,7 @@ async function init() {
   populateAdminSelect();
 }
 
-function renderStadiums() {
-  const grid = document.getElementById('stadiums-grid');
-  if (!grid) return;
-  
-  // Obtenemos estadios únicos de la metadata
-  const stadiums = {};
-  Object.values(teamMetadata).forEach(t => {
-    if (t.stadium && !stadiums[t.stadium]) {
-      stadiums[t.stadium] = {
-        name: t.stadium,
-        img: t.stadium_thumb,
-        team: t.name
-      };
-    }
-  });
 
-  const items = Object.values(stadiums);
-  if (items.length === 0) {
-    grid.innerHTML = '<div style="color:var(--muted); font-size:12px;">No hay información de sedes disponible aún.</div>';
-    return;
-  }
-
-  grid.innerHTML = items.map(s => `
-    <div class="stadium-card">
-      <img src="${s.img || 'https://via.placeholder.com/400x200?text=Estadio+Proximamente'}" class="stadium-img" alt="${s.name}" onerror="this.src='https://via.placeholder.com/400x200?text=Estadio+Proximamente'">
-      <div class="stadium-info">
-        <div class="stadium-name">${s.name}</div>
-        <div class="stadium-city">Sede de: ${s.team}</div>
-      </div>
-    </div>
-  `).join('');
-}
 
 function renderDashboard(partidos, quiniela) {
   const jugados   = partidos.filter(p => p.resultado != null);
@@ -603,7 +572,7 @@ function renderDashboard(partidos, quiniela) {
 
   // Cargar información de partidos en vivo
   loadLiveMatchInfo();
-  renderStadiums();
+
 
   console.log('%c[Cálculo]%c Procesando posiciones actuales...', 'color: #a855f7; font-weight: bold;', 'color: inherit;');
   const participantes = quiniela.participantes || [];
@@ -711,7 +680,9 @@ function renderDashboard(partidos, quiniela) {
     panel.className = 'detail-panel';
     panel.id = detailId;
 
-    const matchCards = s.detalle.map(d => {
+    const sortedDetalle = [...s.detalle].sort((a, b) => new Date(b.partido.fecha) - new Date(a.partido.fecha) || b.partido.id - a.partido.id);
+
+    let matchCards = sortedDetalle.map(d => {
       const predStr = d.pred ? `${d.pred.local}-${d.pred.visitante}` : '?-?';
       const realStr = `${d.partido.resultado.local}-${d.partido.resultado.visitante}`;
       const parts = d.partido.partido.split(' vs ');
@@ -722,7 +693,9 @@ function renderDashboard(partidos, quiniela) {
            <span class="pill-vs-sep">vs</span>
            <span class="pill-team">${flag(vis, 14)} ${vis}</span>`
         : `<span class="pill-team">${loc}</span>`;
+      
       return `<div class="match-pill ${d.res.tipo}" title="${d.partido.partido}">
+        <div style="font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 3px; letter-spacing: 0.5px;">${fmtDate(d.partido.fecha)}</div>
         <div class="pill-teams">${teamsHtml}</div>
         <div class="pill-bottom">
           <div class="pill-score-info">
@@ -734,6 +707,10 @@ function renderDashboard(partidos, quiniela) {
         </div>
       </div>`;
     }).join('');
+
+    if (!matchCards) {
+      matchCards = '<div style="color:var(--muted); font-size:12px; padding:8px 0; width:100%; text-align:center;">No hay resultados registrados aún.</div>';
+    }
 
     const totalDetalle = s.detalle.length;
     const exactPct = totalDetalle > 0 ? (s.exactos / totalDetalle) * 100 : 0;
