@@ -37,6 +37,9 @@ jobs:
           API_TYPE: ${{ vars.API_TYPE }}       # API_SPORTS o RAPID_API
           TEST_MODE: ${{ vars.TEST_MODE }}     # true para pruebas de simulación
         run: |
+          # 0. Sanitizar datos de quiniela
+          python sanitize_quiniela.py
+          
           # 1. Actualizar marcadores finales
           python update_scores.py
           

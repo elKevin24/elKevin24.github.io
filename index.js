@@ -2,6 +2,8 @@
 let currentPartidos = [];
 let currentQuinielaData = {};
 let teamMetadata = {};
+let selectedCompare = [];
+const MAX_COMPARE = 3;
 
 let lastPartidosText = "";
 let lastQuinielaText = "";
@@ -503,7 +505,7 @@ async function init() {
   } catch(e) {
     console.error('[API] Error crítico al cargar datos:', e);
     document.getElementById('standings-body').innerHTML =
-      `<tr><td colspan="6"><div class="msg">
+      `<tr><td colspan="7"><div class="msg">
         ⚠️ No se pudo cargar <code>partidos.json</code> o <code>quiniela.json</code>.<br>
         Asegúrate de que los archivos estén en la misma carpeta que este HTML.
       </div></td></tr>`;
@@ -607,6 +609,13 @@ function renderDashboard(partidos, quiniela) {
   const participantes = quiniela.participantes || [];
   const standings = calculateLeaderboard(participantes, jugados);
 
+  // Mapa de predicciones por participante
+  const predCountMap = {};
+  participantes.forEach(p => {
+    predCountMap[p.nombre] = (p.predicciones || []).length;
+  });
+  const totalMatches = partidos.length;
+
   let standingsPrevias = [];
   const jugadosOrdenados = [...jugados].sort((a, b) => a.id - b.id);
   if (jugadosOrdenados.length > 1) {
@@ -689,6 +698,7 @@ function renderDashboard(partidos, quiniela) {
       <td class="num-cell c-exact">${s.exactos}</td>
       <td class="num-cell c-diff">${s.difs}</td>
       <td class="num-cell c-trend">${s.trends}</td>
+      <td class="num-cell"><span style="font-size:11px; color:${(predCountMap[s.nombre] || 0) >= totalMatches ? 'var(--green)' : 'var(--amber)'}">${predCountMap[s.nombre] || 0}/${totalMatches}</span></td>
       <td class="num-cell"><span class="pts-badge ${badgeCls(i)}">${s.totalPts}</span></td>
     `;
     tbody.appendChild(tr);
@@ -696,7 +706,7 @@ function renderDashboard(partidos, quiniela) {
     const dtr = document.createElement('tr');
     dtr.className = 'detail-row';
     const dtd = document.createElement('td');
-    dtd.colSpan = 6;
+    dtd.colSpan = 7;
     const panel = document.createElement('div');
     panel.className = 'detail-panel';
     panel.id = detailId;
@@ -792,6 +802,9 @@ function renderDashboard(partidos, quiniela) {
   updateDetalleParticipants(quiniela);
   updateDetalleGroups(partidos);
   renderDetalle(currentPartidos, currentQuinielaData);
+
+  renderCompareSelector();
+  updateCompareGroups(partidos);
 
   const groupStandings = calcGroupStandings(partidos);
   const sortedGroups = Object.keys(groupStandings).sort();
@@ -910,6 +923,165 @@ function toggleDetail(detailId, row) {
     panel.classList.add('open');
     row.setAttribute('aria-expanded', 'true');
   }
+}
+
+/* ── COMPARISON MODE ── */
+function toggleCompareParticipant(nombre) {
+  const idx = selectedCompare.indexOf(nombre);
+  if (idx >= 0) {
+    selectedCompare.splice(idx, 1);
+  } else {
+    if (selectedCompare.length >= MAX_COMPARE) {
+      showToast(`Máximo ${MAX_COMPARE} participantes para comparar`);
+      return;
+    }
+    selectedCompare.push(nombre);
+  }
+  renderCompareSelector();
+  renderComparar();
+}
+window.toggleCompareParticipant = toggleCompareParticipant;
+
+function renderCompareSelector() {
+  const container = document.getElementById('comparar-selector');
+  if (!container) return;
+
+  const participantes = (currentQuinielaData.participantes || []).map(p => p.nombre).filter(Boolean);
+
+  container.innerHTML = `
+    <div class="compare-chips">
+      ${participantes.map(n => {
+        const active = selectedCompare.includes(n);
+        return `<button class="compare-chip ${active ? 'active' : ''}" onclick="toggleCompareParticipant('${n.replace(/'/g, "\\'")}')"><span class="compare-chip-check">${active ? '✓ ' : ''}</span>${n}</button>`;
+      }).join('')}
+    </div>
+    ${selectedCompare.length > 0 && selectedCompare.length < 2 ? '<div style="margin-top:10px; font-size:11px; color:var(--amber);">Selecciona al menos 1 participante más para comparar</div>' : ''}
+  `;
+
+  const filtersEl = document.getElementById('comparar-filters');
+  if (filtersEl) filtersEl.style.display = selectedCompare.length >= 2 ? 'block' : 'none';
+}
+
+function updateCompareGroups(partidos) {
+  const select = document.getElementById('filter-comparar-grupo');
+  if (!select || !partidos) return;
+  const groups = Array.from(new Set((partidos || []).map(p => p.grupo).filter(Boolean)));
+  groups.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+  const currentVal = select.value;
+  select.innerHTML = ['<option value="ALL">Todos los grupos/fases</option>',
+    ...groups.map(gr => `<option value="${gr}">${gr}</option>`)
+  ].join('');
+  if (currentVal && ['ALL', ...groups].includes(currentVal)) select.value = currentVal;
+}
+
+function renderComparar() {
+  const container = document.getElementById('comparar-result');
+  if (!container) return;
+
+  if (selectedCompare.length < 2) {
+    container.innerHTML = '<div class="msg">Selecciona al menos 2 participantes para comparar.</div>';
+    return;
+  }
+
+  const filterGroup = document.getElementById('filter-comparar-grupo')?.value || 'ALL';
+
+  const participantes = selectedCompare.map(nombre =>
+    (currentQuinielaData.participantes || []).find(p => p.nombre === nombre)
+  ).filter(Boolean);
+
+  const jugados = currentPartidos
+    .filter(p => p.resultado != null)
+    .filter(p => filterGroup === 'ALL' || p.grupo === filterGroup)
+    .sort((a, b) => a.id - b.id);
+
+  if (jugados.length === 0) {
+    container.innerHTML = '<div class="msg">No hay partidos jugados para esta fase.</div>';
+    return;
+  }
+
+  const predMaps = participantes.map(p => {
+    const map = {};
+    (p.predicciones || []).forEach(pr => { map[pr.id] = pr; });
+    return map;
+  });
+
+  const totals = participantes.map(() => ({ pts: 0, exactos: 0, difs: 0, trends: 0 }));
+
+  const rows = jugados.map(partido => {
+    const parts = partido.partido.split(' vs ');
+    const loc = parts[0]?.trim() || '';
+    const vis = parts[1]?.trim() || '';
+    const realStr = `${partido.resultado.local}–${partido.resultado.visitante}`;
+
+    const cells = participantes.map((p, idx) => {
+      const pred = predMaps[idx][partido.id];
+      if (!pred) return `<td class="compare-cell"><span style="color:var(--muted)">—</span></td>`;
+
+      const predStr = `${pred.local}–${pred.visitante}`;
+      const res = calcPuntos(partido.resultado, pred);
+
+      if (res) {
+        totals[idx].pts += res.pts;
+        if (res.tipo === 'exact') totals[idx].exactos++;
+        else if (res.tipo === 'diff') totals[idx].difs++;
+        else if (res.tipo === 'trend') totals[idx].trends++;
+      }
+
+      const tipo = res?.tipo || 'zero';
+      return `<td class="compare-cell ${tipo}"><span class="compare-pred">${predStr}</span><span class="pill-pts-badge ${tipo}" style="margin-left:4px">${res?.pts ?? 0}p</span></td>`;
+    }).join('');
+
+    return `<tr>
+      <td class="compare-match">${flag(loc, 14)} ${loc} <span class="pill-vs-sep">vs</span> ${flag(vis, 14)} ${vis}</td>
+      <td class="compare-real">${realStr}</td>
+      ${cells}
+    </tr>`;
+  }).join('');
+
+  const totalCells = participantes.map((p, idx) =>
+    `<td class="compare-cell compare-total"><strong style="color:var(--gold)">${totals[idx].pts} pts</strong><br><span style="font-size:10px; color:var(--muted);">✅${totals[idx].exactos} 🎯${totals[idx].difs} ↕${totals[idx].trends}</span></td>`
+  ).join('');
+
+  const headerCells = participantes.map(p =>
+    `<th class="compare-name-header">${p.nombre}</th>`
+  ).join('');
+
+  // Winner highlight
+  const maxPts = Math.max(...totals.map(t => t.pts));
+
+  container.innerHTML = `
+    <div class="compare-summary">
+      ${participantes.map((p, idx) => {
+        const t = totals[idx];
+        const isWinner = t.pts === maxPts;
+        return `<div class="compare-summary-card ${isWinner ? 'winner' : ''}">
+          <div class="compare-summary-name">${isWinner ? '👑 ' : ''}${p.nombre}</div>
+          <div class="compare-summary-pts">${t.pts}</div>
+          <div class="compare-summary-detail">✅${t.exactos} · 🎯${t.difs} · ↕${t.trends}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="text-align:left">Partido</th>
+            <th>Real</th>
+            ${headerCells}
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" style="text-align:right; font-weight:700; color:var(--muted); text-transform:uppercase; font-size:10px; letter-spacing:1px;">TOTAL</td>
+            ${totalCells}
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  `;
 }
 
 /* ── RENDER RESULTADOS (partidos con resultado) ── */

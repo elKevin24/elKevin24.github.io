@@ -39,6 +39,7 @@
   <button class="tab-btn" onclick="showTab('calendario', this)">📅 Calendario</button>
   <button class="tab-btn" onclick="showTab('sedes', this)">🏟️ Sedes</button>
   <button class="tab-btn" onclick="showTab('grupos', this)">📊 Grupos</button>
+  <button class="tab-btn" onclick="showTab('comparar', this)">🔀 Comparar</button>
 
 </div>
 
@@ -75,6 +76,7 @@
             <th class="c" title="Exacto (3 pts)">✅</th>
             <th class="c" title="Ganador + marcador (2 pts)">🎯</th>
             <th class="c" title="Tendencia o marcador (1 pt)">↕</th>
+            <th class="c" title="Predicciones ingresadas">📝</th>
             <th class="c">Total</th>
           </tr>
         </thead>
@@ -190,6 +192,23 @@
       <div class="section-title">Tablas de Grupos</div>
     </div>
     <div class="groups-grid" id="groups-grid"></div>
+  </div>
+
+  <!-- COMPARAR -->
+  <div id="sec-comparar" class="sec">
+    <div class="section-header" style="gap: 12px; flex-wrap: wrap;">
+      <div class="section-title">Comparar Participantes</div>
+    </div>
+    <div style="margin-bottom:16px; color:var(--muted); font-size:12px;">
+      Selecciona 2 o 3 participantes para comparar sus predicciones lado a lado.
+    </div>
+    <div id="comparar-selector"></div>
+    <div id="comparar-filters" style="display:none; margin:12px 0;">
+      <select id="filter-comparar-grupo" onchange="renderComparar()">
+        <option value="ALL">Todos los grupos/fases</option>
+      </select>
+    </div>
+    <div id="comparar-result"></div>
   </div>
 </main>
 
