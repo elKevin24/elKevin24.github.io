@@ -3,6 +3,45 @@ let currentPartidos = [];
 let currentQuinielaData = {};
 let teamMetadata = {};
 
+let lastPartidosText = "";
+let lastQuinielaText = "";
+let lastSyncTimestamp = Date.now();
+
+function escapeHTML(str) {
+  if (typeof str !== 'string') return str;
+  return str.replace(/[&<>'"]/g, 
+    tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag)
+  );
+}
+
+function updateLastSyncedTimestamp() {
+  lastSyncTimestamp = Date.now();
+  renderLastSyncTime();
+}
+
+function renderLastSyncTime() {
+  const el = document.getElementById('last-sync-time');
+  if (!el) return;
+  
+  const diffMs = Date.now() - lastSyncTimestamp;
+  const diffMins = Math.floor(diffMs / 60000);
+  
+  if (diffMins === 0) {
+    el.textContent = 'Actualizado: justo ahora';
+  } else {
+    el.textContent = `Actualizado: hace ${diffMins} min`;
+  }
+}
+
+// Actualizar la etiqueta "hace X min" localmente
+setInterval(renderLastSyncTime, 30000);
+
 async function loadTeamMetadata() {
   try {
     const res = await fetch('metadata_equipos.json');
@@ -407,6 +446,7 @@ async function init() {
   // Cargar metadatos de equipos (logos/escudos)
   await loadTeamMetadata();
   let partidos, quiniela;
+  let prText = "", qrText = "";
 
   try {
     console.log('%c[API]%c Cargando partidos.json y quiniela.json locales...', 'color: #3b82f6; font-weight: bold;', 'color: inherit;');
@@ -416,10 +456,12 @@ async function init() {
       fetch('quiniela.json' + cacheBuster)
     ]);
     if (!pr.ok || !qr.ok) throw new Error('fetch failed');
-    partidos = await pr.json();
-    quiniela = await qr.json();
-    currentPartidos = partidos;
-    currentQuinielaData = quiniela;
+    
+    prText = await pr.text();
+    qrText = await qr.text();
+    
+    partidos = JSON.parse(prText);
+    quiniela = JSON.parse(qrText);
     console.log('%c[API]%c Carga local completada.', 'color: #3b82f6; font-weight: bold;', 'color: inherit;');
 
     try {
@@ -471,6 +513,25 @@ async function init() {
     console.groupEnd();
     return;
   }
+
+  // Verificar si hay cambios en memoria antes de re-renderizar todo
+  const currentPartidosSerialized = JSON.stringify(partidos);
+  const currentQuinielaSerialized = qrText;
+  
+  if (lastPartidosText === currentPartidosSerialized && lastQuinielaText === currentQuinielaSerialized) {
+    console.log('%c[API]%c No hay cambios en los datos. Omitiendo renderizado del DOM.', 'color: #10b981; font-weight: bold;', 'color: inherit;');
+    updateLastSyncedTimestamp();
+    console.timeEnd('⏱️ Tiempo de procesamiento');
+    console.groupEnd();
+    return;
+  }
+
+  // Actualizar caché y variables globales
+  lastPartidosText = currentPartidosSerialized;
+  lastQuinielaText = currentQuinielaSerialized;
+  currentPartidos = partidos;
+  currentQuinielaData = quiniela;
+  updateLastSyncedTimestamp();
 
   // Marcar partidos en curso (zona Guatemala) antes de renderizar
   try {
@@ -607,9 +668,10 @@ function renderDashboard(partidos, quiniela) {
     tr.setAttribute('title', 'Haz clic para expandir y ver predicciones detalladas');
     tr.onclick = () => toggleDetail(detailId, tr);
     
+    const escapedNombre = escapeHTML(s.nombre);
     const nameDisplay = isMe 
-      ? `<span style="display:inline-flex; align-items:center; gap:6px; font-weight:700; color:var(--gold);">⭐ ${s.nombre} <span class="ego-tag" style="background:var(--gold); color:#000; font-size:9px; padding:2px 5px; border-radius:4px; font-weight:800; text-transform:uppercase; line-height:1;">Tú</span></span>`
-      : s.nombre;
+      ? `<span style="display:inline-flex; align-items:center; gap:6px; font-weight:700; color:var(--gold);">⭐ ${escapedNombre} <span class="ego-tag" style="background:var(--gold); color:#000; font-size:9px; padding:2px 5px; border-radius:4px; font-weight:800; text-transform:uppercase; line-height:1;">Tú</span></span>`
+      : escapedNombre;
 
     tr.innerHTML = `
       <td class="rank-cell">
@@ -680,7 +742,7 @@ function renderDashboard(partidos, quiniela) {
           <span class="c-trend">↕ ${s.trends} tend. / marcador (${s.trends}p)</span>
           <span style="color:var(--muted)">Total: ${s.totalPts} pts de ${maxPts} posibles</span>
         </div>
-        <button class="${meBtnClass}" onclick="setMyUser('${s.nombre.replace(/'/g, "\\'")}', event)">${meBtnText}</button>
+        <button class="${meBtnClass}" onclick="setMyUser('${s.nombre.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', event)">${meBtnText}</button>
       </div>
       <div class="accuracy-bar-container">
         <div class="accuracy-bar-label">
@@ -907,7 +969,7 @@ function updateDetalleParticipants(quiniela) {
   const currentValue = select.value;
 
   select.innerHTML = ['<option value="ALL">Todos los participantes</option>',
-    ...participantes.map(nombre => `<option value="${nombre}">${nombre}</option>`)
+    ...participantes.map(nombre => `<option value="${escapeHTML(nombre)}">${escapeHTML(nombre)}</option>`)
   ].join('');
 
   // Si hay un usuario preferido y el selector no tiene un valor establecido previamente
@@ -1006,7 +1068,7 @@ function renderDetalle(partidos, quiniela) {
       html: `
       <div class="participant-card">
         <div class="participant-header">
-          <div class="participant-name">${p.nombre}</div>
+          <div class="participant-name">${escapeHTML(p.nombre)}</div>
           <div class="participant-stats">
             <span>Ingresos: ${totalPreds}</span>
             <span>Con resultado: ${played}</span>
