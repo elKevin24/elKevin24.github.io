@@ -57,6 +57,21 @@ def fetch_live_scores(api_key, api_type, date_str):
                 ]
             }
             return mock_data
+        elif api_type == "FOOTBALL_DATA":
+            print("[TEST_MODE] Simulando respuesta de Football-Data.org...")
+            mock_data = {
+                "matches": [
+                    {
+                        "status": "FINISHED",
+                        "homeTeam": {"name": "Mexico"},
+                        "awayTeam": {"name": "South Africa"},
+                        "score": {
+                            "fullTime": {"home": 2, "away": 1}
+                        }
+                    }
+                ]
+            }
+            return mock_data
         else:
             print("[TEST_MODE] Simulando respuesta de API-Football...")
             mock_data = {
@@ -92,6 +107,11 @@ def fetch_live_scores(api_key, api_type, date_str):
     elif api_type == "OPEN_FOOTBALL":
         url = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
         headers = {}
+    elif api_type == "FOOTBALL_DATA":
+        url = f"https://api.football-data.org/v4/competitions/WC/matches?dateFrom={date_str}&dateTo={date_str}"
+        headers = {
+            "X-Auth-Token": api_key
+        }
     else: # API_SPORTS (directa de API-Football)
         url = f"https://v3.football.api-sports.io/fixtures?league=1&season=2026&date={date_str}"
         headers = {
@@ -172,6 +192,9 @@ def main():
                 if api_type == "LIVE_SCORE_API" and api_response.get("success"):
                     matches = api_response.get("data", {}).get("match", [])
                     api_fixtures.extend(matches)
+                elif api_type == "FOOTBALL_DATA":
+                    matches = api_response.get("matches", [])
+                    api_fixtures.extend(matches)
                 elif "response" in api_response:
                     api_fixtures.extend(api_response["response"])
             else:
@@ -200,6 +223,11 @@ def main():
         for m in api_fixtures:
             home = m.get("team1", "").strip()
             away = m.get("team2", "").strip()
+            api_lookup[(home, away)] = m
+    elif api_type == "FOOTBALL_DATA":
+        for m in api_fixtures:
+            home = m.get("homeTeam", {}).get("name", "").strip()
+            away = m.get("awayTeam", {}).get("name", "").strip()
             api_lookup[(home, away)] = m
     else:
         for f in api_fixtures:
@@ -246,6 +274,21 @@ def main():
                         print(f"Resultado FINALIZADO guardado (OpenFootball) para {p['partido']}: {ft[0]}-{ft[1]}")
                 else:
                     print(f"Partido {p['partido']} no tiene resultado finalizado en OpenFootball.")
+            elif api_type == "FOOTBALL_DATA":
+                status = api_match.get("status")
+                if status == "FINISHED":
+                    full_time = api_match.get("score", {}).get("fullTime", {})
+                    local_goals = full_time.get("home")
+                    away_goals = full_time.get("away")
+                    if local_goals is not None and away_goals is not None:
+                        p['resultado'] = {
+                            "local": local_goals,
+                            "visitante": away_goals
+                        }
+                        updated = True
+                        print(f"Resultado FINALIZADO guardado (Football-Data) para {p['partido']}: {local_goals}-{away_goals}")
+                else:
+                    print(f"Partido {p['partido']} sigue en juego (Football-Data Estado: {status}). Omitiendo guardado.")
             else:
                 status_short = api_match.get("fixture", {}).get("status", {}).get("short")
                 if status_short in ["FT", "AET", "PEN"]:

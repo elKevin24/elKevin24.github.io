@@ -79,6 +79,19 @@ def fetch_api_live_data(current_date):
                     }
                 ]
             }
+        elif api_type == "FOOTBALL_DATA":
+            return {
+                "matches": [
+                    {
+                        "status": "IN_PLAY",
+                        "homeTeam": {"name": "Uzbekistan"},
+                        "awayTeam": {"name": "Colombia"},
+                        "score": {
+                            "fullTime": {"home": 1, "away": 2}
+                        }
+                    }
+                ]
+            }
         else:  # API_SPORTS / RAPID_API
             return {
                 "response": [
@@ -121,6 +134,11 @@ def fetch_api_live_data(current_date):
         elif api_type == "LIVE_SCORE_API":
             url = f"https://livescore-api.com/api-client/scores/live.json?key={api_key}&secret={api_secret}&league=1"
             headers = {}
+        elif api_type == "FOOTBALL_DATA":
+            url = f"https://api.football-data.org/v4/competitions/WC/matches?dateFrom={current_date}&dateTo={current_date}"
+            headers = {
+                "X-Auth-Token": api_key
+            }
         else:  # API_SPORTS
             url = f"https://v3.football.api-sports.io/fixtures?league=1&season=2026&date={current_date}"
             headers = {
@@ -180,6 +198,35 @@ def find_live_match_in_api(api_data, api_type, home_team, away_team):
                     "score2": score2,
                     "minute": None,
                     "minute_display": status_display
+                }
+
+    elif api_type == "FOOTBALL_DATA":
+        matches = api_data.get("matches", [])
+        for m in matches:
+            h = m.get("homeTeam", {}).get("name", "").strip().lower()
+            a = m.get("awayTeam", {}).get("name", "").strip().lower()
+            target_h = home_team.strip().lower()
+            target_a = away_team.strip().lower()
+            
+            if (h == target_h and a == target_a) or (h == target_a and a == target_h):
+                status = m.get("status", "")
+                finished = status == "FINISHED"
+                
+                score_info = m.get("score", {})
+                full_time = score_info.get("fullTime", {})
+                score1 = full_time.get("home", 0)
+                score2 = full_time.get("away", 0)
+                
+                if h == target_a:
+                    score1, score2 = score2, score1
+                
+                minute_display = "Finalizado" if finished else "live" if status in ["IN_PLAY", "PAUSED", "LIVE"] else status
+                
+                return {
+                    "score1": score1 if score1 is not None else 0,
+                    "score2": score2 if score2 is not None else 0,
+                    "minute": None,
+                    "minute_display": minute_display
                 }
 
     elif api_type == "LIVE_SCORE_API":
