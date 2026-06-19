@@ -908,10 +908,6 @@ function toggleCompareParticipant(nombre) {
   if (idx >= 0) {
     selectedCompare.splice(idx, 1);
   } else {
-    if (selectedCompare.length >= MAX_COMPARE) {
-      showToast(`Máximo ${MAX_COMPARE} participantes para comparar`);
-      return;
-    }
     selectedCompare.push(nombre);
   }
   renderCompareSelector();
@@ -969,7 +965,7 @@ function renderComparar() {
   const jugados = currentPartidos
     .filter(p => p.resultado != null)
     .filter(p => filterGroup === 'ALL' || p.grupo === filterGroup)
-    .sort((a, b) => a.id - b.id);
+    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha) || b.id - a.id);
 
   if (jugados.length === 0) {
     container.innerHTML = '<div class="msg">No hay partidos jugados para esta fase.</div>';
@@ -1009,7 +1005,10 @@ function renderComparar() {
     }).join('');
 
     return `<tr>
-      <td class="compare-match">${flag(loc, 14)} ${loc} <span class="pill-vs-sep">vs</span> ${flag(vis, 14)} ${vis}</td>
+      <td class="compare-match">
+        <div style="font-size: 9px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px;">${fmtDate(partido.fecha)}</div>
+        ${flag(loc, 14)} ${loc} <span class="pill-vs-sep">vs</span> ${flag(vis, 14)} ${vis}
+      </td>
       <td class="compare-real">${realStr}</td>
       ${cells}
     </tr>`;
