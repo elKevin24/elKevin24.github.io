@@ -7,18 +7,19 @@
 <link rel="stylesheet" href="index.css">
 </head>
 <body>
+<div id="scroll-progress"></div>
 
 <header>
   <div>
     <div class="logo-title">⚽ Quiniela Mundial 2026</div>
     <div class="logo-sub">USA · México · Canadá</div>
   </div>
-  <div style="display:flex; align-items:center; gap:12px;">
+  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
     <span id="sync-status" style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(251, 191, 36, 0.1); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.2); font-weight: 500; display: flex; align-items: center; gap: 6px; user-select: none;">
       <span class="sync-dot pulse" style="width: 6px; height: 6px; border-radius: 50%; background: var(--amber); display: inline-block;"></span>
       Sincronizando…
     </span>
-    <button onclick="init()" class="tab-btn" style="padding: 6px 12px; font-size: 11px; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px; margin: 0;">
+    <button onclick="init()" class="tab-btn" style="padding: 6px 12px; font-size: 11px; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px; margin: 0; min-height: 32px;">
       🔄 Sincronizar
     </button>
     <div class="last-update" id="last-update">Cargando…</div>
