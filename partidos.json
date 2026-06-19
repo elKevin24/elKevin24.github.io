@@ -29,7 +29,10 @@
     "partido": "Czech Republic vs South Africa",
     "grupo": "Group A",
     "estadio": "Atlanta",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-18T12:00:00-04:00"
   },
   {
@@ -38,7 +41,10 @@
     "partido": "Mexico vs South Korea",
     "grupo": "Group A",
     "estadio": "Guadalajara (Zapopan)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 0
+    },
     "kickoff": "2026-06-18T19:00:00-06:00"
   },
   {
@@ -65,7 +71,10 @@
     "partido": "Canada vs Bosnia & Herzegovina",
     "grupo": "Group B",
     "estadio": "Toronto",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-12T15:00:00-04:00"
   },
   {
@@ -74,7 +83,10 @@
     "partido": "Qatar vs Switzerland",
     "grupo": "Group B",
     "estadio": "San Francisco Bay Area (Santa Clara)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-13T12:00:00-07:00"
   },
   {
@@ -83,7 +95,10 @@
     "partido": "Switzerland vs Bosnia & Herzegovina",
     "grupo": "Group B",
     "estadio": "Los Angeles (Inglewood)",
-    "resultado": null,
+    "resultado": {
+      "local": 4,
+      "visitante": 1
+    },
     "kickoff": "2026-06-18T12:00:00-07:00"
   },
   {
@@ -92,7 +107,10 @@
     "partido": "Canada vs Qatar",
     "grupo": "Group B",
     "estadio": "Vancouver",
-    "resultado": null,
+    "resultado": {
+      "local": 6,
+      "visitante": 0
+    },
     "kickoff": "2026-06-18T15:00:00-07:00"
   },
   {
@@ -119,7 +137,10 @@
     "partido": "Brazil vs Morocco",
     "grupo": "Group C",
     "estadio": "New York/New Jersey (East Rutherford)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-13T18:00:00-04:00"
   },
   {
@@ -128,7 +149,10 @@
     "partido": "Haiti vs Scotland",
     "grupo": "Group C",
     "estadio": "Boston (Foxborough)",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 1
+    },
     "kickoff": "2026-06-13T21:00:00-04:00"
   },
   {
@@ -173,7 +197,10 @@
     "partido": "USA vs Paraguay",
     "grupo": "Group D",
     "estadio": "Los Angeles (Inglewood)",
-    "resultado": null,
+    "resultado": {
+      "local": 4,
+      "visitante": 1
+    },
     "kickoff": "2026-06-12T18:00:00-07:00"
   },
   {
@@ -182,7 +209,10 @@
     "partido": "Australia vs Turkey",
     "grupo": "Group D",
     "estadio": "Vancouver",
-    "resultado": null,
+    "resultado": {
+      "local": 2,
+      "visitante": 0
+    },
     "kickoff": "2026-06-13T21:00:00-07:00"
   },
   {
@@ -227,7 +257,10 @@
     "partido": "Germany vs Curaçao",
     "grupo": "Group E",
     "estadio": "Houston",
-    "resultado": null,
+    "resultado": {
+      "local": 7,
+      "visitante": 1
+    },
     "kickoff": "2026-06-14T12:00:00-05:00"
   },
   {
@@ -236,7 +269,10 @@
     "partido": "Ivory Coast vs Ecuador",
     "grupo": "Group E",
     "estadio": "Philadelphia",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 0
+    },
     "kickoff": "2026-06-14T19:00:00-04:00"
   },
   {
@@ -281,7 +317,10 @@
     "partido": "Netherlands vs Japan",
     "grupo": "Group F",
     "estadio": "Dallas (Arlington)",
-    "resultado": null,
+    "resultado": {
+      "local": 2,
+      "visitante": 2
+    },
     "kickoff": "2026-06-14T15:00:00-05:00"
   },
   {
@@ -290,7 +329,10 @@
     "partido": "Sweden vs Tunisia",
     "grupo": "Group F",
     "estadio": "Monterrey (Guadalupe)",
-    "resultado": null,
+    "resultado": {
+      "local": 5,
+      "visitante": 1
+    },
     "kickoff": "2026-06-14T20:00:00-06:00"
   },
   {
@@ -335,7 +377,10 @@
     "partido": "Belgium vs Egypt",
     "grupo": "Group G",
     "estadio": "Seattle",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-15T12:00:00-07:00"
   },
   {
@@ -344,7 +389,10 @@
     "partido": "Iran vs New Zealand",
     "grupo": "Group G",
     "estadio": "Los Angeles (Inglewood)",
-    "resultado": null,
+    "resultado": {
+      "local": 2,
+      "visitante": 2
+    },
     "kickoff": "2026-06-15T18:00:00-07:00"
   },
   {
@@ -389,7 +437,10 @@
     "partido": "Spain vs Cape Verde",
     "grupo": "Group H",
     "estadio": "Atlanta",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 0
+    },
     "kickoff": "2026-06-15T12:00:00-04:00"
   },
   {
@@ -398,7 +449,10 @@
     "partido": "Saudi Arabia vs Uruguay",
     "grupo": "Group H",
     "estadio": "Miami (Miami Gardens)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-15T18:00:00-04:00"
   },
   {
@@ -443,7 +497,10 @@
     "partido": "France vs Senegal",
     "grupo": "Group I",
     "estadio": "New York/New Jersey (East Rutherford)",
-    "resultado": null,
+    "resultado": {
+      "local": 3,
+      "visitante": 1
+    },
     "kickoff": "2026-06-16T15:00:00-04:00"
   },
   {
@@ -452,7 +509,10 @@
     "partido": "Iraq vs Norway",
     "grupo": "Group I",
     "estadio": "Boston (Foxborough)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 4
+    },
     "kickoff": "2026-06-16T18:00:00-04:00"
   },
   {
@@ -497,7 +557,10 @@
     "partido": "Argentina vs Algeria",
     "grupo": "Group J",
     "estadio": "Kansas City",
-    "resultado": null,
+    "resultado": {
+      "local": 3,
+      "visitante": 0
+    },
     "kickoff": "2026-06-16T20:00:00-05:00"
   },
   {
@@ -507,7 +570,10 @@
     "partido": "Austria vs Jordan",
     "grupo": "Group J",
     "estadio": "San Francisco Bay Area (Santa Clara)",
-    "resultado": null
+    "resultado": {
+      "local": 3,
+      "visitante": 1
+    }
   },
   {
     "id": 57,
@@ -551,7 +617,10 @@
     "partido": "Portugal vs DR Congo",
     "grupo": "Group K",
     "estadio": "Houston",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-17T12:00:00-05:00"
   },
   {
@@ -560,7 +629,10 @@
     "partido": "Uzbekistan vs Colombia",
     "grupo": "Group K",
     "estadio": "Mexico City",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 3
+    },
     "kickoff": "2026-06-17T20:00:00-06:00"
   },
   {
@@ -605,7 +677,10 @@
     "partido": "England vs Croatia",
     "grupo": "Group L",
     "estadio": "Dallas (Arlington)",
-    "resultado": null,
+    "resultado": {
+      "local": 4,
+      "visitante": 2
+    },
     "kickoff": "2026-06-17T15:00:00-05:00"
   },
   {
@@ -614,7 +689,10 @@
     "partido": "Ghana vs Panama",
     "grupo": "Group L",
     "estadio": "Toronto",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 0
+    },
     "kickoff": "2026-06-17T19:00:00-04:00"
   },
   {
