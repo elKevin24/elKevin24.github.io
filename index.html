@@ -213,6 +213,20 @@
   <p style="font-size: 11px; color: var(--muted); margin-bottom: 16px;">
     Selecciona un partido, introduce el marcador manual y haz clic en "Aplicar Marcador". El sistema recomputará las posiciones en vivo en tu pantalla. Al finalizar, copia el JSON generado o descarga el archivo <code>partidos.json</code> y reemplázalo en tu carpeta.
   </p>
+
+  <!-- Sección Token de GitHub para Producción -->
+  <div id="github-auth-section" style="background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: var(--r); padding: 12px; margin-bottom: 16px; font-size: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+      <span style="font-weight: 600; color: var(--gold);">🔑 Sincronización Automática en GitHub Pages (Producción)</span>
+      <span style="font-size: 10px; color: var(--muted);">(Tu token se guarda seguro localmente en tu navegador)</span>
+    </div>
+    <div style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;">
+      <input type="password" id="github-pat-token" class="admin-input" placeholder="Ingresa tu GitHub Personal Access Token (PAT)..." style="flex: 1; min-width: 250px; font-size: 12px; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--chalk); outline: none;">
+      <button onclick="saveGithubToken()" class="admin-btn" style="padding: 6px 14px; font-size: 11px; cursor: pointer;">Guardar Token</button>
+      <button onclick="clearGithubToken()" class="tab-btn" style="padding: 6px 14px; font-size: 11px; margin: 0; color: var(--red); border-color: var(--red); cursor: pointer;">Eliminar</button>
+    </div>
+    <div id="github-token-status" style="font-size: 10px; color: var(--muted); margin-top: 6px;"></div>
+  </div>
   
   <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px;">
     <select id="admin-match-select" class="admin-select" style="max-width: 340px; font-family: inherit; font-size: 13px;"></select>

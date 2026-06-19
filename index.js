@@ -1426,12 +1426,107 @@ function applyManualScore() {
       showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria. Descarga JSON para persistir.`);
     });
   } else {
-    // En producción (GitHub Pages), solo actualiza en memoria y pide descargar el archivo
-    showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria. Descarga JSON para persistir.`);
+    // En producción (GitHub Pages), intentar sincronizar vía GitHub API si hay Token
+    const token = localStorage.getItem('github_pat');
+    if (token) {
+      showToast('🚀 Conectando con GitHub API...');
+      const url = 'https://api.github.com/repos/elKevin24/elKevin24.github.io/contents/partidos.json';
+      
+      // 1. Obtener SHA del archivo partidos.json en GitHub
+      fetch(url, {
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Cache-Control': 'no-cache'
+        }
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('No se pudo verificar el archivo en GitHub (¿Token inválido?).');
+        return res.json();
+      })
+      .then(fileData => {
+        const sha = fileData.sha;
+        const jsonString = JSON.stringify(currentPartidos, null, 2);
+        
+        // Codificar en Base64 de forma segura para caracteres especiales UTF-8
+        const encoder = new TextEncoder();
+        const bytes = encoder.encode(jsonString);
+        let binary = '';
+        for (let i = 0; i < bytes.byteLength; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        const base64Content = btoa(binary);
+        
+        // 2. Escribir el nuevo archivo
+        return fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `update: manual score update via Web Admin for match ID ${matchId} [skip ci]`,
+            content: base64Content,
+            sha: sha
+          })
+        });
+      })
+      .then(res => {
+        if (res.ok) {
+          showToast(`✅ ¡Marcador guardado y sincronizado con tu GitHub! Tu sitio se actualizará en 1-2 minutos.`);
+        } else {
+          throw new Error('Error de escritura en el repositorio.');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        showToast(`❌ Error GitHub API: ${err.message}`);
+      });
+    } else {
+      // Sin token, fallback a memoria y descarga
+      showToast(`✅ ${fmtPartido(partido.partido)} en memoria. Agrega tu GitHub Token para persistir automáticamente.`);
+    }
   }
 
   // Refresh select (partido now has result, should not appear)
   populateAdminSelect();
+}
+
+/* ── GITHUB TOKEN PERSISTENCE HELPERS ── */
+function updateGithubTokenStatus() {
+  const statusEl = document.getElementById('github-token-status');
+  const tokenInput = document.getElementById('github-pat-token');
+  if (!statusEl) return;
+  
+  const token = localStorage.getItem('github_pat');
+  if (token) {
+    statusEl.innerHTML = `<span style="color:#22c55e; font-weight:600;">Activo</span> · Token configurado. Los cambios se guardarán directamente en tu repositorio remoto de GitHub.`;
+    if (tokenInput) tokenInput.value = '••••••••••••••••••••••••••••••••••••••••';
+  } else {
+    statusEl.innerHTML = `No configurado. Para persistir de forma automática, ingresa un Personal Access Token (scopes: <code>repo</code>).`;
+    if (tokenInput) tokenInput.value = '';
+  }
+}
+
+function saveGithubToken() {
+  const tokenInput = document.getElementById('github-pat-token');
+  const token = tokenInput?.value?.trim();
+  
+  if (!token || token.includes('•••')) {
+    showToast('⚠️ Ingresa un token válido.');
+    return;
+  }
+  
+  localStorage.setItem('github_pat', token);
+  updateGithubTokenStatus();
+  showToast('🔑 Token de GitHub guardado de forma segura en tu navegador.');
+}
+
+function clearGithubToken() {
+  localStorage.removeItem('github_pat');
+  updateGithubTokenStatus();
+  showToast('🗑️ Token eliminado localmente.');
 }
 
 function populateAdminSelect() {
@@ -1776,6 +1871,7 @@ window.toggleAdminPanel = function() {
     return;
   }
   updateAdminJsonOutput();
+  try { updateGithubTokenStatus(); } catch(e){}
 };
 
 // ── Initial run
