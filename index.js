@@ -1403,24 +1403,32 @@ function applyManualScore() {
   renderDashboard(currentPartidos, currentQuinielaData);
   updateAdminJsonOutput();
 
-  // Guardar en el servidor local de desarrollo si está disponible
-  fetch('/api/update-match', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ id: matchId, local: loc, visitante: vis })
-  })
-  .then(res => {
-    if (res.ok) {
-      showToast(`✅ ${fmtPartido(partido.partido)} guardado directamente en partidos.json.`);
-    } else {
+  // Verificar si estamos ejecutando localmente
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+  if (isLocal) {
+    // Guardar en el servidor local de desarrollo si está disponible
+    fetch('/api/update-match', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: matchId, local: loc, visitante: vis })
+    })
+    .then(res => {
+      if (res.ok) {
+        showToast(`✅ ${fmtPartido(partido.partido)} guardado directamente en partidos.json.`);
+      } else {
+        showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria. Descarga JSON para persistir.`);
+      }
+    })
+    .catch(() => {
       showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria. Descarga JSON para persistir.`);
-    }
-  })
-  .catch(() => {
+    });
+  } else {
+    // En producción (GitHub Pages), solo actualiza en memoria y pide descargar el archivo
     showToast(`✅ ${fmtPartido(partido.partido)} actualizado en memoria. Descarga JSON para persistir.`);
-  });
+  }
 
   // Refresh select (partido now has result, should not appear)
   populateAdminSelect();
