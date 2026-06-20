@@ -293,7 +293,10 @@
     "partido": "Germany vs Ivory Coast",
     "grupo": "Group E",
     "estadio": "Toronto",
-    "resultado": null,
+    "resultado": {
+      "local": 2,
+      "visitante": 1
+    },
     "kickoff": "2026-06-20T16:00:00-04:00"
   },
   {
