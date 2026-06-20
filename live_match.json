@@ -1,9 +1,20 @@
 {
-  "timestamp": "2026-06-20T10:06:42.383352-06:00",
+  "timestamp": "2026-06-20T11:49:21.866611-06:00",
   "current_date": "2026-06-20",
-  "current_time": "10:06",
+  "current_time": "11:49",
   "timezone": "America/Guatemala",
-  "live": null,
+  "live": {
+    "team1": "Netherlands",
+    "team2": "Sweden",
+    "minute": null,
+    "minute_display": "Descanso",
+    "score1": 0,
+    "score2": 0,
+    "stadium": "Houston",
+    "date": "2026-06-20",
+    "time": "11:00 UTC-6",
+    "round": "Group F"
+  },
   "next": {
     "team1": "Germany",
     "team2": "Ivory Coast",
@@ -12,5 +23,5 @@
     "time": "14:00 UTC-6",
     "round": "Group E"
   },
-  "has_live": false
+  "has_live": true
 }
