@@ -353,7 +353,10 @@
     "partido": "Netherlands vs Sweden",
     "grupo": "Group F",
     "estadio": "Houston",
-    "resultado": null,
+    "resultado": {
+      "local": 5,
+      "visitante": 1
+    },
     "kickoff": "2026-06-20T12:00:00-05:00"
   },
   {
