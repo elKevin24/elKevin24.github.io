@@ -1,20 +1,16 @@
 {
-  "timestamp": "2026-06-21T14:17:08.416724-06:00",
+  "timestamp": "2026-06-21T15:49:31.593595-06:00",
   "current_date": "2026-06-21",
-  "current_time": "14:17",
+  "current_time": "15:49",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "Belgium",
-    "team2": "Iran",
-    "minute": 62,
-    "minute_display": "62'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Los Angeles (Inglewood)",
+  "live": null,
+  "next": {
+    "team1": "New Zealand",
+    "team2": "Egypt",
+    "stadium": "Vancouver",
     "date": "2026-06-21",
-    "time": "13:00 UTC-6",
+    "time": "19:00 UTC-6",
     "round": "Group G"
   },
-  "next": null,
-  "has_live": true
+  "has_live": false
 }

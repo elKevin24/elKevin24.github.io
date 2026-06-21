@@ -425,7 +425,10 @@
     "partido": "Belgium vs Iran",
     "grupo": "Group G",
     "estadio": "Los Angeles (Inglewood)",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 0
+    },
     "kickoff": "2026-06-21T12:00:00-07:00"
   },
   {
