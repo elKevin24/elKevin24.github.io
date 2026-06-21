@@ -485,7 +485,10 @@
     "partido": "Spain vs Saudi Arabia",
     "grupo": "Group H",
     "estadio": "Atlanta",
-    "resultado": null,
+    "resultado": {
+      "local": 4,
+      "visitante": 0
+    },
     "kickoff": "2026-06-21T12:00:00-04:00"
   },
   {
