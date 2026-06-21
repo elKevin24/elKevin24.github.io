@@ -1,9 +1,20 @@
 {
-  "timestamp": "2026-06-21T09:00:59.985966-06:00",
+  "timestamp": "2026-06-21T10:55:15.306302-06:00",
   "current_date": "2026-06-21",
-  "current_time": "09:00",
+  "current_time": "10:55",
   "timezone": "America/Guatemala",
-  "live": null,
+  "live": {
+    "team1": "Spain",
+    "team2": "Saudi Arabia",
+    "minute": null,
+    "minute_display": "Descanso",
+    "score1": 0,
+    "score2": 0,
+    "stadium": "Atlanta",
+    "date": "2026-06-21",
+    "time": "10:00 UTC-6",
+    "round": "Group H"
+  },
   "next": {
     "team1": "Belgium",
     "team2": "Iran",
@@ -12,5 +23,5 @@
     "time": "13:00 UTC-6",
     "round": "Group G"
   },
-  "has_live": false
+  "has_live": true
 }
