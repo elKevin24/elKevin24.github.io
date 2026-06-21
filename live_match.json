@@ -1,9 +1,20 @@
 {
-  "timestamp": "2026-06-21T15:49:31.593595-06:00",
+  "timestamp": "2026-06-21T16:57:56.755806-06:00",
   "current_date": "2026-06-21",
-  "current_time": "15:49",
+  "current_time": "16:57",
   "timezone": "America/Guatemala",
-  "live": null,
+  "live": {
+    "team1": "Uruguay",
+    "team2": "Cape Verde",
+    "minute": null,
+    "minute_display": "Descanso",
+    "score1": 0,
+    "score2": 0,
+    "stadium": "Miami (Miami Gardens)",
+    "date": "2026-06-21",
+    "time": "16:00 UTC-6",
+    "round": "Group H"
+  },
   "next": {
     "team1": "New Zealand",
     "team2": "Egypt",
@@ -12,5 +23,5 @@
     "time": "19:00 UTC-6",
     "round": "Group G"
   },
-  "has_live": false
+  "has_live": true
 }
