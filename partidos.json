@@ -305,7 +305,10 @@
     "partido": "Ecuador vs Curaçao",
     "grupo": "Group E",
     "estadio": "Kansas City",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 0
+    },
     "kickoff": "2026-06-20T19:00:00-05:00"
   },
   {
@@ -368,7 +371,10 @@
     "partido": "Tunisia vs Japan",
     "grupo": "Group F",
     "estadio": "Monterrey (Guadalupe)",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 4
+    },
     "kickoff": "2026-06-20T22:00:00-06:00"
   },
   {

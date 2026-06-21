@@ -1,20 +1,16 @@
 {
-  "timestamp": "2026-06-20T19:47:54.915911-06:00",
-  "current_date": "2026-06-20",
-  "current_time": "19:47",
+  "timestamp": "2026-06-21T00:42:26.414145-06:00",
+  "current_date": "2026-06-21",
+  "current_time": "00:42",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "Ecuador",
-    "team2": "Curaçao",
-    "minute": 92,
-    "minute_display": "92'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Kansas City",
-    "date": "2026-06-20",
-    "time": "18:00 UTC-6",
-    "round": "Group E"
+  "live": null,
+  "next": {
+    "team1": "Belgium",
+    "team2": "Iran",
+    "stadium": "Los Angeles (Inglewood)",
+    "date": "2026-06-21",
+    "time": "13:00 UTC-6",
+    "round": "Group G"
   },
-  "next": null,
-  "has_live": true
+  "has_live": false
 }
