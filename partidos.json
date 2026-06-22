@@ -617,7 +617,10 @@
     "partido": "Argentina vs Austria",
     "grupo": "Group J",
     "estadio": "Dallas (Arlington)",
-    "resultado": null,
+    "resultado": {
+      "local": 2,
+      "visitante": 0
+    },
     "kickoff": "2026-06-22T12:00:00-05:00"
   },
   {
