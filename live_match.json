@@ -1,20 +1,16 @@
 {
-  "timestamp": "2026-06-22T16:12:15.830299-06:00",
+  "timestamp": "2026-06-22T17:46:39.249459-06:00",
   "current_date": "2026-06-22",
-  "current_time": "16:12",
+  "current_time": "17:46",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "France",
-    "team2": "Iraq",
-    "minute": 57,
-    "minute_display": "57'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Philadelphia",
+  "live": null,
+  "next": {
+    "team1": "Norway",
+    "team2": "Senegal",
+    "stadium": "New York/New Jersey (East Rutherford)",
     "date": "2026-06-22",
-    "time": "15:00 UTC-6",
+    "time": "18:00 UTC-6",
     "round": "Group I"
   },
-  "next": null,
-  "has_live": true
+  "has_live": false
 }
