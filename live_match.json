@@ -1,16 +1,9 @@
 {
-  "timestamp": "2026-06-21T18:21:02.934813-06:00",
+  "timestamp": "2026-06-21T23:40:05.087801-06:00",
   "current_date": "2026-06-21",
-  "current_time": "18:21",
+  "current_time": "23:40",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": {
-    "team1": "New Zealand",
-    "team2": "Egypt",
-    "stadium": "Vancouver",
-    "date": "2026-06-21",
-    "time": "19:00 UTC-6",
-    "round": "Group G"
-  },
+  "next": null,
   "has_live": false
 }

@@ -437,7 +437,10 @@
     "partido": "New Zealand vs Egypt",
     "grupo": "Group G",
     "estadio": "Vancouver",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 3
+    },
     "kickoff": "2026-06-21T18:00:00-07:00"
   },
   {
