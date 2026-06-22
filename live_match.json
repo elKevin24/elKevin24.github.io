@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-06-22T13:54:18.130527-06:00",
+  "timestamp": "2026-06-22T16:12:15.830299-06:00",
   "current_date": "2026-06-22",
-  "current_time": "13:54",
+  "current_time": "16:12",
   "timezone": "America/Guatemala",
-  "live": null,
-  "next": {
+  "live": {
     "team1": "France",
     "team2": "Iraq",
+    "minute": 57,
+    "minute_display": "57'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Philadelphia",
     "date": "2026-06-22",
     "time": "15:00 UTC-6",
     "round": "Group I"
   },
-  "has_live": false
+  "next": null,
+  "has_live": true
 }
