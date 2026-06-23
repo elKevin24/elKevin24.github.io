@@ -557,7 +557,10 @@
     "partido": "France vs Iraq",
     "grupo": "Group I",
     "estadio": "Philadelphia",
-    "resultado": null,
+    "resultado": {
+      "local": 3,
+      "visitante": 0
+    },
     "kickoff": "2026-06-22T17:00:00-04:00"
   },
   {
