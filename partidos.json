@@ -569,7 +569,10 @@
     "partido": "Norway vs Senegal",
     "grupo": "Group I",
     "estadio": "New York/New Jersey (East Rutherford)",
-    "resultado": null,
+    "resultado": {
+      "local": 3,
+      "visitante": 2
+    },
     "kickoff": "2026-06-22T20:00:00-04:00"
   },
   {
@@ -632,7 +635,10 @@
     "partido": "Jordan vs Algeria",
     "grupo": "Group J",
     "estadio": "San Francisco Bay Area (Santa Clara)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 2
+    },
     "kickoff": "2026-06-22T20:00:00-07:00"
   },
   {
