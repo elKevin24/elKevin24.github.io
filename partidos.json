@@ -119,7 +119,10 @@
     "partido": "Switzerland vs Canada",
     "grupo": "Group B",
     "estadio": "Vancouver",
-    "resultado": null,
+    "resultado": {
+      "local": 2,
+      "visitante": 1
+    },
     "kickoff": "2026-06-24T12:00:00-07:00"
   },
   {
