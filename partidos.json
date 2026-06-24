@@ -131,7 +131,10 @@
     "partido": "Bosnia & Herzegovina vs Qatar",
     "grupo": "Group B",
     "estadio": "Seattle",
-    "resultado": null,
+    "resultado": {
+      "local": 3,
+      "visitante": 1
+    },
     "kickoff": "2026-06-24T12:00:00-07:00"
   },
   {
