@@ -764,7 +764,10 @@
     "partido": "Panama vs Croatia",
     "grupo": "Group L",
     "estadio": "Toronto",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 1
+    },
     "kickoff": "2026-06-23T19:00:00-04:00"
   },
   {
