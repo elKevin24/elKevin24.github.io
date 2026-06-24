@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-24T16:42:04.695085-06:00",
+  "timestamp": "2026-06-24T17:52:57.737338-06:00",
   "current_date": "2026-06-24",
-  "current_time": "16:42",
+  "current_time": "17:52",
   "timezone": "America/Guatemala",
   "live": {
     "team1": "Scotland",
     "team2": "Brazil",
-    "minute": 42,
-    "minute_display": "42'",
+    "minute": 97,
+    "minute_display": "97'",
     "score1": 0,
     "score2": 0,
     "stadium": "Miami (Miami Gardens)",
