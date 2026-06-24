@@ -1,9 +1,20 @@
 {
-  "timestamp": "2026-06-24T11:26:12.387434-06:00",
+  "timestamp": "2026-06-24T13:17:44.417159-06:00",
   "current_date": "2026-06-24",
-  "current_time": "11:26",
+  "current_time": "13:17",
   "timezone": "America/Guatemala",
-  "live": null,
+  "live": {
+    "team1": "Switzerland",
+    "team2": "Canada",
+    "minute": 17,
+    "minute_display": "17'",
+    "score1": 0,
+    "score2": 0,
+    "stadium": "Vancouver",
+    "date": "2026-06-24",
+    "time": "13:00 UTC-6",
+    "round": "Group B"
+  },
   "next": {
     "team1": "Czech Republic",
     "team2": "Mexico",
@@ -12,5 +23,5 @@
     "time": "19:00 UTC-6",
     "round": "Group A"
   },
-  "has_live": false
+  "has_live": true
 }
