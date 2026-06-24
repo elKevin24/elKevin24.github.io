@@ -701,7 +701,10 @@
     "partido": "Colombia vs DR Congo",
     "grupo": "Group K",
     "estadio": "Guadalajara (Zapopan)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 0
+    },
     "kickoff": "2026-06-23T20:00:00-06:00"
   },
   {

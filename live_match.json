@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-06-23T19:52:19.256780-06:00",
-  "current_date": "2026-06-23",
-  "current_time": "19:52",
+  "timestamp": "2026-06-24T00:00:59.972327-06:00",
+  "current_date": "2026-06-24",
+  "current_time": "00:00",
   "timezone": "America/Guatemala",
   "live": null,
   "next": {
-    "team1": "Colombia",
-    "team2": "DR Congo",
-    "stadium": "Guadalajara (Zapopan)",
-    "date": "2026-06-23",
-    "time": "20:00 UTC-6",
-    "round": "Group K"
+    "team1": "Czech Republic",
+    "team2": "Mexico",
+    "stadium": "Mexico City",
+    "date": "2026-06-24",
+    "time": "19:00 UTC-6",
+    "round": "Group A"
   },
   "has_live": false
 }
