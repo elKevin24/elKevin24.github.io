@@ -53,7 +53,10 @@
     "partido": "Czech Republic vs Mexico",
     "grupo": "Group A",
     "estadio": "Mexico City",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 3
+    },
     "kickoff": "2026-06-24T19:00:00-06:00"
   },
   {
@@ -62,7 +65,10 @@
     "partido": "South Africa vs South Korea",
     "grupo": "Group A",
     "estadio": "Monterrey (Guadalupe)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 0
+    },
     "kickoff": "2026-06-24T19:00:00-06:00"
   },
   {
