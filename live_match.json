@@ -1,27 +1,20 @@
 {
-  "timestamp": "2026-06-24T17:52:57.737338-06:00",
+  "timestamp": "2026-06-24T20:30:43.025841-06:00",
   "current_date": "2026-06-24",
-  "current_time": "17:52",
+  "current_time": "20:30",
   "timezone": "America/Guatemala",
   "live": {
-    "team1": "Scotland",
-    "team2": "Brazil",
-    "minute": 97,
-    "minute_display": "97'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Miami (Miami Gardens)",
-    "date": "2026-06-24",
-    "time": "16:00 UTC-6",
-    "round": "Group C"
-  },
-  "next": {
     "team1": "Czech Republic",
     "team2": "Mexico",
+    "minute": 75,
+    "minute_display": "75'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Mexico City",
     "date": "2026-06-24",
     "time": "19:00 UTC-6",
     "round": "Group A"
   },
+  "next": null,
   "has_live": true
 }

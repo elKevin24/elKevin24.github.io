@@ -191,7 +191,10 @@
     "partido": "Scotland vs Brazil",
     "grupo": "Group C",
     "estadio": "Miami (Miami Gardens)",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 3
+    },
     "kickoff": "2026-06-24T18:00:00-04:00"
   },
   {
@@ -200,7 +203,10 @@
     "partido": "Morocco vs Haiti",
     "grupo": "Group C",
     "estadio": "Atlanta",
-    "resultado": null,
+    "resultado": {
+      "local": 4,
+      "visitante": 2
+    },
     "kickoff": "2026-06-24T18:00:00-04:00"
   },
   {
