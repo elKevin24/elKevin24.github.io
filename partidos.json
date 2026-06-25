@@ -335,7 +335,10 @@
     "partido": "Curaçao vs Ivory Coast",
     "grupo": "Group E",
     "estadio": "Philadelphia",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 2
+    },
     "kickoff": "2026-06-25T16:00:00-04:00"
   },
   {
@@ -344,7 +347,10 @@
     "partido": "Ecuador vs Germany",
     "grupo": "Group E",
     "estadio": "New York/New Jersey (East Rutherford)",
-    "resultado": null,
+    "resultado": {
+      "local": 2,
+      "visitante": 1
+    },
     "kickoff": "2026-06-25T16:00:00-04:00"
   },
   {

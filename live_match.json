@@ -1,20 +1,9 @@
 {
-  "timestamp": "2026-06-25T15:19:39.103355-06:00",
+  "timestamp": "2026-06-25T16:56:26.674704-06:00",
   "current_date": "2026-06-25",
-  "current_time": "15:19",
+  "current_time": "16:56",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "Curaçao",
-    "team2": "Ivory Coast",
-    "minute": 64,
-    "minute_display": "64'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Philadelphia",
-    "date": "2026-06-25",
-    "time": "14:00 UTC-6",
-    "round": "Group E"
-  },
+  "live": null,
   "next": {
     "team1": "Turkey",
     "team2": "USA",
@@ -23,5 +12,5 @@
     "time": "20:00 UTC-6",
     "round": "Group D"
   },
-  "has_live": true
+  "has_live": false
 }
