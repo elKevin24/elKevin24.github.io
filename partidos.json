@@ -617,7 +617,10 @@
     "partido": "Norway vs France",
     "grupo": "Group I",
     "estadio": "Boston (Foxborough)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 4
+    },
     "kickoff": "2026-06-26T15:00:00-04:00"
   },
   {
@@ -626,7 +629,10 @@
     "partido": "Senegal vs Iraq",
     "grupo": "Group I",
     "estadio": "Toronto",
-    "resultado": null,
+    "resultado": {
+      "local": 5,
+      "visitante": 0
+    },
     "kickoff": "2026-06-26T15:00:00-04:00"
   },
   {
