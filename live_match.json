@@ -1,9 +1,16 @@
 {
-  "timestamp": "2026-06-25T22:49:06.950891-06:00",
-  "current_date": "2026-06-25",
-  "current_time": "22:49",
+  "timestamp": "2026-06-26T02:26:53.733020-06:00",
+  "current_date": "2026-06-26",
+  "current_time": "02:26",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": null,
+  "next": {
+    "team1": "Egypt",
+    "team2": "Iran",
+    "stadium": "Seattle",
+    "date": "2026-06-26",
+    "time": "21:00 UTC-6",
+    "round": "Group G"
+  },
   "has_live": false
 }
