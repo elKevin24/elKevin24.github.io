@@ -1,9 +1,20 @@
 {
-  "timestamp": "2026-06-26T12:03:54.418554-06:00",
+  "timestamp": "2026-06-26T14:10:23.649538-06:00",
   "current_date": "2026-06-26",
-  "current_time": "12:03",
+  "current_time": "14:10",
   "timezone": "America/Guatemala",
-  "live": null,
+  "live": {
+    "team1": "Norway",
+    "team2": "France",
+    "minute": 55,
+    "minute_display": "55'",
+    "score1": 0,
+    "score2": 0,
+    "stadium": "Boston (Foxborough)",
+    "date": "2026-06-26",
+    "time": "13:00 UTC-6",
+    "round": "Group I"
+  },
   "next": {
     "team1": "Egypt",
     "team2": "Iran",
@@ -12,5 +23,5 @@
     "time": "21:00 UTC-6",
     "round": "Group G"
   },
-  "has_live": false
+  "has_live": true
 }
