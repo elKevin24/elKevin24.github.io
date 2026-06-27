@@ -485,7 +485,10 @@
     "partido": "Egypt vs Iran",
     "grupo": "Group G",
     "estadio": "Seattle",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 1
+    },
     "kickoff": "2026-06-26T20:00:00-07:00"
   },
   {
@@ -494,7 +497,10 @@
     "partido": "New Zealand vs Belgium",
     "grupo": "Group G",
     "estadio": "Vancouver",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 5
+    },
     "kickoff": "2026-06-26T20:00:00-07:00"
   },
   {
