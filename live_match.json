@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-06-27T16:37:24.710492-06:00",
+  "timestamp": "2026-06-27T17:43:34.171907-06:00",
   "current_date": "2026-06-27",
-  "current_time": "16:37",
+  "current_time": "17:43",
   "timezone": "America/Guatemala",
   "live": {
-    "team1": "Panama",
-    "team2": "England",
-    "minute": 82,
-    "minute_display": "82'",
+    "team1": "Colombia",
+    "team2": "Portugal",
+    "minute": 13,
+    "minute_display": "13'",
     "score1": 0,
     "score2": 0,
-    "stadium": "New York/New Jersey (East Rutherford)",
+    "stadium": "Miami (Miami Gardens)",
     "date": "2026-06-27",
-    "time": "15:00 UTC-6",
-    "round": "Group L"
+    "time": "17:30 UTC-6",
+    "round": "Group K"
   },
   "next": {
     "team1": "Algeria",
