@@ -1,27 +1,20 @@
 {
-  "timestamp": "2026-06-26T18:17:18.038430-06:00",
+  "timestamp": "2026-06-26T22:33:00.358062-06:00",
   "current_date": "2026-06-26",
-  "current_time": "18:17",
+  "current_time": "22:33",
   "timezone": "America/Guatemala",
   "live": {
-    "team1": "Cape Verde",
-    "team2": "Saudi Arabia",
-    "minute": 17,
-    "minute_display": "17'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Houston",
-    "date": "2026-06-26",
-    "time": "18:00 UTC-6",
-    "round": "Group H"
-  },
-  "next": {
     "team1": "Egypt",
     "team2": "Iran",
+    "minute": 78,
+    "minute_display": "78'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Seattle",
     "date": "2026-06-26",
     "time": "21:00 UTC-6",
     "round": "Group G"
   },
+  "next": null,
   "has_live": true
 }

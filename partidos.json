@@ -551,7 +551,10 @@
     "partido": "Cape Verde vs Saudi Arabia",
     "grupo": "Group H",
     "estadio": "Houston",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 0
+    },
     "kickoff": "2026-06-26T19:00:00-05:00"
   },
   {
@@ -560,7 +563,10 @@
     "partido": "Uruguay vs Spain",
     "grupo": "Group H",
     "estadio": "Guadalajara (Zapopan)",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 1
+    },
     "kickoff": "2026-06-26T18:00:00-06:00"
   },
   {
