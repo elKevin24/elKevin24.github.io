@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-27T15:21:53.236978-06:00",
+  "timestamp": "2026-06-27T16:37:24.710492-06:00",
   "current_date": "2026-06-27",
-  "current_time": "15:21",
+  "current_time": "16:37",
   "timezone": "America/Guatemala",
   "live": {
     "team1": "Panama",
     "team2": "England",
-    "minute": 21,
-    "minute_display": "21'",
+    "minute": 82,
+    "minute_display": "82'",
     "score1": 0,
     "score2": 0,
     "stadium": "New York/New Jersey (East Rutherford)",
