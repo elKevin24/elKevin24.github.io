@@ -1,27 +1,20 @@
 {
-  "timestamp": "2026-06-27T17:43:34.171907-06:00",
+  "timestamp": "2026-06-27T20:00:33.933947-06:00",
   "current_date": "2026-06-27",
-  "current_time": "17:43",
+  "current_time": "20:00",
   "timezone": "America/Guatemala",
   "live": {
-    "team1": "Colombia",
-    "team2": "Portugal",
-    "minute": 13,
-    "minute_display": "13'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Miami (Miami Gardens)",
-    "date": "2026-06-27",
-    "time": "17:30 UTC-6",
-    "round": "Group K"
-  },
-  "next": {
     "team1": "Algeria",
     "team2": "Austria",
+    "minute": 0,
+    "minute_display": "0'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Kansas City",
     "date": "2026-06-27",
     "time": "20:00 UTC-6",
     "round": "Group J"
   },
+  "next": null,
   "has_live": true
 }

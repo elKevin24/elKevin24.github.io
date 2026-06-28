@@ -767,7 +767,10 @@
     "partido": "Colombia vs Portugal",
     "grupo": "Group K",
     "estadio": "Miami (Miami Gardens)",
-    "resultado": null,
+    "resultado": {
+      "local": 0,
+      "visitante": 0
+    },
     "kickoff": "2026-06-27T19:30:00-04:00"
   },
   {
@@ -776,7 +779,10 @@
     "partido": "DR Congo vs Uzbekistan",
     "grupo": "Group K",
     "estadio": "Atlanta",
-    "resultado": null,
+    "resultado": {
+      "local": 3,
+      "visitante": 1
+    },
     "kickoff": "2026-06-27T19:30:00-04:00"
   },
   {
