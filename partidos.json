@@ -701,7 +701,10 @@
     "partido": "Algeria vs Austria",
     "grupo": "Group J",
     "estadio": "Kansas City",
-    "resultado": null,
+    "resultado": {
+      "local": 3,
+      "visitante": 3
+    },
     "kickoff": "2026-06-27T21:00:00-05:00"
   },
   {
@@ -710,7 +713,10 @@
     "partido": "Jordan vs Argentina",
     "grupo": "Group J",
     "estadio": "Dallas (Arlington)",
-    "resultado": null,
+    "resultado": {
+      "local": 1,
+      "visitante": 3
+    },
     "kickoff": "2026-06-27T21:00:00-05:00"
   },
   {
