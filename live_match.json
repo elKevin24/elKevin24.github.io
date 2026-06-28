@@ -1,20 +1,9 @@
 {
-  "timestamp": "2026-06-28T14:22:07.675401-06:00",
+  "timestamp": "2026-06-28T15:37:53.521963-06:00",
   "current_date": "2026-06-28",
-  "current_time": "14:22",
+  "current_time": "15:37",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "2A",
-    "team2": "2B",
-    "minute": 67,
-    "minute_display": "67'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Los Angeles (Inglewood)",
-    "date": "2026-06-28",
-    "time": "13:00 UTC-6",
-    "round": "Round of 32"
-  },
+  "live": null,
   "next": null,
-  "has_live": true
+  "has_live": false
 }
