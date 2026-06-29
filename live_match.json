@@ -1,9 +1,16 @@
 {
-  "timestamp": "2026-06-28T22:43:47.604185-06:00",
-  "current_date": "2026-06-28",
-  "current_time": "22:43",
+  "timestamp": "2026-06-29T03:23:10.700351-06:00",
+  "current_date": "2026-06-29",
+  "current_time": "03:23",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": null,
+  "next": {
+    "team1": "1E",
+    "team2": "3A/B/C/D/F",
+    "stadium": "Boston (Foxborough)",
+    "date": "2026-06-29",
+    "time": "14:30 UTC-6",
+    "round": "Round of 32"
+  },
   "has_live": false
 }
