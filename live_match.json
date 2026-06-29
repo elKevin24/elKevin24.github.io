@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-29T14:57:52.330258-06:00",
+  "timestamp": "2026-06-29T16:16:46.106908-06:00",
   "current_date": "2026-06-29",
-  "current_time": "14:57",
+  "current_time": "16:16",
   "timezone": "America/Guatemala",
   "live": {
     "team1": "1E",
     "team2": "3A/B/C/D/F",
-    "minute": 27,
-    "minute_display": "27'",
+    "minute": 91,
+    "minute_display": "91'",
     "score1": 0,
     "score2": 0,
     "stadium": "Boston (Foxborough)",
