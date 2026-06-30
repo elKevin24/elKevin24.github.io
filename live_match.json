@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-06-30T15:07:14.649129-06:00",
+  "timestamp": "2026-06-30T16:41:22.769218-06:00",
   "current_date": "2026-06-30",
-  "current_time": "15:07",
+  "current_time": "16:41",
   "timezone": "America/Guatemala",
   "live": {
     "team1": "1I",
     "team2": "3C/D/F/G/H",
-    "minute": 7,
-    "minute_display": "7'",
+    "minute": 86,
+    "minute_display": "86'",
     "score1": 0,
     "score2": 0,
     "stadium": "New York/New Jersey (East Rutherford)",
