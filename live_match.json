@@ -1,20 +1,9 @@
 {
-  "timestamp": "2026-06-29T19:37:03.297457-06:00",
+  "timestamp": "2026-06-29T23:58:13.542677-06:00",
   "current_date": "2026-06-29",
-  "current_time": "19:37",
+  "current_time": "23:58",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "1F",
-    "team2": "2C",
-    "minute": 37,
-    "minute_display": "37'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Monterrey (Guadalupe)",
-    "date": "2026-06-29",
-    "time": "19:00 UTC-6",
-    "round": "Round of 32"
-  },
+  "live": null,
   "next": null,
-  "has_live": true
+  "has_live": false
 }
