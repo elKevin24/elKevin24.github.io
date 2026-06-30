@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-06-30T13:05:48.376549-06:00",
+  "timestamp": "2026-06-30T15:07:14.649129-06:00",
   "current_date": "2026-06-30",
-  "current_time": "13:05",
+  "current_time": "15:07",
   "timezone": "America/Guatemala",
-  "live": null,
-  "next": {
+  "live": {
     "team1": "1I",
     "team2": "3C/D/F/G/H",
+    "minute": 7,
+    "minute_display": "7'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "New York/New Jersey (East Rutherford)",
     "date": "2026-06-30",
     "time": "15:00 UTC-6",
     "round": "Round of 32"
   },
-  "has_live": false
+  "next": null,
+  "has_live": true
 }
