@@ -1,9 +1,16 @@
 {
-  "timestamp": "2026-07-01T23:44:43.827129-06:00",
-  "current_date": "2026-07-01",
-  "current_time": "23:44",
+  "timestamp": "2026-07-02T02:39:24.740220-06:00",
+  "current_date": "2026-07-02",
+  "current_time": "02:39",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": null,
+  "next": {
+    "team1": "2K",
+    "team2": "2L",
+    "stadium": "Toronto",
+    "date": "2026-07-02",
+    "time": "17:00 UTC-6",
+    "round": "Round of 32"
+  },
   "has_live": false
 }
