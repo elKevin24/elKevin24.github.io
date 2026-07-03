@@ -1,20 +1,9 @@
 {
-  "timestamp": "2026-07-03T13:50:20.008571-06:00",
+  "timestamp": "2026-07-03T14:51:41.113021-06:00",
   "current_date": "2026-07-03",
-  "current_time": "13:50",
+  "current_time": "14:51",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "2D",
-    "team2": "2G",
-    "minute": 95,
-    "minute_display": "95'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Dallas (Arlington)",
-    "date": "2026-07-03",
-    "time": "12:00 UTC-6",
-    "round": "Round of 32"
-  },
+  "live": null,
   "next": {
     "team1": "1J",
     "team2": "2H",
@@ -23,5 +12,5 @@
     "time": "16:00 UTC-6",
     "round": "Round of 32"
   },
-  "has_live": true
+  "has_live": false
 }
