@@ -1,16 +1,9 @@
 {
-  "timestamp": "2026-07-03T19:05:59.106436-06:00",
+  "timestamp": "2026-07-03T22:52:24.124227-06:00",
   "current_date": "2026-07-03",
-  "current_time": "19:05",
+  "current_time": "22:52",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": {
-    "team1": "1K",
-    "team2": "3D/E/I/J/L",
-    "stadium": "Kansas City",
-    "date": "2026-07-03",
-    "time": "19:30 UTC-6",
-    "round": "Round of 32"
-  },
+  "next": null,
   "has_live": false
 }
