@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-07-04T14:33:39.467315-06:00",
+  "timestamp": "2026-07-04T15:41:33.638765-06:00",
   "current_date": "2026-07-04",
-  "current_time": "14:33",
+  "current_time": "15:41",
   "timezone": "America/Guatemala",
-  "live": null,
-  "next": {
+  "live": {
     "team1": "W74",
     "team2": "W77",
+    "minute": 41,
+    "minute_display": "41'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Philadelphia",
     "date": "2026-07-04",
     "time": "15:00 UTC-6",
     "round": "Round of 16"
   },
-  "has_live": false
+  "next": null,
+  "has_live": true
 }
