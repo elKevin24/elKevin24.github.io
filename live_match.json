@@ -1,20 +1,16 @@
 {
-  "timestamp": "2026-07-03T17:14:24.502301-06:00",
+  "timestamp": "2026-07-03T19:05:59.106436-06:00",
   "current_date": "2026-07-03",
-  "current_time": "17:14",
+  "current_time": "19:05",
   "timezone": "America/Guatemala",
-  "live": {
-    "team1": "1J",
-    "team2": "2H",
-    "minute": 59,
-    "minute_display": "59'",
-    "score1": 0,
-    "score2": 0,
-    "stadium": "Miami (Miami Gardens)",
+  "live": null,
+  "next": {
+    "team1": "1K",
+    "team2": "3D/E/I/J/L",
+    "stadium": "Kansas City",
     "date": "2026-07-03",
-    "time": "16:00 UTC-6",
+    "time": "19:30 UTC-6",
     "round": "Round of 32"
   },
-  "next": null,
-  "has_live": true
+  "has_live": false
 }
