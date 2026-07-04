@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-04T15:41:33.638765-06:00",
+  "timestamp": "2026-07-04T16:42:41.642244-06:00",
   "current_date": "2026-07-04",
-  "current_time": "15:41",
+  "current_time": "16:42",
   "timezone": "America/Guatemala",
   "live": {
     "team1": "W74",
     "team2": "W77",
-    "minute": 41,
-    "minute_display": "41'",
+    "minute": 87,
+    "minute_display": "87'",
     "score1": 0,
     "score2": 0,
     "stadium": "Philadelphia",
