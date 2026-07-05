@@ -1,9 +1,16 @@
 {
-  "timestamp": "2026-07-04T23:48:46.240915-06:00",
-  "current_date": "2026-07-04",
-  "current_time": "23:48",
+  "timestamp": "2026-07-05T02:36:42.424347-06:00",
+  "current_date": "2026-07-05",
+  "current_time": "02:36",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": null,
+  "next": {
+    "team1": "W76",
+    "team2": "W78",
+    "stadium": "New York/New Jersey (East Rutherford)",
+    "date": "2026-07-05",
+    "time": "14:00 UTC-6",
+    "round": "Round of 16"
+  },
   "has_live": false
 }
