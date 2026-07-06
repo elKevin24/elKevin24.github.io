@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-07-06T11:32:36.315672-06:00",
+  "timestamp": "2026-07-06T13:23:58.672960-06:00",
   "current_date": "2026-07-06",
-  "current_time": "11:32",
+  "current_time": "13:23",
   "timezone": "America/Guatemala",
-  "live": null,
-  "next": {
+  "live": {
     "team1": "W83",
     "team2": "W84",
+    "minute": 23,
+    "minute_display": "23'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Dallas (Arlington)",
     "date": "2026-07-06",
     "time": "13:00 UTC-6",
     "round": "Round of 16"
   },
-  "has_live": false
+  "next": null,
+  "has_live": true
 }
