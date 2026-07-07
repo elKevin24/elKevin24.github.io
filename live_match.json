@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-07T14:15:12.732086-06:00",
+  "timestamp": "2026-07-07T15:49:39.506242-06:00",
   "current_date": "2026-07-07",
-  "current_time": "14:15",
+  "current_time": "15:49",
   "timezone": "America/Guatemala",
   "live": {
     "team1": "W85",
     "team2": "W87",
-    "minute": 15,
-    "minute_display": "15'",
+    "minute": 94,
+    "minute_display": "94'",
     "score1": 0,
     "score2": 0,
     "stadium": "Vancouver",
