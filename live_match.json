@@ -1,9 +1,16 @@
 {
-  "timestamp": "2026-07-06T22:00:05.003903-06:00",
-  "current_date": "2026-07-06",
-  "current_time": "22:00",
+  "timestamp": "2026-07-07T01:52:28.822149-06:00",
+  "current_date": "2026-07-07",
+  "current_time": "01:52",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": null,
+  "next": {
+    "team1": "W86",
+    "team2": "W88",
+    "stadium": "Atlanta",
+    "date": "2026-07-07",
+    "time": "10:00 UTC-6",
+    "round": "Round of 16"
+  },
   "has_live": false
 }
