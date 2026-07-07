@@ -1,16 +1,9 @@
 {
-  "timestamp": "2026-07-06T17:54:46.771770-06:00",
+  "timestamp": "2026-07-06T22:00:05.003903-06:00",
   "current_date": "2026-07-06",
-  "current_time": "17:54",
+  "current_time": "22:00",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": {
-    "team1": "W81",
-    "team2": "W82",
-    "stadium": "Seattle",
-    "date": "2026-07-06",
-    "time": "18:00 UTC-6",
-    "round": "Round of 16"
-  },
+  "next": null,
   "has_live": false
 }
