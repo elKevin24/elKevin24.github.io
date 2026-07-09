@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-07-09T12:17:59.591737-06:00",
+  "timestamp": "2026-07-09T14:14:54.483895-06:00",
   "current_date": "2026-07-09",
-  "current_time": "12:17",
+  "current_time": "14:14",
   "timezone": "America/Guatemala",
-  "live": null,
-  "next": {
+  "live": {
     "team1": "W89",
     "team2": "W90",
+    "minute": 14,
+    "minute_display": "14'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Boston (Foxborough)",
     "date": "2026-07-09",
     "time": "14:00 UTC-6",
     "round": "Quarter-final"
   },
-  "has_live": false
+  "next": null,
+  "has_live": true
 }
