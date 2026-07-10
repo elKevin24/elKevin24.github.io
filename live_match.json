@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-07-10T12:03:21.071219-06:00",
+  "timestamp": "2026-07-10T13:50:28.492635-06:00",
   "current_date": "2026-07-10",
-  "current_time": "12:03",
+  "current_time": "13:50",
   "timezone": "America/Guatemala",
-  "live": null,
-  "next": {
+  "live": {
     "team1": "W93",
     "team2": "W94",
+    "minute": null,
+    "minute_display": "Descanso",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Los Angeles (Inglewood)",
     "date": "2026-07-10",
     "time": "13:00 UTC-6",
     "round": "Quarter-final"
   },
-  "has_live": false
+  "next": null,
+  "has_live": true
 }
