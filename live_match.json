@@ -1,9 +1,16 @@
 {
-  "timestamp": "2026-07-10T21:50:59.812823-06:00",
-  "current_date": "2026-07-10",
-  "current_time": "21:50",
+  "timestamp": "2026-07-11T00:07:24.853542-06:00",
+  "current_date": "2026-07-11",
+  "current_time": "00:07",
   "timezone": "America/Guatemala",
   "live": null,
-  "next": null,
+  "next": {
+    "team1": "W91",
+    "team2": "W92",
+    "stadium": "Miami (Miami Gardens)",
+    "date": "2026-07-11",
+    "time": "15:00 UTC-6",
+    "round": "Quarter-final"
+  },
   "has_live": false
 }
