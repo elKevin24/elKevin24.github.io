@@ -1,16 +1,20 @@
 {
-  "timestamp": "2026-07-11T17:34:41.512556-06:00",
+  "timestamp": "2026-07-11T19:15:32.974008-06:00",
   "current_date": "2026-07-11",
-  "current_time": "17:34",
+  "current_time": "19:15",
   "timezone": "America/Guatemala",
-  "live": null,
-  "next": {
+  "live": {
     "team1": "W95",
     "team2": "W96",
+    "minute": 15,
+    "minute_display": "15'",
+    "score1": 0,
+    "score2": 0,
     "stadium": "Kansas City",
     "date": "2026-07-11",
     "time": "19:00 UTC-6",
     "round": "Quarter-final"
   },
-  "has_live": false
+  "next": null,
+  "has_live": true
 }
